@@ -36,10 +36,10 @@ export const ProjectShowcaseClient = ({
     return null;
   }
 
-  const media: ProjectMediaItem[] = project.galleryImages.map((image) => ({
-    type: "image",
-    src: image.src,
-    alt: image.alt,
+  const media: ProjectMediaItem[] = project.galleryMedia.map((projectMedia) => ({
+    type: projectMedia.type,
+    src: projectMedia.src,
+    alt: projectMedia.alt,
   }));
 
   return (

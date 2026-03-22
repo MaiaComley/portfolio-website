@@ -2,15 +2,15 @@
 
 import classNames from "classnames";
 import { ChevronLeft, ChevronRight, Play } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 
 export type ProjectMediaItem = {
-  type: "image" | "video";
-  src: string;
   alt: string;
   poster?: string;
+  src: string;
   thumbnailSrc?: string;
+  type: "image" | "video";
 };
 
 type ProjectCarouselProps = {
@@ -127,6 +127,7 @@ export const ProjectCarousel = ({ media }: ProjectCarouselProps) => {
                     playsInline
                     preload="metadata"
                     poster={item.poster}
+                    aria-label={item.alt}
                   >
                     <source src={item.src} />
                     Your browser does not support the video tag.
@@ -189,10 +190,22 @@ export const ProjectCarousel = ({ media }: ProjectCarouselProps) => {
                     className="object-cover"
                   />
                 ) : (
-                  <span className="flex flex-col items-center gap-1 text-xs font-semibold uppercase tracking-[0.2em] text-foreground">
-                    <Play size={14} />
-                    Video
-                  </span>
+                  <>
+                    <video
+                      className="h-full w-full object-cover"
+                      muted
+                      playsInline
+                      preload="metadata"
+                      aria-label={item.alt}
+                    >
+                      <source src={item.src} />
+                    </video>
+                    <span className="absolute inset-0 flex items-center justify-center bg-black/10 text-white">
+                      <span className="rounded-full bg-black/60 p-2">
+                        <Play size={14} fill="currentColor" />
+                      </span>
+                    </span>
+                  </>
                 )}
               </button>
             );

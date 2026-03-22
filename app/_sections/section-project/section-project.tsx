@@ -2,14 +2,17 @@ import classNames from "classnames";
 import Image from "next/image";
 import Link from "next/link";
 import { Section } from "@/app/_components/section";
-import type { Project, ProjectImage } from "@/lib/projects";
+import type { Project, ProjectMedia } from "@/lib/projects";
 
-export interface ProjectImageProps {
+export interface ProjectPreviewMediaProps {
   alt?: boolean;
-  image: ProjectImage;
+  media: ProjectMedia;
 }
 
-export const ProjectPreviewImage = ({ image, alt }: ProjectImageProps) => (
+export const ProjectPreviewMedia = ({
+  media,
+  alt,
+}: ProjectPreviewMediaProps) => (
   <div
     className={classNames(
       "relative h-full overflow-hidden bg-accent-contrast aspect-1/2 rounded-2xl shadow-lg group-hover:shadow-xl shadow-background-shadow/20 transition-all",
@@ -21,13 +24,32 @@ export const ProjectPreviewImage = ({ image, alt }: ProjectImageProps) => (
       },
     )}
   >
-    <Image
-      src={image.src}
-      alt={image.alt}
-      fill
-      sizes="(max-width: 768px) 40vw, 24vw"
-      className="object-cover"
-    />
+    {media.type === "image" ? (
+      <Image
+        src={media.src}
+        alt={media.alt}
+        fill
+        sizes="(max-width: 768px) 40vw, 24vw"
+        className="object-cover"
+      />
+    ) : (
+      <>
+        <video
+          className="h-full w-full object-cover"
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="metadata"
+          aria-label={media.alt}
+        >
+          <source src={media.src} />
+        </video>
+        <span className="absolute bottom-4 right-4 rounded-full bg-black/65 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-white">
+          Video
+        </span>
+      </>
+    )}
   </div>
 );
 
@@ -37,7 +59,7 @@ export interface SectionProjectProps {
 }
 
 export const SectionProject = ({ project, flip }: SectionProjectProps) => {
-  const previewImages = project.coverImages.slice(0, 2);
+  const previewMedia = project.coverMedia.slice(0, 2);
 
   return (
     <Link
@@ -71,8 +93,8 @@ export const SectionProject = ({ project, flip }: SectionProjectProps) => {
           </div>
 
           <div className="max-md:aspect-3/2 max-md:mt-8 max-md:w-full flex flex-1 justify-around relative">
-            {previewImages[0] ? (
-              <ProjectPreviewImage image={previewImages[0]} alt={flip} />
+            {previewMedia[0] ? (
+              <ProjectPreviewMedia media={previewMedia[0]} alt={flip} />
             ) : null}
             <span
               className={classNames(
@@ -86,10 +108,10 @@ export const SectionProject = ({ project, flip }: SectionProjectProps) => {
               )}
               aria-hidden
             >
-              +{project.galleryImages.length}
+              +{project.galleryMedia.length}
             </span>
-            {previewImages[1] ? (
-              <ProjectPreviewImage image={previewImages[1]} alt={flip} />
+            {previewMedia[1] ? (
+              <ProjectPreviewMedia media={previewMedia[1]} alt={flip} />
             ) : null}
           </div>
         </div>

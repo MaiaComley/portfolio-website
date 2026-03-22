@@ -17,6 +17,12 @@ const SUPPORTED_IMAGE_EXTENSIONS = new Set([
   ".avif",
   ".gif",
 ]);
+const SUPPORTED_VIDEO_EXTENSIONS = new Set([
+  ".mp4",
+  ".mov",
+  ".m4v",
+  ".webm",
+]);
 
 function isVisibleName(name) {
   return !name.startsWith(".");
@@ -24,6 +30,13 @@ function isVisibleName(name) {
 
 function createProjectError(projectSlug, message) {
   return new Error(`Project "${projectSlug}" is invalid: ${message}`);
+}
+
+function isSupportedMediaExtension(extension) {
+  return (
+    SUPPORTED_IMAGE_EXTENSIONS.has(extension) ||
+    SUPPORTED_VIDEO_EXTENSIONS.has(extension)
+  );
 }
 
 async function pathExists(targetPath) {
@@ -69,7 +82,7 @@ async function syncProjectMedia(projectSlug) {
     if (sourceEntries.length === 0) {
       throw createProjectError(
         projectSlug,
-        `"${mediaDirectoryName}" must contain at least one image`,
+        `"${mediaDirectoryName}" must contain at least one media file`,
       );
     }
 
@@ -85,13 +98,13 @@ async function syncProjectMedia(projectSlug) {
       if (!entry.isFile()) {
         throw createProjectError(
           projectSlug,
-          `"${mediaDirectoryName}" can only contain image files, but found "${entry.name}"`,
+          `"${mediaDirectoryName}" can only contain media files, but found "${entry.name}"`,
         );
       }
 
       const extension = path.extname(entry.name).toLowerCase();
 
-      if (!SUPPORTED_IMAGE_EXTENSIONS.has(extension)) {
+      if (!isSupportedMediaExtension(extension)) {
         throw createProjectError(
           projectSlug,
           `"${mediaDirectoryName}/${entry.name}" uses unsupported extension "${extension || "(none)"}"`,

@@ -16,6 +16,7 @@ const interTight = Inter_Tight({
 export const metadata: Metadata = {
   title: "Maia Comley - Creative Marketer",
   description: "Creative marketer blending strategy, content & design.",
+  icons: "/favicon.png",
 };
 
 export default function RootLayout({

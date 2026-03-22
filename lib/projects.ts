@@ -10,6 +10,12 @@ const SUPPORTED_IMAGE_EXTENSIONS = new Set([
   ".avif",
   ".gif",
 ]);
+const SUPPORTED_VIDEO_EXTENSIONS = new Set([
+  ".mp4",
+  ".mov",
+  ".m4v",
+  ".webm",
+]);
 const DATE_FORMATTER = new Intl.DateTimeFormat("en-GB", {
   day: "numeric",
   month: "long",
@@ -17,18 +23,21 @@ const DATE_FORMATTER = new Intl.DateTimeFormat("en-GB", {
   year: "numeric",
 });
 
-export interface ProjectImage {
+export type ProjectMediaType = "image" | "video";
+
+export interface ProjectMedia {
   alt: string;
   fileName: string;
   src: string;
+  type: ProjectMediaType;
 }
 
 export interface Project {
-  coverImages: ProjectImage[];
+  coverMedia: ProjectMedia[];
   date: string;
   dateLabel: string;
   description: string;
-  galleryImages: ProjectImage[];
+  galleryMedia: ProjectMedia[];
   slug: string;
   title: string;
 }
@@ -51,6 +60,18 @@ function isVisibleName(name: string) {
 
 function toPublicPath(...segments: string[]) {
   return `/${segments.map((segment) => encodeURIComponent(segment)).join("/")}`;
+}
+
+function getProjectMediaType(extension: string): ProjectMediaType | null {
+  if (SUPPORTED_IMAGE_EXTENSIONS.has(extension)) {
+    return "image";
+  }
+
+  if (SUPPORTED_VIDEO_EXTENSIONS.has(extension)) {
+    return "video";
+  }
+
+  return null;
 }
 
 function readProjectDetails(projectDirectory: string, projectSlug: string): ProjectDetails {
@@ -104,22 +125,22 @@ function readProjectDetails(projectDirectory: string, projectSlug: string): Proj
   };
 }
 
-function readProjectImages(
+function readProjectMedia(
   projectDirectory: string,
   projectSlug: string,
   projectTitle: string,
-  imageType: "cover" | "gallery",
-): ProjectImage[] {
-  const mediaDirectory = path.join(projectDirectory, imageType);
+  mediaDirectoryName: "cover" | "gallery",
+): ProjectMedia[] {
+  const mediaDirectory = path.join(projectDirectory, mediaDirectoryName);
 
   if (!fs.existsSync(mediaDirectory)) {
-    throw createProjectError(projectSlug, `missing required directory "${imageType}"`);
+    throw createProjectError(projectSlug, `missing required directory "${mediaDirectoryName}"`);
   }
 
   const stats = fs.statSync(mediaDirectory);
 
   if (!stats.isDirectory()) {
-    throw createProjectError(projectSlug, `"${imageType}" must be a directory`);
+    throw createProjectError(projectSlug, `"${mediaDirectoryName}" must be a directory`);
   }
 
   const entries = fs
@@ -133,30 +154,41 @@ function readProjectImages(
     );
 
   if (entries.length === 0) {
-    throw createProjectError(projectSlug, `"${imageType}" must contain at least one image`);
+    throw createProjectError(
+      projectSlug,
+      `"${mediaDirectoryName}" must contain at least one media file`,
+    );
   }
 
   return entries.map((entry, index) => {
     if (!entry.isFile()) {
       throw createProjectError(
         projectSlug,
-        `"${imageType}" can only contain image files, but found "${entry.name}"`,
+        `"${mediaDirectoryName}" can only contain media files, but found "${entry.name}"`,
       );
     }
 
     const extension = path.extname(entry.name).toLowerCase();
+    const mediaType = getProjectMediaType(extension);
 
-    if (!SUPPORTED_IMAGE_EXTENSIONS.has(extension)) {
+    if (!mediaType) {
       throw createProjectError(
         projectSlug,
-        `"${imageType}/${entry.name}" uses unsupported extension "${extension || "(none)"}"`,
+        `"${mediaDirectoryName}/${entry.name}" uses unsupported extension "${extension || "(none)"}"`,
       );
     }
 
     return {
-      alt: `${projectTitle} ${imageType} image ${index + 1}`,
+      alt: `${projectTitle} ${mediaDirectoryName} ${mediaType} ${index + 1}`,
       fileName: entry.name,
-      src: toPublicPath("generated", "projects", projectSlug, imageType, entry.name),
+      src: toPublicPath(
+        "generated",
+        "projects",
+        projectSlug,
+        mediaDirectoryName,
+        entry.name,
+      ),
+      type: mediaType,
     };
   });
 }
@@ -172,13 +204,13 @@ export function loadProjects(projectsDirectory = PROJECTS_DIRECTORY): Project[] 
     .map((entry) => {
       const projectDirectory = path.join(projectsDirectory, entry.name);
       const details = readProjectDetails(projectDirectory, entry.name);
-      const coverImages = readProjectImages(
+      const coverMedia = readProjectMedia(
         projectDirectory,
         entry.name,
         details.title,
         "cover",
       );
-      const galleryImages = readProjectImages(
+      const galleryMedia = readProjectMedia(
         projectDirectory,
         entry.name,
         details.title,
@@ -186,11 +218,11 @@ export function loadProjects(projectsDirectory = PROJECTS_DIRECTORY): Project[] 
       );
 
       return {
-        coverImages,
+        coverMedia,
         date: details.date,
         dateLabel: details.dateLabel,
         description: details.description,
-        galleryImages,
+        galleryMedia,
         slug: entry.name,
         title: details.title,
         timestamp: details.timestamp,
@@ -208,11 +240,11 @@ export function loadProjects(projectsDirectory = PROJECTS_DIRECTORY): Project[] 
     });
 
   return projects.map((project) => ({
-    coverImages: project.coverImages,
+    coverMedia: project.coverMedia,
     date: project.date,
     dateLabel: project.dateLabel,
     description: project.description,
-    galleryImages: project.galleryImages,
+    galleryMedia: project.galleryMedia,
     slug: project.slug,
     title: project.title,
   }));
