@@ -108,7 +108,7 @@ export const ProjectCarousel = ({ media }: ProjectCarouselProps) => {
           {media.map((item, index) => (
             <div
               key={`${item.type}-${item.src}-${index}`}
-              className="min-w-full snap-center"
+              className="min-w-full snap-center snap-always"
             >
               <div className="relative flex h-[70vh] min-h-80 max-h-180 items-center justify-center overflow-hidden">
                 {item.type === "image" ? (

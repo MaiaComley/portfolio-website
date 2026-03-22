@@ -47,7 +47,7 @@ export const ProjectShowcaseClient = ({
       <button
         type="button"
         aria-label="Close gallery"
-        className="absolute top-8 right-8 p-4 text-accent-contrast bg-accent rounded-full cursor-pointer hover:bg-accent-contrast hover:text-accent transition-all"
+        className="absolute z-50 top-8 right-8 p-4 text-accent-contrast bg-accent rounded-full cursor-pointer hover:bg-accent-contrast hover:text-accent transition-all"
         onClick={() => setProjectId(null)}
       >
         <X />
