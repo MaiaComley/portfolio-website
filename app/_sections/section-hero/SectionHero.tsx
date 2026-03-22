@@ -7,7 +7,7 @@ export interface SectionHeroProps {
 }
 
 export const SectionHero = ({ name, description, email }: SectionHeroProps) => (
-  <Section className="h-[85vh] md:h-[70vh] items-center justify-center text-accent text-center gap-12 -mb-8">
+  <Section className="h-[80vh] md:h-[70vh] items-center justify-center text-accent text-center gap-12 -mb-8">
     <h1 className="text-6xl md:text-9xl font-serif font-semibold tracking-tighter">
       {name}
     </h1>
