@@ -1,0 +1,414 @@
+<title>Maia Comley — Design Template</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --white:   #F8F7F4;
+    --ink:     #111010;
+    --plum:    #5D2A42;
+    --yellow:  #EEC643;
+    --muted:   #888480;
+    --surface: #EDEAE4;
+    --rule:    #DEDAD4;
+  }
+
+  html { background: var(--white); color: var(--ink); font-size: 16px; scroll-behavior: smooth; }
+  body { font-family: system-ui, -apple-system, sans-serif; line-height: 1.5; overflow-x: hidden; }
+
+  .mono {
+    font-family: ui-monospace, 'Courier New', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ── TOP BAR ── */
+  .topbar {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: start;
+    padding: 24px 40px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .topbar-left { font-family: ui-monospace, monospace; font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); }
+  .topbar-left span { display: block; color: var(--muted); margin-top: 2px; font-size: 0.6rem; }
+  .topbar-center { text-align: center; font-family: ui-monospace, monospace; font-size: 0.65rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+  .topbar-right { display: flex; justify-content: flex-end; gap: 28px; }
+  .topbar-right a {
+    font-family: ui-monospace, monospace; font-size: 0.65rem;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--muted); text-decoration: none; transition: color 0.2s;
+  }
+  .topbar-right a:hover { color: var(--ink); }
+  .topbar-right .btn-plum {
+    background: var(--plum); color: #fff;
+    padding: 5px 14px; border-radius: 100px;
+  }
+  .topbar-right .btn-plum:hover { opacity: 0.85; color: #fff; }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 80px 40px 60px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: end;
+    gap: 40px;
+    min-height: 70vh;
+  }
+
+  .hero-name {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-weight: 800;
+    font-size: clamp(4.5rem, 12vw, 10rem);
+    letter-spacing: -0.04em;
+    line-height: 0.88;
+    color: var(--yellow);
+    text-transform: uppercase;
+  }
+  .hero-name .word {
+    display: block;
+    opacity: 0;
+    transform: translateY(24px);
+    animation: rise 0.7s cubic-bezier(0.16,1,0.3,1) forwards;
+  }
+  .hero-name .word:nth-child(2) { animation-delay: 0.1s; }
+
+  @keyframes rise { to { opacity: 1; transform: translateY(0); } }
+
+  .hero-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding-bottom: 8px;
+    gap: 32px;
+    opacity: 0;
+    animation: rise 0.7s ease 0.25s forwards;
+  }
+  .hero-label { color: var(--muted); margin-bottom: 10px; }
+  .hero-bio {
+    font-size: 0.92rem;
+    line-height: 1.75;
+    color: #555;
+    max-width: 38ch;
+  }
+  .hero-ctas { display: flex; gap: 10px; flex-wrap: wrap; }
+  .btn-solid {
+    background: var(--plum); color: #fff;
+    font-family: ui-monospace, monospace;
+    font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 10px 20px; border-radius: 100px;
+    text-decoration: none; transition: opacity 0.2s;
+  }
+  .btn-solid:hover { opacity: 0.82; }
+  .btn-outline {
+    border: 1.5px solid var(--plum); color: var(--plum);
+    font-family: ui-monospace, monospace;
+    font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 10px 20px; border-radius: 100px;
+    text-decoration: none; transition: all 0.2s;
+    background: transparent;
+  }
+  .btn-outline:hover { background: var(--plum); color: #fff; }
+
+  /* ── PHOTO INSET (optional) ── */
+  .hero-photo-strip {
+    display: none; /* shown when a real photo is added */
+  }
+
+  /* ── DIVIDER ── */
+  .divider { border: none; border-top: 1px solid var(--rule); margin: 0; }
+
+  /* ── ABOUT ── */
+  .about-section {
+    padding: 64px 40px;
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+  .about-body { font-size: 1.05rem; line-height: 1.8; color: #444; max-width: 52ch; }
+  .about-body strong { color: var(--ink); font-weight: 600; }
+  .about-body p + p { margin-top: 14px; }
+
+  /* ── WORK ── */
+  .work-section { padding: 64px 40px; border-top: 1px solid var(--rule); }
+  .work-header {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 32px;
+  }
+  .work-header h2 {
+    font-family: system-ui, sans-serif; font-weight: 700;
+    font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--ink);
+  }
+  .work-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; }
+  .work-card { position: relative; overflow: hidden; cursor: pointer; aspect-ratio: 4/3; }
+  .work-card-bg { position: absolute; inset: 0; transition: transform 0.5s cubic-bezier(0.16,1,0.3,1); }
+  .work-card:hover .work-card-bg { transform: scale(1.04); }
+  .work-card-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(17,16,16,0.65) 0%, transparent 55%); }
+  .work-card-text {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 20px 24px;
+    display: flex; justify-content: space-between; align-items: flex-end;
+  }
+  .work-card-label {
+    font-family: ui-monospace, monospace; font-size: 0.58rem;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: rgba(255,255,255,0.55); margin-bottom: 4px;
+  }
+  .work-card-name { font-family: system-ui, sans-serif; font-weight: 700; font-size: 1.15rem; color: white; letter-spacing: -0.01em; }
+  .work-card-arrow { font-size: 1.1rem; color: white; opacity: 0; transform: translate(-4px,4px); transition: all 0.25s; }
+  .work-card:hover .work-card-arrow { opacity: 1; transform: translate(0,0); }
+
+  .card-idg  { background: var(--surface); }
+  .card-noir { background: var(--yellow); }
+  .card-noir .work-card-overlay { background: linear-gradient(to top, rgba(17,16,16,0.45) 0%, transparent 55%); }
+  .card-noir .work-card-label { color: rgba(17,16,16,0.45); }
+  .card-noir .work-card-name  { color: var(--ink); }
+  .card-noir .work-card-arrow { color: var(--ink); }
+
+  /* Label below cards — Katie Hunter style */
+  .work-card-foot {
+    font-family: ui-monospace, monospace; font-size: 0.6rem;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--muted); margin-top: 10px;
+  }
+  .work-card-foot::before { content: "[ "; }
+  .work-card-foot::after  { content: " ]"; }
+
+  /* ── SKILLS ── */
+  .skills-section { padding: 64px 40px; border-top: 1px solid var(--rule); }
+  .skills-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 32px; }
+  .skills-header h2 { font-family: system-ui, sans-serif; font-weight: 700; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); }
+  .skills-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3px; }
+  .skill-group { background: var(--surface); padding: 24px 20px; }
+  .skill-group-title { font-family: ui-monospace, monospace; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--rule); }
+  .skill-list { list-style: none; }
+  .skill-list li { font-size: 0.83rem; color: var(--ink); padding: 7px 0; border-bottom: 1px solid var(--rule); display: flex; justify-content: space-between; align-items: center; }
+  .skill-list li:last-child { border-bottom: none; }
+  .skill-dot { width: 5px; height: 5px; background: var(--yellow); border-radius: 50%; flex-shrink: 0; }
+
+  /* ── THOUGHTS ── */
+  .thoughts-section { padding: 64px 40px; border-top: 1px solid var(--rule); }
+  .thoughts-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 32px; }
+  .thoughts-header h2 { font-family: system-ui, sans-serif; font-weight: 700; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); }
+  .thought-row {
+    display: grid; grid-template-columns: 88px 1fr auto;
+    align-items: baseline; gap: 28px;
+    padding: 20px 0; border-bottom: 1px solid var(--rule);
+    cursor: pointer; transition: padding-left 0.2s;
+  }
+  .thought-row:first-child { border-top: 1px solid var(--rule); }
+  .thought-row:hover { padding-left: 8px; }
+  .thought-tag { font-family: ui-monospace, monospace; font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+  .thought-title { font-family: Georgia, serif; font-size: 1rem; font-weight: normal; letter-spacing: -0.01em; }
+  .thought-date { font-family: ui-monospace, monospace; font-size: 0.6rem; color: var(--muted); white-space: nowrap; }
+
+  /* ── CONTACT — Katie Hunter large link style ── */
+  .contact-section { padding: 80px 40px; border-top: 1px solid var(--rule); }
+  .contact-label { margin-bottom: 24px; }
+  .contact-links-large { display: flex; flex-direction: column; gap: 0; }
+  .contact-link-large {
+    font-family: system-ui, sans-serif; font-weight: 600;
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    letter-spacing: -0.01em; line-height: 1;
+    color: var(--ink); text-decoration: none;
+    padding: 16px 0; border-bottom: 1px solid var(--rule);
+    display: flex; justify-content: space-between; align-items: center;
+    transition: color 0.2s;
+  }
+  .contact-link-large:first-child { border-top: 1px solid var(--rule); }
+  .contact-link-large:hover { color: var(--plum); }
+  .contact-link-large span { font-size: 1rem; opacity: 0; transition: opacity 0.2s; }
+  .contact-link-large:hover span { opacity: 1; }
+
+  /* ── FOOTER ── */
+  footer { padding: 32px 40px; border-top: 1px solid var(--rule); display: flex; justify-content: space-between; align-items: center; }
+  footer .footer-copy { color: var(--muted); font-family: ui-monospace, monospace; font-size: 0.6rem; letter-spacing: 0.06em; text-transform: uppercase; }
+  footer .footer-slogan { font-family: Georgia, serif; font-size: clamp(1rem, 2.2vw, 1.5rem); font-weight: normal; font-style: italic; letter-spacing: -0.01em; color: var(--ink); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 680px) {
+    .topbar { grid-template-columns: 1fr 1fr; }
+    .topbar-center { display: none; }
+    .hero { grid-template-columns: 1fr; min-height: auto; padding: 48px 20px 40px; }
+    .hero-right { padding-bottom: 0; }
+    .about-section { grid-template-columns: 1fr; gap: 12px; padding: 48px 20px; }
+    .work-section, .skills-section, .thoughts-section { padding: 48px 20px; }
+    .work-grid { grid-template-columns: 1fr; }
+    .skills-grid { grid-template-columns: 1fr 1fr; }
+    .thought-row { grid-template-columns: 1fr; gap: 4px; }
+    .thought-date { display: none; }
+    .contact-section { padding: 56px 20px; }
+
+    footer { padding: 16px 20px; flex-direction: column; gap: 6px; }
+    .topbar { padding: 16px 20px; }
+  }
+</style>
+
+<!-- TOP BAR -->
+<header class="topbar">
+  <div class="topbar-left">
+    Maia Comley
+    <span>Marketing Executive</span>
+  </div>
+  <div class="topbar-center mono">comleymaia@gmail.com</div>
+  <nav class="topbar-right">
+    <a href="#">Work</a>
+    <a href="#">Experience</a>
+    <a href="#">Thoughts</a>
+    <a href="#" class="btn-plum">Contact</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <h1 class="hero-name">
+    <span class="word">Maia</span>
+    <span class="word">Comley</span>
+  </h1>
+
+  <div class="hero-right">
+    <div>
+      <p class="mono hero-label">About</p>
+      <p class="hero-bio">
+        I'm a marketing executive who thinks about brands the way other people think about restaurants — constantly, with strong opinions, and always noticing what makes something feel right.
+      </p>
+      <p class="hero-bio" style="margin-top: 14px;">
+        My work sits at the intersection of <strong>strategy and storytelling</strong>. I'm interested in food culture, wellness, and the quiet ways brands earn loyalty. Currently at IDGateway, working across SEO, content, and digital experience.
+      </p>
+    </div>
+    <div class="hero-ctas">
+      <a class="btn-solid" href="#">View my work</a>
+      <a class="btn-outline" href="#">Get in touch</a>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- WORK -->
+<div class="work-section">
+  <div class="work-header">
+    <h2>Selected Work</h2>
+    <span class="mono" style="color: var(--muted);">View all →</span>
+  </div>
+  <div class="work-grid">
+    <div>
+      <div class="work-card card-idg">
+        <div class="work-card-bg card-idg"></div>
+        <div class="work-card-overlay"></div>
+        <div class="work-card-text">
+          <div>
+            <div class="work-card-label">Website &amp; Digital</div>
+            <div class="work-card-name">IDGateway</div>
+          </div>
+          <div class="work-card-arrow">↗</div>
+        </div>
+      </div>
+      <p class="work-card-foot">Website &amp; Digital</p>
+    </div>
+    <div>
+      <div class="work-card card-noir">
+        <div class="work-card-bg card-noir"></div>
+        <div class="work-card-overlay"></div>
+        <div class="work-card-text">
+          <div>
+            <div class="work-card-label">Content &amp; Social</div>
+            <div class="work-card-name">Noirgaze</div>
+          </div>
+          <div class="work-card-arrow">↗</div>
+        </div>
+      </div>
+      <p class="work-card-foot">Content &amp; Social</p>
+    </div>
+  </div>
+</div>
+
+<!-- SKILLS -->
+<div class="skills-section">
+  <div class="skills-header"><h2>Skills</h2></div>
+  <div class="skills-grid">
+    <div class="skill-group">
+      <div class="skill-group-title">Strategy</div>
+      <ul class="skill-list">
+        <li>Content Strategy <div class="skill-dot"></div></li>
+        <li>Campaign Planning <div class="skill-dot"></div></li>
+        <li>Brand Marketing <div class="skill-dot"></div></li>
+        <li>Consumer Insight <div class="skill-dot"></div></li>
+      </ul>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Digital</div>
+      <ul class="skill-list">
+        <li>SEO / GEO <div class="skill-dot"></div></li>
+        <li>Website Management <div class="skill-dot"></div></li>
+        <li>Analytics <div class="skill-dot"></div></li>
+        <li>CMS <div class="skill-dot"></div></li>
+      </ul>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Content</div>
+      <ul class="skill-list">
+        <li>Social Media <div class="skill-dot"></div></li>
+        <li>Copywriting <div class="skill-dot"></div></li>
+        <li>Visual Storytelling <div class="skill-dot"></div></li>
+        <li>Video Content <div class="skill-dot"></div></li>
+      </ul>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Tools</div>
+      <ul class="skill-list">
+        <li>Canva / Figma <div class="skill-dot"></div></li>
+        <li>Google Analytics <div class="skill-dot"></div></li>
+        <li>Notion <div class="skill-dot"></div></li>
+        <li>Meta Business Suite <div class="skill-dot"></div></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- THOUGHTS -->
+<div class="thoughts-section">
+  <div class="thoughts-header">
+    <h2>Thoughts</h2>
+    <span class="mono">All →</span>
+  </div>
+  <div class="thought-row">
+    <span class="thought-tag">Branding</span>
+    <span class="thought-title">Why the quietest brands are winning in wellness right now</span>
+    <span class="thought-date">Jun 2025</span>
+  </div>
+  <div class="thought-row">
+    <span class="thought-tag">Food</span>
+    <span class="thought-title">What Stanley Tucci's Instagram understands about food content</span>
+    <span class="thought-date">May 2025</span>
+  </div>
+  <div class="thought-row">
+    <span class="thought-tag">Consumer</span>
+    <span class="thought-title">The aesthetics of eating well — how health brands learned to be desirable</span>
+    <span class="thought-date">Apr 2025</span>
+  </div>
+</div>
+
+<!-- CONTACT — large link style -->
+<div class="contact-section">
+  <p class="mono contact-label">Reach out</p>
+  <div class="contact-links-large">
+    <a class="contact-link-large" href="mailto:comleymaia@gmail.com">
+      Email <span>↗</span>
+    </a>
+    <a class="contact-link-large" href="#">
+      LinkedIn <span>↗</span>
+    </a>
+    <a class="contact-link-large" href="#">
+      Download CV <span>↓</span>
+    </a>
+  </div>
+</div>
+
+<footer>
+  <span class="footer-copy">Maia Comley © 2025</span>
+  <span class="footer-slogan">Curious about brands, people and what connects them.</span>
+</footer>

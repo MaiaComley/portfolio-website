@@ -1,0 +1,574 @@
+<title>Maia Comley — Portfolio Architecture</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink:        #0E1A14;
+    --surface:    #F5F2EE;
+    --green:      #1F5C3A;
+    --umber:      #9E8E7A;
+    --rule:       #D6D0C8;
+    --green-pale: #E8F0EB;
+    --red-pale:   #F5EAE8;
+    --red-ink:    #7A2A1E;
+  }
+
+  html { background: var(--surface); color: var(--ink); font-size: 16px; }
+
+  body {
+    font-family: system-ui, -apple-system, sans-serif;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 56px 32px 96px;
+    line-height: 1.6;
+  }
+
+  /* ── HEADER ── */
+  .doc-header {
+    border-top: 3px solid var(--green);
+    padding-top: 28px;
+    margin-bottom: 64px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .doc-header-left h1 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 2rem;
+    font-weight: normal;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    color: var(--ink);
+  }
+  .doc-header-left .sub {
+    margin-top: 6px;
+    font-size: 0.85rem;
+    color: var(--umber);
+    font-family: ui-monospace, 'Courier New', monospace;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .doc-header-right {
+    text-align: right;
+    font-size: 0.78rem;
+    color: var(--umber);
+    font-family: ui-monospace, monospace;
+    line-height: 1.8;
+    letter-spacing: 0.03em;
+  }
+
+  /* ── SECTION BLOCK ── */
+  .block {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 0 40px;
+    padding: 36px 0;
+    border-top: 1px solid var(--rule);
+  }
+  .block:last-child { border-bottom: 1px solid var(--rule); }
+
+  .block-label {
+    font-family: ui-monospace, monospace;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--umber);
+    padding-top: 3px;
+    line-height: 1.4;
+  }
+  .block-label strong {
+    display: block;
+    font-size: 0.65rem;
+    color: var(--green);
+    margin-bottom: 2px;
+  }
+
+  .block-content h2 {
+    font-family: Georgia, serif;
+    font-size: 1.35rem;
+    font-weight: normal;
+    letter-spacing: -0.015em;
+    margin-bottom: 16px;
+    text-wrap: balance;
+  }
+  .block-content p {
+    font-size: 0.9rem;
+    color: #3A3A36;
+    margin-bottom: 10px;
+    max-width: 58ch;
+  }
+  .block-content p:last-child { margin-bottom: 0; }
+
+  /* ── SITEMAP ── */
+  .sitemap {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+    margin-top: 8px;
+  }
+  .sitemap-col { display: flex; flex-direction: column; gap: 6px; }
+  .sitemap-page {
+    background: var(--green);
+    color: #fff;
+    font-family: ui-monospace, monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 9px 12px;
+    border-radius: 2px;
+    font-weight: 600;
+  }
+  .sitemap-sub {
+    background: var(--green-pale);
+    color: var(--green);
+    font-size: 0.72rem;
+    padding: 7px 12px;
+    border-radius: 2px;
+    border-left: 2px solid var(--green);
+    font-family: system-ui, sans-serif;
+  }
+
+  /* ── HIERARCHY LIST ── */
+  .hierarchy { list-style: none; margin-top: 4px; }
+  .hierarchy > li {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--rule);
+    font-size: 0.875rem;
+  }
+  .hierarchy > li:last-child { border-bottom: none; }
+  .h-num {
+    font-family: ui-monospace, monospace;
+    font-size: 0.65rem;
+    color: var(--umber);
+    margin-right: 10px;
+    vertical-align: middle;
+  }
+  .h-name { font-weight: 600; }
+  .h-desc {
+    display: block;
+    margin-top: 3px;
+    margin-left: 28px;
+    font-size: 0.82rem;
+    color: var(--umber);
+    max-width: 50ch;
+  }
+
+  /* ── PORTFOLIO CATEGORIES ── */
+  .cat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 6px;
+  }
+  .cat-card {
+    border: 1px solid var(--rule);
+    padding: 14px 16px;
+    border-radius: 2px;
+  }
+  .cat-card .cat-title {
+    font-weight: 600;
+    font-size: 0.85rem;
+    margin-bottom: 4px;
+  }
+  .cat-card .cat-examples {
+    font-size: 0.78rem;
+    color: var(--umber);
+    font-family: ui-monospace, monospace;
+  }
+
+  /* ── REMOVE / KEEP ── */
+  .verdict-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 6px;
+  }
+  .verdict-keep, .verdict-remove {
+    padding: 14px 16px;
+    border-radius: 2px;
+    font-size: 0.82rem;
+  }
+  .verdict-keep {
+    background: var(--green-pale);
+    border-left: 3px solid var(--green);
+  }
+  .verdict-remove {
+    background: var(--red-pale);
+    border-left: 3px solid var(--red-ink);
+  }
+  .verdict-keep .vhead {
+    font-family: ui-monospace, monospace;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--green);
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+  .verdict-remove .vhead {
+    font-family: ui-monospace, monospace;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--red-ink);
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+  .verdict-keep li, .verdict-remove li {
+    list-style: none;
+    padding: 3px 0;
+    color: #3A3A36;
+  }
+  .verdict-keep li::before { content: "→ "; color: var(--green); font-weight: 600; }
+  .verdict-remove li::before { content: "× "; color: var(--red-ink); font-weight: 600; }
+
+  /* ── NAV PILLS ── */
+  .nav-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+  }
+  .nav-pill {
+    border: 1.5px solid var(--ink);
+    padding: 6px 16px;
+    border-radius: 100px;
+    font-size: 0.82rem;
+    font-weight: 500;
+  }
+  .nav-pill.active {
+    background: var(--ink);
+    color: var(--surface);
+  }
+  .nav-note {
+    margin-top: 12px;
+    font-size: 0.8rem;
+    color: var(--umber);
+    font-family: ui-monospace, monospace;
+    letter-spacing: 0.02em;
+  }
+
+  /* ── THOUGHTS SECTION ── */
+  .tag-grid { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .tag {
+    background: #EDEAE4;
+    color: var(--ink);
+    font-size: 0.75rem;
+    padding: 5px 12px;
+    border-radius: 2px;
+    font-family: ui-monospace, monospace;
+    letter-spacing: 0.03em;
+  }
+
+  /* ── EXPERIENCE PAGE ── */
+  .exp-list { margin-top: 8px; }
+  .exp-item {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--rule);
+    font-size: 0.875rem;
+  }
+  .exp-item:last-child { border-bottom: none; }
+  .exp-role { font-weight: 600; }
+  .exp-meta {
+    font-size: 0.75rem;
+    color: var(--umber);
+    font-family: ui-monospace, monospace;
+    margin-top: 2px;
+    margin-bottom: 6px;
+  }
+  .exp-detail { color: #3A3A36; font-size: 0.82rem; max-width: 52ch; }
+
+  @media (max-width: 600px) {
+    .block { grid-template-columns: 1fr; gap: 12px 0; }
+    .sitemap { grid-template-columns: 1fr 1fr; }
+    .cat-grid, .verdict-grid { grid-template-columns: 1fr; }
+    .doc-header { flex-direction: column; }
+    .doc-header-right { text-align: left; }
+  }
+</style>
+
+<header class="doc-header">
+  <div class="doc-header-left">
+    <h1>Portfolio Architecture<br>Proposal</h1>
+    <p class="sub">Maia Comley &mdash; Junior Marketing Executive</p>
+  </div>
+  <div class="doc-header-right">
+    Phase 01 of 03<br>
+    Structure only<br>
+    No visual changes yet
+  </div>
+</header>
+
+
+<!-- SITEMAP -->
+<div class="block">
+  <div class="block-label">
+    <strong>01</strong>
+    Sitemap
+  </div>
+  <div class="block-content">
+    <h2>Recommended site structure</h2>
+    <p>Five pages. Each has a clear job. Nothing is decorative — every page earns its place by answering a specific question a recruiter or client would have.</p>
+    <div class="sitemap" style="margin-top: 20px;">
+      <div class="sitemap-col">
+        <div class="sitemap-page">Home</div>
+        <div class="sitemap-sub">Hero</div>
+        <div class="sitemap-sub">Who I am</div>
+        <div class="sitemap-sub">Selected work</div>
+        <div class="sitemap-sub">Recent writing</div>
+        <div class="sitemap-sub">Contact</div>
+      </div>
+      <div class="sitemap-col">
+        <div class="sitemap-page">Experience</div>
+        <div class="sitemap-sub">Current role</div>
+        <div class="sitemap-sub">Skills & tools</div>
+        <div class="sitemap-sub">Timeline</div>
+      </div>
+      <div class="sitemap-col">
+        <div class="sitemap-page">Work</div>
+        <div class="sitemap-sub">By skill area</div>
+        <div class="sitemap-sub">Project pages</div>
+      </div>
+      <div class="sitemap-col">
+        <div class="sitemap-page">Thoughts</div>
+        <div class="sitemap-sub">Branding</div>
+        <div class="sitemap-sub">Food & wellness</div>
+        <div class="sitemap-sub">Consumer culture</div>
+      </div>
+      <div class="sitemap-col">
+        <div class="sitemap-page">Contact</div>
+        <div class="sitemap-sub">Email</div>
+        <div class="sitemap-sub">LinkedIn</div>
+        <div class="sitemap-sub">Short bio</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- NAV -->
+<div class="block">
+  <div class="block-label">
+    <strong>02</strong>
+    Navigation
+  </div>
+  <div class="block-content">
+    <h2>Primary navigation</h2>
+    <p>Clean, left-anchored identity with right-side links. No hamburger on desktop. The name is not a link — it is the brand mark.</p>
+    <div class="nav-row">
+      <div class="nav-pill active">Maia Comley</div>
+      <div class="nav-pill">Work</div>
+      <div class="nav-pill">Experience</div>
+      <div class="nav-pill">Thoughts</div>
+      <div class="nav-pill">Contact</div>
+    </div>
+    <p class="nav-note">Note: "Home" is never a nav item — the logo/name serves that role. "Portfolio" renamed to "Work" — shorter, more confident.</p>
+  </div>
+</div>
+
+
+<!-- HOMEPAGE -->
+<div class="block">
+  <div class="block-label">
+    <strong>03</strong>
+    Homepage
+  </div>
+  <div class="block-content">
+    <h2>Homepage section order</h2>
+    <p>The homepage does one job: convince someone to keep reading. Each section earns the next. Nothing is decorative.</p>
+    <ul class="hierarchy">
+      <li>
+        <span class="h-num">1 —</span><span class="h-name">Hero</span>
+        <span class="h-desc">Name, single positioning line, one call to action. Not a slideshow. Not a video. One deliberate statement.</span>
+      </li>
+      <li>
+        <span class="h-num">2 —</span><span class="h-name">Introduction</span>
+        <span class="h-desc">Two to three sentences. Who you are, what you care about, what kind of work you do. Written in first person. Not a list of adjectives.</span>
+      </li>
+      <li>
+        <span class="h-num">3 —</span><span class="h-name">Selected Work</span>
+        <span class="h-desc">Two or three featured projects with skill area label, short outcome, and link. Not the full portfolio — a curated entry point.</span>
+      </li>
+      <li>
+        <span class="h-num">4 —</span><span class="h-name">Skills</span>
+        <span class="h-desc">Grouped by discipline (strategy, content, digital, tools). Scannable. Not a tag cloud — structured and deliberate.</span>
+      </li>
+      <li>
+        <span class="h-num">5 —</span><span class="h-name">Latest Thoughts</span>
+        <span class="h-desc">Two or three recent posts from the Thoughts section. Shows intellectual curiosity and range. Links through to the full section.</span>
+      </li>
+      <li>
+        <span class="h-num">6 —</span><span class="h-name">Contact</span>
+        <span class="h-desc">Email and LinkedIn. Short. Confident. Optional: availability status ("Open to new roles" or "Currently at IDGateway").</span>
+      </li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- EXPERIENCE PAGE -->
+<div class="block">
+  <div class="block-label">
+    <strong>04</strong>
+    Experience
+  </div>
+  <div class="block-content">
+    <h2>Experience page structure</h2>
+    <p>This is not a CV dump. It is a curated professional story. Reverse-chronological. Each entry focuses on what you did and what it demonstrates.</p>
+    <div class="exp-list">
+      <div class="exp-item">
+        <div class="exp-role">Junior Marketing Executive &mdash; IDGateway</div>
+        <div class="exp-meta">2025 – Present &nbsp;·&nbsp; Current role</div>
+        <div class="exp-detail">Website management, SEO/GEO, content strategy, campaign planning. Leads with the most recent and relevant experience.</div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-role">PR & Marketing Support &mdash; Indera Tamara</div>
+        <div class="exp-meta">2025 &nbsp;·&nbsp; Luxury fashion</div>
+        <div class="exp-detail">Events, influencer outreach, brand communications in a luxury context. Demonstrates range and professional environment.</div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-role">Social Media & Content &mdash; Noirgaze</div>
+        <div class="exp-meta">2024 &nbsp;·&nbsp; Fashion start-up</div>
+        <div class="exp-detail">3k+ follower growth, campaign execution, product storytelling. Strong outcome to lead with.</div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-role">Skills & Tools</div>
+        <div class="exp-meta">Grouped section below timeline</div>
+        <div class="exp-detail">Content strategy · SEO/GEO · Website management · Social media · Campaign planning · Canva · Figma · Analytics · CMS</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- PORTFOLIO -->
+<div class="block">
+  <div class="block-label">
+    <strong>05</strong>
+    Work
+  </div>
+  <div class="block-content">
+    <h2>Portfolio organised by skill area</h2>
+    <p>Remove module codes, client briefs as headings, and university framing entirely. Each project sits under the skill it demonstrates — not the client it was made for.</p>
+    <div class="cat-grid">
+      <div class="cat-card">
+        <div class="cat-title">Brand & Campaign Strategy</div>
+        <div class="cat-examples">Simple Skincare · Nature Valley · PE Kit</div>
+      </div>
+      <div class="cat-card">
+        <div class="cat-title">Content & Social</div>
+        <div class="cat-examples">Noirgaze · Personal projects · Indera Tamara</div>
+      </div>
+      <div class="cat-card">
+        <div class="cat-title">Website & Digital</div>
+        <div class="cat-examples">IDGateway work · SEO projects</div>
+      </div>
+      <div class="cat-card">
+        <div class="cat-title">Professional Work</div>
+        <div class="cat-examples">Client work from current & past roles</div>
+      </div>
+    </div>
+    <p style="margin-top: 14px; font-size: 0.82rem; color: var(--umber);">Note: AI & Innovation can be added once there is a project that warrants it — don't create an empty category.</p>
+  </div>
+</div>
+
+
+<!-- THOUGHTS -->
+<div class="block">
+  <div class="block-label">
+    <strong>06</strong>
+    Thoughts
+  </div>
+  <div class="block-content">
+    <h2>Thoughts section structure</h2>
+    <p>This is not a blog. It is a curated record of how you think — shorter and more considered than a blog post, longer and more substantive than a social caption. Think of it as observed notes.</p>
+    <p>It signals intellectual range, genuine interests, and a point of view — all things that distinguish a strategic marketer from someone who just executes.</p>
+    <div class="tag-grid">
+      <div class="tag">Branding</div>
+      <div class="tag">Food marketing</div>
+      <div class="tag">Nutrition</div>
+      <div class="tag">Wellness</div>
+      <div class="tag">Consumer behaviour</div>
+      <div class="tag">Travel & culture</div>
+      <div class="tag">Design</div>
+      <div class="tag">Digital trends</div>
+    </div>
+    <div style="margin-top: 16px;">
+      <ul class="hierarchy">
+        <li>
+          <span class="h-num">Format —</span><span class="h-name">Short observation</span>
+          <span class="h-desc">200–400 words. A single observation, not a full essay. Could be triggered by a campaign you saw, a product, a restaurant, a trend.</span>
+        </li>
+        <li>
+          <span class="h-num">Format —</span><span class="h-name">Analysis</span>
+          <span class="h-desc">500–800 words. A topic explored with a point of view. Branding of a food category, a campaign that worked and why, a shift in consumer behaviour.</span>
+        </li>
+        <li>
+          <span class="h-num">Cadence —</span><span class="h-name">Quality over frequency</span>
+          <span class="h-desc">Two to four pieces is better than twelve rushed ones. Start with one strong piece before launching the section.</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<!-- REMOVE / KEEP -->
+<div class="block">
+  <div class="block-label">
+    <strong>07</strong>
+    Audit
+  </div>
+  <div class="block-content">
+    <h2>What to remove and what to keep</h2>
+    <p>Based on the current site structure and project list.</p>
+    <div class="verdict-grid">
+      <div class="verdict-keep">
+        <div class="vhead">Keep</div>
+        <ul>
+          <li>Simple Skincare project</li>
+          <li>Nature Valley project</li>
+          <li>Noirgaze (reframe as professional)</li>
+          <li>Indera Tamara (as experience)</li>
+          <li>PE Kit campaign (reframed)</li>
+          <li>Serif + sans type pairing</li>
+          <li>Sticky navbar behaviour</li>
+          <li>Project showcase component</li>
+        </ul>
+      </div>
+      <div class="verdict-remove">
+        <div class="vhead">Remove or reframe</div>
+        <ul>
+          <li>"Personal projects" as a category</li>
+          <li>"Creative Marketer" tagline (too vague)</li>
+          <li>University module framing</li>
+          <li>Date-first project ordering</li>
+          <li>Projects listed as a flat scroll</li>
+          <li>Email as only contact in nav</li>
+          <li>No-page structure (single scroll only)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- POSITIONING -->
+<div class="block">
+  <div class="block-label">
+    <strong>Note</strong>
+    Positioning
+  </div>
+  <div class="block-content">
+    <h2>Suggested hero positioning line</h2>
+    <p>Replace "Creative marketer blending strategy, content & design" with something more specific. A few options to consider:</p>
+    <ul class="hierarchy">
+      <li><span class="h-desc" style="margin-left: 0;">"Marketing executive with a focus on brand, content, and digital — currently at IDGateway."</span></li>
+      <li><span class="h-desc" style="margin-left: 0;">"I help brands find clarity — through content, strategy, and considered digital presence."</span></li>
+      <li><span class="h-desc" style="margin-left: 0;">"Junior marketing executive. Interested in brand, food, wellness, and how people decide what they want."</span></li>
+    </ul>
+    <p style="margin-top: 12px;">The third option is most distinctive — it names real interests, which is rarer and more memorable than a list of services.</p>
+  </div>
+</div>

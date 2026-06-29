@@ -1,0 +1,609 @@
+<title>Maia Comley — Portfolio Brief</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --white:   #FDF8F6;
+    --ink:     #5D2A42;
+    --yellow:  #EEC643;
+    --pink:    #FB6376;
+    --blush:   #FCB1A6;
+    --muted:   #A8788C;
+    --surface: #FCE8E4;
+    --rule:    #EDD5CF;
+  }
+
+  html { background: var(--white); color: var(--ink); font-size: 16px; scroll-behavior: smooth; }
+  body {
+    font-family: system-ui, -apple-system, sans-serif;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 56px 32px 96px;
+    line-height: 1.6;
+  }
+
+  /* ── DOC HEADER ── */
+  .doc-header {
+    border-top: 3px solid var(--ink);
+    padding-top: 28px;
+    margin-bottom: 72px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .doc-header h1 {
+    font-family: Georgia, serif;
+    font-size: 1.9rem;
+    font-weight: normal;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+  .doc-header-meta {
+    text-align: right;
+    font-family: ui-monospace, monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    line-height: 1.9;
+  }
+
+  /* ── CHAPTER ── */
+  .chapter {
+    margin-bottom: 72px;
+  }
+  .chapter-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 36px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .chapter-num {
+    background: var(--ink);
+    color: var(--white);
+    font-family: ui-monospace, monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+  .chapter-title {
+    font-family: Georgia, serif;
+    font-size: 1.5rem;
+    font-weight: normal;
+    letter-spacing: -0.015em;
+  }
+  .chapter-sub {
+    font-size: 0.82rem;
+    color: var(--muted);
+    font-family: ui-monospace, monospace;
+    letter-spacing: 0.03em;
+    margin-top: 4px;
+    font-style: italic;
+  }
+
+  /* ── FINDING ── */
+  .finding {
+    display: grid;
+    grid-template-columns: 32px 1fr;
+    gap: 0 20px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: start;
+  }
+  .finding:first-of-type { border-top: 1px solid var(--rule); }
+  .finding-num {
+    font-family: ui-monospace, monospace;
+    font-size: 0.7rem;
+    color: var(--muted);
+    padding-top: 3px;
+    letter-spacing: 0.04em;
+  }
+  .finding-body h3 {
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+    color: var(--ink);
+  }
+  .finding-body p {
+    font-size: 0.85rem;
+    color: #7A4A5E;
+    max-width: 60ch;
+    line-height: 1.6;
+  }
+  .severity {
+    display: inline-block;
+    font-family: ui-monospace, monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 2px;
+    margin-bottom: 6px;
+  }
+  .sev-high { background: #FDE8E8; color: #9B1C1C; }
+  .sev-med  { background: var(--surface); color: var(--ink); }
+  .sev-low  { background: #EEF5EE; color: #2D6A2D; }
+
+  /* ── RESTRUCTURE GRID ── */
+  .restr-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3px;
+    margin-top: 8px;
+  }
+  .restr-col {
+    padding: 24px;
+    font-size: 0.85rem;
+  }
+  .restr-col.before { background: #FDE8E8; }
+  .restr-col.after  { background: #EEF5EE; }
+  .restr-col-head {
+    font-family: ui-monospace, monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    font-weight: 600;
+  }
+  .restr-col.before .restr-col-head { color: #9B1C1C; }
+  .restr-col.after .restr-col-head  { color: #2D6A2D; }
+  .restr-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .restr-col li { color: #3A2030; line-height: 1.4; }
+  .restr-col.before li::before { content: "× "; color: #9B1C1C; font-weight: 700; }
+  .restr-col.after  li::before { content: "→ "; color: #2D6A2D; font-weight: 700; }
+
+  /* ── COPY BLOCK ── */
+  .copy-section { margin-bottom: 32px; }
+  .copy-label {
+    font-family: ui-monospace, monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+  .copy-box {
+    background: var(--surface);
+    border-left: 3px solid var(--yellow);
+    padding: 20px 24px;
+    border-radius: 0 2px 2px 0;
+  }
+  .copy-box.hero-copy {
+    font-family: Georgia, serif;
+    font-size: 1.15rem;
+    line-height: 1.5;
+    letter-spacing: -0.01em;
+  }
+  .copy-box p { font-size: 0.9rem; line-height: 1.7; color: #5A3045; margin-bottom: 10px; }
+  .copy-box p:last-child { margin-bottom: 0; }
+  .copy-box em { font-style: italic; }
+  .copy-note {
+    font-size: 0.78rem;
+    color: var(--muted);
+    font-family: ui-monospace, monospace;
+    margin-top: 8px;
+    letter-spacing: 0.02em;
+  }
+
+  /* ── DESIGN REVIEW ── */
+  .design-item {
+    padding: 20px 0;
+    border-bottom: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+  .design-item:first-of-type { border-top: 1px solid var(--rule); }
+  .design-category {
+    font-family: ui-monospace, monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding-top: 2px;
+  }
+  .design-item h3 { font-weight: 600; font-size: 0.88rem; margin-bottom: 4px; }
+  .design-item p { font-size: 0.83rem; color: #7A4A5E; line-height: 1.6; max-width: 55ch; }
+  .pill {
+    display: inline-block;
+    font-family: ui-monospace, monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 2px 9px;
+    border-radius: 100px;
+    margin-bottom: 5px;
+    border: 1px solid var(--rule);
+    color: var(--muted);
+  }
+
+  @media (max-width: 620px) {
+    body { padding: 36px 20px 72px; }
+    .restr-grid { grid-template-columns: 1fr; }
+    .design-item { grid-template-columns: 1fr; gap: 6px; }
+    .finding { grid-template-columns: 1fr; }
+    .finding-num { display: none; }
+    .doc-header-meta { text-align: left; }
+  }
+</style>
+
+<div class="doc-header">
+  <div>
+    <h1>Portfolio Brief</h1>
+    <p style="font-family: ui-monospace, monospace; font-size: 0.7rem; color: var(--muted); margin-top: 6px; letter-spacing: 0.04em; text-transform: uppercase;">Maia Comley — Marketing Executive</p>
+  </div>
+  <div class="doc-header-meta">
+    4 tasks · complete<br>
+    Audit · Structure · Copy · Design<br>
+    Jun 2025
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════ -->
+<!-- TASK 01: AUDIT                         -->
+<!-- ══════════════════════════════════════ -->
+<div class="chapter">
+  <div class="chapter-header">
+    <span class="chapter-num">Task 01</span>
+    <div>
+      <div class="chapter-title">Website Audit</div>
+      <div class="chapter-sub">Reviewed as a Creative Director hiring for AE, ME or Brand Executive roles</div>
+    </div>
+  </div>
+
+  <div class="finding">
+    <span class="finding-num">01</span>
+    <div class="finding-body">
+      <span class="severity sev-high">Critical</span>
+      <h3>You lead with student work, not professional experience</h3>
+      <p>The first thing a hiring manager sees is project-based work from university modules. PE Kit, Nature Valley, Simple Skincare — these read as briefs, not professional achievements. A brand executive role wants evidence of real-world output, not academic exercises.</p>
+    </div>
+  </div>
+
+  <div class="finding">
+    <span class="finding-num">02</span>
+    <div class="finding-body">
+      <span class="severity sev-high">Critical</span>
+      <h3>No clear professional positioning</h3>
+      <p>"Creative marketer blending strategy, content & design" is a placeholder, not a position. It tells me nothing about what you actually do, where you've worked, or what kind of role you're pursuing. A hiring director needs to know within 5 seconds.</p>
+    </div>
+  </div>
+
+  <div class="finding">
+    <span class="finding-num">03</span>
+    <div class="finding-body">
+      <span class="severity sev-high">Critical</span>
+      <h3>IDGateway — your most relevant experience — is invisible</h3>
+      <p>You're currently working in a marketing executive role managing SEO, website content, and campaigns. This is exactly what recruiters are looking for and it doesn't appear anywhere on the site. This is the single biggest gap.</p>
+    </div>
+  </div>
+
+  <div class="finding">
+    <span class="finding-num">04</span>
+    <div class="finding-body">
+      <span class="severity sev-high">Critical</span>
+      <h3>No skills section</h3>
+      <p>Recruiters scan for specific capabilities: SEO, content strategy, CMS, campaign planning. There's nowhere on the current site that maps your skills. This means the site can't pass an ATS-style skim or justify a conversation with a hiring manager.</p>
+    </div>
+  </div>
+
+  <div class="finding">
+    <span class="finding-num">05</span>
+    <div class="finding-body">
+      <span class="severity sev-med">Important</span>
+      <h3>Projects aren't framed by outcome</h3>
+      <p>Each project has a one-line description but no outcome, result, or strategic context. "Creating an integrated campaign" tells me what you did. "Grew engagement by X" or "positioned the brand as Y" tells me what you achieved. Outcomes are what get interviews.</p>
+    </div>
+  </div>
+
+  <div class="finding">
+    <span class="finding-num">06</span>
+    <div class="finding-body">
+      <span class="severity sev-med">Important</span>
+      <h3>Single-page site limits depth and navigation</h3>
+      <p>Everything lives on one scroll. There's no Experience page, no way to go deeper on a project, no Thoughts section. This forces all content to compete for the same space and prevents you from telling a layered professional story.</p>
+    </div>
+  </div>
+
+  <div class="finding">
+    <span class="finding-num">07</span>
+    <div class="finding-body">
+      <span class="severity sev-med">Important</span>
+      <h3>Noirgaze is undersold</h3>
+      <p>3k+ follower growth for a fashion start-up is a strong, concrete result. It's buried in a list with no context about what you actually did to achieve it — strategy, content format, cadence, platform. This could be your strongest case study.</p>
+    </div>
+  </div>
+
+  <div class="finding">
+    <span class="finding-num">08</span>
+    <div class="finding-body">
+      <span class="severity sev-med">Important</span>
+      <h3>No contact beyond an email address</h3>
+      <p>A hiring manager wants LinkedIn. Some will want a CV download. Email alone is a friction point — it requires someone to initiate a blank email rather than clicking a profile they can scan before deciding to reach out.</p>
+    </div>
+  </div>
+
+  <div class="finding">
+    <span class="finding-num">09</span>
+    <div class="finding-body">
+      <span class="severity sev-low">Refine</span>
+      <h3>Visual identity doesn't yet match professional ambition</h3>
+      <p>The current pink palette and project-grid layout reads closer to a creative student portfolio than the portfolio of a strategically-minded marketing executive. The aesthetic needs to mature to match the roles you're targeting — not more corporate, but more intentional.</p>
+    </div>
+  </div>
+
+  <div class="finding">
+    <span class="finding-num">10</span>
+    <div class="finding-body">
+      <span class="severity sev-low">Refine</span>
+      <h3>No personality or intellectual range on show</h3>
+      <p>The best marketing candidates show taste, curiosity, and a genuine point of view. The current site shows work but reveals nothing about how you think — about brands, culture, food, wellness, or consumer behaviour. A Thoughts section would close this gap immediately.</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════ -->
+<!-- TASK 02: RESTRUCTURE                   -->
+<!-- ══════════════════════════════════════ -->
+<div class="chapter">
+  <div class="chapter-header">
+    <span class="chapter-num">Task 02</span>
+    <div>
+      <div class="chapter-title">Portfolio Restructure</div>
+      <div class="chapter-sub">Reorganised around professional experience, skills and interests</div>
+    </div>
+  </div>
+
+  <div class="restr-grid">
+    <div class="restr-col before">
+      <div class="restr-col-head">Current structure</div>
+      <ul>
+        <li>Single page, infinite scroll</li>
+        <li>Projects as primary content</li>
+        <li>Ordered by date (oldest logic)</li>
+        <li>University framing throughout</li>
+        <li>No skills or experience section</li>
+        <li>No pages beyond homepage</li>
+        <li>Personal projects as a category</li>
+        <li>No thoughts or perspective</li>
+        <li>Email only contact</li>
+      </ul>
+    </div>
+    <div class="restr-col after">
+      <div class="restr-col-head">New structure</div>
+      <ul>
+        <li>Multi-page site with clear nav</li>
+        <li>Experience as primary content</li>
+        <li>Work organised by skill area</li>
+        <li>Professional framing throughout</li>
+        <li>Dedicated skills section</li>
+        <li>Home / Work / Experience / Thoughts / Contact</li>
+        <li>Projects redistributed by discipline</li>
+        <li>Thoughts section for perspective</li>
+        <li>Email + LinkedIn + CV download</li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="margin-top: 24px;">
+    <p style="font-family: ui-monospace, monospace; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 12px;">Project remapping</p>
+    <div class="finding" style="border-top: 1px solid var(--rule);">
+      <span class="finding-num" style="font-size: 0.65rem;">IDG</span>
+      <div class="finding-body">
+        <h3>IDGateway → Experience + Website & Digital (Work)</h3>
+        <p>Moves from invisible to the most prominently featured item. Appears in Experience timeline and as a featured Work card.</p>
+      </div>
+    </div>
+    <div class="finding">
+      <span class="finding-num" style="font-size: 0.65rem;">NGZ</span>
+      <div class="finding-body">
+        <h3>Noirgaze → Experience + Content & Social (Work)</h3>
+        <p>Reframed as a professional role, not a project. 3k+ growth is the headline outcome. Appears in both Experience and Work.</p>
+      </div>
+    </div>
+    <div class="finding">
+      <span class="finding-num" style="font-size: 0.65rem;">IT</span>
+      <div class="finding-body">
+        <h3>Indera Tamara → Experience</h3>
+        <p>This is a professional role (PR & marketing support, luxury fashion). Belongs in Experience, not a project grid.</p>
+      </div>
+    </div>
+    <div class="finding">
+      <span class="finding-num" style="font-size: 0.65rem;">SS</span>
+      <div class="finding-body">
+        <h3>Simple Skincare → Brand & Campaign Strategy (Work)</h3>
+        <p>Strong brand-led project. Keep, reframe with outcome language, remove university context.</p>
+      </div>
+    </div>
+    <div class="finding">
+      <span class="finding-num" style="font-size: 0.65rem;">NV</span>
+      <div class="finding-body">
+        <h3>Nature Valley → Brand & Campaign Strategy (Work)</h3>
+        <p>Good integrated campaign example. Reframe with strategic rationale, not just deliverables.</p>
+      </div>
+    </div>
+    <div class="finding">
+      <span class="finding-num" style="font-size: 0.65rem;">PE</span>
+      <div class="finding-body">
+        <h3>PE Kit → Brand & Campaign Strategy (Work) — optional</h3>
+        <p>Purpose-led campaign with a clear insight. Only include if you can write a strong outcome. Otherwise, deprioritise.</p>
+      </div>
+    </div>
+    <div class="finding">
+      <span class="finding-num" style="font-size: 0.65rem;">PP</span>
+      <div class="finding-body">
+        <h3>Personal Projects → Remove as a category</h3>
+        <p>Redistribute any strong content under the relevant skill area. "Personal projects" reads as filler to a hiring director.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════ -->
+<!-- TASK 03: HOMEPAGE COPY                 -->
+<!-- ══════════════════════════════════════ -->
+<div class="chapter">
+  <div class="chapter-header">
+    <span class="chapter-num">Task 03</span>
+    <div>
+      <div class="chapter-title">Homepage Copy</div>
+      <div class="chapter-sub">Positioning as a marketing professional — ready to use or adapt</div>
+    </div>
+  </div>
+
+  <div class="copy-section">
+    <div class="copy-label">Hero tagline — already set</div>
+    <div class="copy-box hero-copy">
+      Marketing Executive | Content Strategy, Brand Marketing &amp; Digital Experience
+    </div>
+  </div>
+
+  <div class="copy-section">
+    <div class="copy-label">Introduction paragraph — homepage</div>
+    <div class="copy-box">
+      <p>I'm a marketing executive with a focus on brand strategy, content, and digital presence. I'm interested in how brands build trust — and how that trust shows up in every touchpoint, not just the big campaigns.</p>
+      <p>Currently at IDGateway, working across website management, SEO/GEO, and campaign planning. Previously, I've supported brands in luxury fashion, skincare, and the outdoor space.</p>
+    </div>
+    <p class="copy-note">Note: First person, present tense. Specific industries mentioned. No adjective lists.</p>
+  </div>
+
+  <div class="copy-section">
+    <div class="copy-label">Alternative — more personal / personality-led</div>
+    <div class="copy-box">
+      <p>I'm a junior marketing executive who thinks about brands the way other people think about restaurants — constantly, with strong opinions, and always noticing what makes something feel right.</p>
+      <p>My work sits at the intersection of strategy and storytelling. I'm interested in food culture, wellness, and the quiet ways brands earn loyalty. Currently at IDGateway, working across SEO, content, and digital experience.</p>
+    </div>
+    <p class="copy-note">Note: More distinctive — leads with perspective, not credentials. Choose based on tone preference.</p>
+  </div>
+
+  <div class="copy-section">
+    <div class="copy-label">Work card — IDGateway</div>
+    <div class="copy-box">
+      <p><strong>IDGateway</strong> — Website management, SEO/GEO strategy, and campaign planning for a digital marketing agency. Day-to-day ownership of content, performance tracking, and digital presence.</p>
+    </div>
+  </div>
+
+  <div class="copy-section">
+    <div class="copy-label">Work card — Noirgaze</div>
+    <div class="copy-box">
+      <p><strong>Noirgaze</strong> — Social media strategy and content creation for a fashion start-up. Grew the account from zero to 3k+ followers through consistent brand storytelling, campaign execution, and product-led content.</p>
+    </div>
+  </div>
+
+  <div class="copy-section">
+    <div class="copy-label">Contact section</div>
+    <div class="copy-box">
+      <p><em>Always curious to learn and create.</em></p>
+      <p>Open to opportunities in brand marketing, content strategy, and digital experience. Drop me a line — I respond promptly.</p>
+    </div>
+  </div>
+
+  <div class="copy-section">
+    <div class="copy-label">Suggested Thoughts titles — ready to write</div>
+    <div class="copy-box">
+      <p>1. Why the quietest brands are winning in wellness right now</p>
+      <p>2. What Stanley Tucci's Instagram understands about food content</p>
+      <p>3. The aesthetics of eating well — how health brands learned to be desirable</p>
+      <p>4. Notes on luxury: what makes something feel considered rather than expensive</p>
+      <p>5. The gap between brand values and brand voice — and why it matters</p>
+    </div>
+    <p class="copy-note">Note: These are genuine, specific, and signal real intellectual interests — not generic "marketing thoughts."</p>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════ -->
+<!-- TASK 04: DESIGN REVIEW                 -->
+<!-- ══════════════════════════════════════ -->
+<div class="chapter">
+  <div class="chapter-header">
+    <span class="chapter-num">Task 04</span>
+    <div>
+      <div class="chapter-title">Design Review</div>
+      <div class="chapter-sub">Typography, layout, spacing and visual hierarchy recommendations</div>
+    </div>
+  </div>
+
+  <div class="design-item">
+    <span class="design-category">Typography</span>
+    <div>
+      <span class="pill">Current: Bodoni Moda + Inter Tight</span>
+      <h3>Keep the serif/sans pairing — but use Bodoni with more restraint</h3>
+      <p>Bodoni Moda is a strong editorial face. The issue is weight — it's being used at the same size across too many elements. Reserve it for the name and section headlines only. Let Inter Tight carry all body and label copy. This gives Bodoni the contrast it needs to feel deliberate.</p>
+    </div>
+  </div>
+
+  <div class="design-item">
+    <span class="design-category">Type scale</span>
+    <div>
+      <span class="pill">Establish a clear scale</span>
+      <h3>Set and lock a 5-step type scale</h3>
+      <p>Hero name: 10–14rem · Section title: 2rem · Body: 1rem · Label/mono: 0.68rem · Caption: 0.72rem. Currently sizes feel inconsistent across sections — a locked scale makes the whole page feel more considered.</p>
+    </div>
+  </div>
+
+  <div class="design-item">
+    <span class="design-category">Colour</span>
+    <div>
+      <span class="pill">New palette: EEC643 / 5D2A42 / FB6376 / FCB1A6</span>
+      <h3>Palette is now set — apply with discipline</h3>
+      <p>Blackberry (#5D2A42) as ink gives all text warmth and personality. Yellow (#EEC643) is the dominant accent — use it in one hero block and one highlight only. Bubblegum Pink (#FB6376) is the secondary accent — skill dots, hover states, small moments. Blush (#FCB1A6) is a surface, not an accent.</p>
+    </div>
+  </div>
+
+  <div class="design-item">
+    <span class="design-category">Layout</span>
+    <div>
+      <span class="pill">Split hero</span>
+      <h3>Split hero with photo is the right call — commit to it</h3>
+      <p>The TheRed-style split gives the homepage immediate visual authority. The photo panel should be at least 45% of the viewport width. If you don't have a strong portrait yet, get one — it's the single biggest upgrade you can make to the hero.</p>
+    </div>
+  </div>
+
+  <div class="design-item">
+    <span class="design-category">Spacing</span>
+    <div>
+      <span class="pill">Negative space</span>
+      <h3>The design earns its chic through what it leaves out</h3>
+      <p>Section padding should be generous — 80–100px top and bottom. Between the hero and the intro, consider even more breathing room. The instinct to fill space is the enemy of the aesthetic you're going for. Trust the whitespace.</p>
+    </div>
+  </div>
+
+  <div class="design-item">
+    <span class="design-category">Visual hierarchy</span>
+    <div>
+      <span class="pill">Monospace labels</span>
+      <h3>Use the mono labels as a structural system, not decoration</h3>
+      <p>The ui-monospace label style (small, uppercase, tracked) is doing good work as a structural device. Apply it consistently: section eyebrows, card categories, nav items, footer. Avoid using it decoratively — every instance should be labelling something real.</p>
+    </div>
+  </div>
+
+  <div class="design-item">
+    <span class="design-category">Motion</span>
+    <div>
+      <span class="pill">Minimal animation</span>
+      <h3>Keep animation to two moments: hero load and hover states</h3>
+      <p>The name rise-up animation on page load is the right amount of personality. Hover states on work cards (scale + arrow reveal) add interactivity without noise. Don't add scroll-triggered animations to every section — it quickly reads as AI-template energy.</p>
+    </div>
+  </div>
+
+  <div class="design-item">
+    <span class="design-category">Mobile</span>
+    <div>
+      <span class="pill">Stack gracefully</span>
+      <h3>Split hero stacks to photo-above, yellow-below on mobile</h3>
+      <p>The hero photo should still appear on mobile — just stacked above the yellow content block. The name should remain large (clamp to ~4.5rem minimum). Skills grid collapses to 2 columns. Thoughts list hides the date column. All of this is already in the template.</p>
+    </div>
+  </div>
+</div>
