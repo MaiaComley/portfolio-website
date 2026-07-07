@@ -66,7 +66,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 24px 48px;
+    padding: 36px 64px;
     background: var(--bg);
     border-bottom: 1px solid transparent;
     transition: border-color 0.3s, background 0.6s;
@@ -106,11 +106,15 @@
 
   /* ── HERO ── */
   .hero {
-    min-height: 100vh;
-    padding: 120px 48px 56px;
+    min-height: 60vh;
+    padding: 200px 64px 64px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: flex-start;
     gap: 20px;
     position: relative;
   }
@@ -118,9 +122,10 @@
   .hero-headline {
     font-family: system-ui, -apple-system, sans-serif;
     font-weight: 300;
-    font-size: clamp(3.6rem, 8.8vw, 10rem);
+    font-size: clamp(2.8rem, 7.2vw, 9rem);
     letter-spacing: -0.03em;
-    line-height: 0.94;
+    line-height: 1;
+    white-space: nowrap;
     color: var(--ink);
     text-transform: none;
     width: 100%;
@@ -144,6 +149,24 @@
     opacity: 0;
     animation: rise 0.7s ease 0.5s forwards;
     padding-bottom: 4px;
+  }
+
+  .hero-links {
+    display: flex; gap: 12px; flex-wrap: wrap;
+    opacity: 0; animation: rise 0.7s ease 0.7s forwards;
+  }
+  .hero-link-btn {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 0.85rem; font-weight: 600; letter-spacing: 0.04em;
+    text-decoration: none; text-transform: uppercase;
+    padding: 10px 20px; border-radius: 100px;
+    background: var(--ink); color: var(--bg);
+    transition: opacity 0.2s ease;
+  }
+  .hero-link-btn:hover { opacity: 0.75; }
+  .hero-link-btn--outline {
+    background: transparent; color: var(--ink);
+    border: 1.5px solid var(--ink);
   }
 
   /* ── SPACE PROMPT ── */
@@ -215,10 +238,10 @@
   .palette-label.faded  { opacity: 0; pointer-events: none; transition: opacity 0.5s ease; }
 
   /* ── DIVIDER ── */
-  hr { border: none; border-top: 1px solid var(--rule); margin: 0; }
+  hr { display: none; }
 
   /* ── SECTION BASE ── */
-  .section { padding: 80px 48px; border-top: 1px solid var(--rule); }
+  .section { padding: 80px 64px; max-width: 1200px; margin-left: auto; margin-right: auto; width: 100%; }
   .section-header {
     display: flex; justify-content: space-between; align-items: baseline;
     margin-bottom: 40px;
@@ -297,16 +320,17 @@
     padding: 36px 32px;
   }
   .card-close {
-    position: absolute; top: 20px; right: 20px;
-    background: rgba(255,255,255,0.15);
-    border: 1.5px solid rgba(255,255,255,0.4);
+    position: absolute; top: 16px; right: 16px;
+    background: rgba(0,0,0,0.55);
+    border: none;
     color: white; border-radius: 50%;
-    width: 36px; height: 36px; font-size: 1rem; cursor: pointer;
+    width: 44px; height: 44px; font-size: 1.1rem; cursor: pointer;
     display: flex; align-items: center; justify-content: center;
     opacity: 0; transition: opacity 0.3s 0.1s, background 0.2s;
+    z-index: 10;
   }
   .card-modal.active .card-close { opacity: 1; }
-  .card-close:hover { background: rgba(255,255,255,0.3); }
+  .card-close:hover { background: rgba(0,0,0,0.8); }
 
   .card-modal-content { opacity: 0; transform: translateY(12px); transition: opacity 0.35s 0.2s ease, transform 0.35s 0.2s ease; }
   .card-modal.active .card-modal-content { opacity: 1; transform: translateY(0); }
@@ -501,7 +525,7 @@
 
   /* ── FOOTER ── */
   footer {
-    padding: 28px 48px; border-top: 1px solid var(--rule);
+    padding: 28px 64px; max-width: 1200px; margin: 0 auto; width: 100%;
     display: flex; justify-content: space-between; align-items: center;
   }
   .footer-copy { color: var(--muted); font-family: system-ui, -apple-system, sans-serif; font-size: 0.62rem; font-weight: 400; letter-spacing: 0.06em; text-transform: uppercase; }
@@ -525,8 +549,8 @@
   @media (max-width: 760px) {
     nav { padding: 18px 20px; }
     .nav-links { gap: 16px; }
-    .hero { padding: 100px 20px 64px; }
-    .section { padding: 56px 20px; }
+    .hero { padding: 160px 24px 64px; }
+    .section { padding: 56px 24px; }
     .work-grid { grid-template-columns: 1fr; }
     .work-card { aspect-ratio: 4/3; }
     .skills-grid { grid-template-columns: 1fr 1fr; }
@@ -537,6 +561,7 @@
     .space-prompt { bottom: 20px; }
     .palette-label { bottom: 20px; right: 20px; }
   }
+
 
   /* ── Loader ── */
   #loader {
@@ -559,26 +584,26 @@
 
 <!-- LOADER -->
 <div id="loader">
-  <svg width="140" height="140" viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="70" cy="70" r="54" stroke="#F56200" stroke-width="8" stroke-linecap="round"
+  <svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="90" cy="90" r="70" stroke="#F56200" stroke-width="7" stroke-linecap="round"
       pathLength="100" stroke-dasharray="50 50" stroke-dashoffset="50"
-      transform="rotate(-90 70 70)">
-      <animate attributeName="stroke-dashoffset" from="50" to="0" dur="0.35s" begin="0.05s" fill="freeze" calcMode="spline" keySplines="0.16 1 0.3 1" keyTimes="0;1"/>
+      transform="rotate(-90 90 90)">
+      <animate attributeName="stroke-dashoffset" from="50" to="0" dur="0.6s" begin="0.05s" fill="freeze" calcMode="spline" keySplines="0.25 1 0.25 1" keyTimes="0;1"/>
     </circle>
-    <circle cx="70" cy="70" r="38" stroke="#0D46E7" stroke-width="8" stroke-linecap="round"
+    <circle cx="90" cy="90" r="50" stroke="#0D46E7" stroke-width="7" stroke-linecap="round"
       pathLength="100" stroke-dasharray="50 50" stroke-dashoffset="50"
-      transform="rotate(0 70 70)">
-      <animate attributeName="stroke-dashoffset" from="50" to="0" dur="0.35s" begin="0.3s" fill="freeze" calcMode="spline" keySplines="0.16 1 0.3 1" keyTimes="0;1"/>
+      transform="rotate(0 90 90)">
+      <animate attributeName="stroke-dashoffset" from="50" to="0" dur="0.6s" begin="0.35s" fill="freeze" calcMode="spline" keySplines="0.25 1 0.25 1" keyTimes="0;1"/>
     </circle>
-    <circle cx="70" cy="70" r="22" stroke="#F5007A" stroke-width="8" stroke-linecap="round"
+    <circle cx="90" cy="90" r="30" stroke="#F5007A" stroke-width="7" stroke-linecap="round"
       pathLength="100" stroke-dasharray="50 50" stroke-dashoffset="50"
-      transform="rotate(90 70 70)">
-      <animate attributeName="stroke-dashoffset" from="50" to="0" dur="0.35s" begin="0.55s" fill="freeze" calcMode="spline" keySplines="0.16 1 0.3 1" keyTimes="0;1"/>
+      transform="rotate(90 90 90)">
+      <animate attributeName="stroke-dashoffset" from="50" to="0" dur="0.6s" begin="0.65s" fill="freeze" calcMode="spline" keySplines="0.25 1 0.25 1" keyTimes="0;1"/>
     </circle>
-    <circle cx="70" cy="70" r="8" stroke="#F50000" stroke-width="8" stroke-linecap="round"
+    <circle cx="90" cy="90" r="10" stroke="#F50000" stroke-width="7" stroke-linecap="round"
       pathLength="100" stroke-dasharray="50 50" stroke-dashoffset="50"
-      transform="rotate(180 70 70)">
-      <animate attributeName="stroke-dashoffset" from="50" to="0" dur="0.35s" begin="0.8s" fill="freeze" calcMode="spline" keySplines="0.16 1 0.3 1" keyTimes="0;1"/>
+      transform="rotate(180 90 90)">
+      <animate attributeName="stroke-dashoffset" from="50" to="0" dur="0.6s" begin="0.95s" fill="freeze" calcMode="spline" keySplines="0.25 1 0.25 1" keyTimes="0;1"/>
     </circle>
   </svg>
   <div id="loader-name">
@@ -592,7 +617,7 @@
   <ul class="nav-links">
     <li><a href="#">Work</a></li>
     <li><a href="#">Experience</a></li>
-    <li><a href="#">Thoughts</a></li>
+    <li><a href="#">Interests</a></li>
     <li><a href="#" class="nav-contact">Contact</a></li>
   </ul>
 </nav>
@@ -600,17 +625,16 @@
 <!-- HERO -->
 <div class="hero">
   <h1 class="hero-headline">
-    Curious about <span class="hl">brands,</span><br>people &amp; what connects them.
+    Curiosity. <span class="hl">Creativity.</span> Strategy.
   </h1>
   <p class="hero-bio">
-    My work sits at the intersection of strategy and storytelling. Interested in food culture, wellness, and the quiet ways brands earn loyalty. Currently at IDGateway, working across SEO, content, and digital experience.
+    My work sits at the intersection of strategy and storytelling. I create content, improve digital experiences and help bring marketing ideas to life through thoughtful planning, creativity and data. Outside of work, I'm inspired by branding, food culture, wellness and the experiences that shape how people connect with brands.
   </p>
 </div>
 
-<hr>
 
 <!-- WORK -->
-<div class="section reveal">
+<div class="section reveal" style="padding-top:120px">
   <div class="section-header">
     <span class="section-title">Selected Work</span>
     <a class="section-link" href="#">View all →</a>
@@ -708,7 +732,7 @@
 <!-- THOUGHTS -->
 <div class="section">
   <div class="section-header reveal">
-    <span class="section-title">Things I'm Thinking About</span>
+    <span class="section-title">Interests & Thoughts</span>
     <a class="section-link" href="#">All →</a>
   </div>
   <div class="thought-row reveal">
@@ -742,10 +766,10 @@
     <a class="contact-link" href="mailto:comleymaia@gmail.com">
       comleymaia@gmail.com <span>↗</span>
     </a>
-    <a class="contact-link" href="#">
+    <a class="contact-link" href="https://www.linkedin.com/in/maiacomley/" target="_blank" rel="noopener">
       LinkedIn <span>↗</span>
     </a>
-    <a class="contact-link" href="#">
+    <a class="contact-link" href="/maia-comley-cv.pdf" download="Maia-Comley-CV.pdf">
       Download CV <span>↓</span>
     </a>
   </div>
@@ -773,7 +797,7 @@
 
 <!-- SPACE PROMPT -->
 <div class="space-prompt" id="spacePrompt">
-  press <span class="space-key">space</span> to change colour
+  press <span class="space-key">space</span> to select your theme
 </div>
 
 <!-- PALETTE LABEL -->
@@ -870,25 +894,19 @@
   function closeCard() {
     if (!originRect) return;
     modal.classList.remove('active');
-
-    // Animate back to card position
-    modal.style.transition = 'left 0.5s cubic-bezier(0.4,0,0.2,1), top 0.5s cubic-bezier(0.4,0,0.2,1), width 0.5s cubic-bezier(0.4,0,0.2,1), height 0.5s cubic-bezier(0.4,0,0.2,1), border-radius 0.4s ease, opacity 0.3s ease 0.2s';
-    modal.style.left         = originRect.left + 'px';
-    modal.style.top          = originRect.top  + 'px';
-    modal.style.width        = originRect.width  + 'px';
-    modal.style.height       = originRect.height + 'px';
-    modal.style.borderRadius = '0px';
-    modal.style.opacity      = '0';
-
     backdrop.classList.remove('active');
     workCards.forEach(c => c.classList.remove('dimmed'));
 
-    modal.addEventListener('transitionend', () => {
+    modal.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+    modal.style.opacity = '0';
+    modal.style.transform = 'scale(0.97)';
+
+    setTimeout(() => {
       modal.style.transition = 'none';
-      modal.style.opacity = '0';
+      modal.style.transform = '';
       modal.style.pointerEvents = 'none';
       originRect = null;
-    }, { once: true });
+    }, 320);
   }
 
   workCards.forEach(card => card.addEventListener('click', () => openCard(card)));
@@ -903,7 +921,7 @@
         revealObserver.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.12 });
+  }, { threshold: 0.12, rootMargin: '0px 0px -80px 0px' });
   document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
   // Fade space prompt and palette label when scrolling past the hero
@@ -922,10 +940,11 @@
     observer.observe(hero);
   }
 
+
   // Loader
   const loader = document.getElementById('loader');
   const loaderName = document.getElementById('loader-name');
-  setTimeout(() => loaderName.classList.add('show'), 1100);
-  setTimeout(() => loader.classList.add('done'), 1800);
-  setTimeout(() => loader.remove(), 2700);
+  setTimeout(() => loaderName.classList.add('show'), 1600);
+  setTimeout(() => loader.classList.add('done'), 2200);
+  setTimeout(() => loader.remove(), 3100);
 </script>
