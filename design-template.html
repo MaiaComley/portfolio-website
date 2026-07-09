@@ -275,13 +275,15 @@
   }
   .work-card:hover .work-card-inner { transform: scale(1.04); }
   .work-card-cat {
-    font-size: 0.6rem; font-weight: 400;
-    letter-spacing: 0.1em; text-transform: uppercase;
-    color: rgba(255,255,255,0.55); margin-bottom: 5px;
+    font-size: 0.6rem; font-weight: 300;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: rgba(255,255,255,0.65); margin-bottom: 5px;
+    white-space: nowrap;
   }
   .work-card-name {
-    font-weight: 700; font-size: 1.2rem;
-    color: white; letter-spacing: -0.015em;
+    font-weight: 300; font-size: 1.3rem;
+    color: white; letter-spacing: -0.02em;
+    white-space: nowrap;
   }
   .work-card::after {
     content: ''; position: absolute; top: 0; left: 0; right: 0;
@@ -291,10 +293,10 @@
   }
   .work-card:hover::after { transform: scaleX(1); }
 
-  /* card colours — default */
-  .card-1 { background: #D4D0CA; }
-  .card-2 { background: #C8C4BC; }
-  .card-3 { background: #BFBBB4; }
+  /* card images */
+  .card-1 { background-color: #0d5555; background-image: url('Images/IDGateway.png'); background-position: center; background-size: cover; background-repeat: no-repeat; }
+  .card-2 { background-color: #2a2a3a; background-image: url('Images/Noirgaze.jpg'); background-position: center; background-size: cover; background-repeat: no-repeat; }
+  .card-3 { background-color: #ffffff; background-image: url('Images/Simple skincare.avif'); background-position: center 40%; background-size: 65%; background-repeat: no-repeat; }
 
   /* ── CARD MODAL (expands from card to centre) ── */
   .card-backdrop {
@@ -316,56 +318,73 @@
 
   .card-modal-inner {
     position: relative; width: 100%; height: 100%;
-    display: flex; flex-direction: column; justify-content: flex-end;
-    padding: 36px 32px;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 32px 36px;
+    overflow-y: auto;
   }
   .card-close {
-    position: absolute; top: 16px; right: 16px;
-    background: rgba(0,0,0,0.55);
+    position: absolute; top: 14px; right: 14px;
+    background: rgba(0,0,0,0.12);
     border: none;
-    color: white; border-radius: 50%;
-    width: 44px; height: 44px; font-size: 1.1rem; cursor: pointer;
+    color: inherit; border-radius: 50%;
+    width: 36px; height: 36px; font-size: 0.9rem; cursor: pointer;
     display: flex; align-items: center; justify-content: center;
     opacity: 0; transition: opacity 0.3s 0.1s, background 0.2s;
     z-index: 10;
   }
   .card-modal.active .card-close { opacity: 1; }
-  .card-close:hover { background: rgba(0,0,0,0.8); }
+  .card-close:hover { background: rgba(0,0,0,0.22); }
 
-  .card-modal-content { opacity: 0; transform: translateY(12px); transition: opacity 0.35s 0.2s ease, transform 0.35s 0.2s ease; }
+  .card-modal-content { opacity: 0; transform: translateY(10px); transition: opacity 0.35s 0.2s ease, transform 0.35s 0.2s ease; }
   .card-modal.active .card-modal-content { opacity: 1; transform: translateY(0); }
 
   .card-modal-tags {
-    font-size: 0.6rem; font-weight: 600;
+    font-size: 0.58rem; font-weight: 500;
     letter-spacing: 0.12em; text-transform: uppercase;
-    color: rgba(255,255,255,0.6); margin-bottom: 10px;
+    opacity: 0.55; margin-bottom: 8px;
   }
   .card-modal-title {
-    font-size: clamp(2rem, 4vw, 3rem); font-weight: 700;
-    letter-spacing: -0.04em; line-height: 0.95;
-    color: white; margin-bottom: 16px;
+    font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 300;
+    letter-spacing: -0.03em; line-height: 1;
+    margin-bottom: 14px;
   }
   .card-modal-desc {
-    font-size: 0.95rem; line-height: 1.65;
-    color: rgba(255,255,255,0.8); margin-bottom: 28px;
-    max-width: 44ch;
+    font-size: 0.85rem; line-height: 1.6;
+    opacity: 0.75; margin-bottom: 20px;
+    max-width: 48ch;
   }
-  .card-modal-link {
+  .card-modal-bullets {
+    list-style: none; padding: 0; margin: 0 0 22px 0;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .card-modal-bullets li {
+    font-size: 0.82rem; line-height: 1.45;
+    opacity: 0.85;
+    padding-left: 16px; position: relative;
+  }
+  .card-modal-bullets li::before {
+    content: '—';
+    position: absolute; left: 0;
+    opacity: 0.4;
+  }
+  .card-modal-more {
     display: inline-flex; align-items: center; gap: 8px;
-    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em;
-    text-transform: uppercase; text-decoration: none; color: white;
-    border-bottom: 1.5px solid rgba(255,255,255,0.5);
-    padding-bottom: 4px; width: fit-content;
-    transition: border-color 0.2s;
+    font-size: 0.68rem; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; cursor: pointer;
+    background: none; border: none; color: inherit;
+    border-bottom: 1px solid currentColor;
+    opacity: 0.6;
+    padding: 0 0 3px 0; width: fit-content;
+    transition: opacity 0.2s;
   }
-  .card-modal-link:hover { border-color: white; }
+  .card-modal-more:hover { opacity: 1; }
 
-  /* analogous palette card overrides */
-  html.p-analog .card-1 { background: #F50000; }
+  /* analogous palette card overrides — tint via pseudo, keep image */
+  html.p-analog .card-1 { background-color: #F50000; }
   html.p-analog .card-1 .work-card-name { color: #F5007A; }
-  html.p-analog .card-2 { background: #F5007A; }
+  html.p-analog .card-2 { background-color: #F5007A; }
   html.p-analog .card-2 .work-card-name { color: #F50000; }
-  html.p-analog .card-3 { background: #F50000; }
+  html.p-analog .card-3 { background-color: #ffffff; }
   html.p-analog .card-3 .work-card-name { color: #F5007A; }
 
   /* analogous — skill pills: white bg, red text */
@@ -397,10 +416,10 @@
   html.p-compl .thought-row:hover .thought-tag,
   html.p-compl .thought-row:hover .thought-date { color: #FFFFFF; }
 
-  /* complementary palette card overrides */
+  /* complementary palette card overrides — tint via background-color, keep image */
   html.p-compl .card-1,
-  html.p-compl .card-2,
-  html.p-compl .card-3 { background: #0D46E7; }
+  html.p-compl .card-2 { background-color: #0D46E7; }
+  html.p-compl .card-3 { background-color: #ffffff; }
   html.p-compl .work-card-name { color: #E7AF0D; }
 
   /* ── SKILLS TICKER ── */
@@ -565,49 +584,115 @@
 
   /* ── Loader ── */
   #loader {
-    position: fixed; inset: 0; background: #fff; z-index: 9999;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    gap: 28px;
-    transition: transform 0.8s cubic-bezier(0.76,0,0.24,1);
+    position: fixed; inset: 0; background: #FFFFFF; z-index: 9999;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.9s cubic-bezier(0.76,0,0.24,1);
   }
   #loader.done { transform: translateY(-100%); }
-  #loader-name {
-    font-family: system-ui, -apple-system, sans-serif;
-    font-size: 1rem; font-weight: 300; letter-spacing: 0.1em;
-    color: #0A0A0A; text-transform: uppercase;
-    opacity: 0; transform: translateY(8px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
+  #loader-ring-wrap {
+    position: relative;
+    width: min(520px, 88vw);
+    height: min(520px, 88vw);
   }
-  #loader-name.show { opacity: 1; transform: none; }
-  #loader-name .loader-sub { opacity: 0.35; margin-left: 0.5em; }
+  #lring-back, #lring-front {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    overflow: visible;
+  }
+  #lring-back { z-index: 1; }
+  #lring-front { z-index: 3; }
+  #loader-text {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    text-align: center;
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
+    width: 72%;
+  }
+  #loader-name-main {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: clamp(1.8rem, 6vw, 3.8rem);
+    font-weight: 300;
+    letter-spacing: -0.03em;
+    color: #0A0A0A;
+    line-height: 1;
+    white-space: nowrap;
+  }
+  #loader-name-sub {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: clamp(0.6rem, 1.2vw, 0.8rem);
+    font-weight: 300;
+    letter-spacing: 0.35em;
+    color: rgba(10,10,10,0.45);
+    text-transform: uppercase;
+  }
 </style>
 
 <!-- LOADER -->
 <div id="loader">
-  <svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="90" cy="90" r="70" stroke="#F56200" stroke-width="7" stroke-linecap="round"
-      pathLength="100" stroke-dasharray="50 50" stroke-dashoffset="50"
-      transform="rotate(-90 90 90)">
-      <animate attributeName="stroke-dashoffset" from="50" to="0" dur="0.6s" begin="0.05s" fill="freeze" calcMode="spline" keySplines="0.25 1 0.25 1" keyTimes="0;1"/>
-    </circle>
-    <circle cx="90" cy="90" r="50" stroke="#0D46E7" stroke-width="7" stroke-linecap="round"
-      pathLength="100" stroke-dasharray="50 50" stroke-dashoffset="50"
-      transform="rotate(0 90 90)">
-      <animate attributeName="stroke-dashoffset" from="50" to="0" dur="0.6s" begin="0.35s" fill="freeze" calcMode="spline" keySplines="0.25 1 0.25 1" keyTimes="0;1"/>
-    </circle>
-    <circle cx="90" cy="90" r="30" stroke="#F5007A" stroke-width="7" stroke-linecap="round"
-      pathLength="100" stroke-dasharray="50 50" stroke-dashoffset="50"
-      transform="rotate(90 90 90)">
-      <animate attributeName="stroke-dashoffset" from="50" to="0" dur="0.6s" begin="0.65s" fill="freeze" calcMode="spline" keySplines="0.25 1 0.25 1" keyTimes="0;1"/>
-    </circle>
-    <circle cx="90" cy="90" r="10" stroke="#F50000" stroke-width="7" stroke-linecap="round"
-      pathLength="100" stroke-dasharray="50 50" stroke-dashoffset="50"
-      transform="rotate(180 90 90)">
-      <animate attributeName="stroke-dashoffset" from="50" to="0" dur="0.6s" begin="0.95s" fill="freeze" calcMode="spline" keySplines="0.25 1 0.25 1" keyTimes="0;1"/>
-    </circle>
-  </svg>
-  <div id="loader-name">
-    Maia Comley<span class="loader-sub">Portfolio</span>
+  <div id="loader-ring-wrap">
+
+    <!-- Back half: bottom arc, behind text, faded + thinner for depth -->
+    <svg id="lring-back" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <clipPath id="clip-back">
+          <rect x="0" y="250" width="500" height="250"/>
+        </clipPath>
+      </defs>
+      <g clip-path="url(#clip-back)" opacity="0.28">
+        <circle cx="250" cy="250" r="228" stroke="#F56200" stroke-width="7" stroke-linecap="round"
+          pathLength="100" stroke-dasharray="34 66" stroke-dashoffset="34"
+          transform="rotate(-90 250 250)">
+          <animate attributeName="stroke-dashoffset" from="34" to="0" dur="0.7s" begin="0.1s" fill="freeze" calcMode="spline" keySplines="0.25 1 0.25 1" keyTimes="0;1"/>
+        </circle>
+        <circle cx="250" cy="250" r="228" stroke="#0D46E7" stroke-width="7" stroke-linecap="round"
+          pathLength="100" stroke-dasharray="33 67" stroke-dashoffset="33"
+          transform="rotate(32.4 250 250)">
+          <animate attributeName="stroke-dashoffset" from="33" to="0" dur="0.7s" begin="0.6s" fill="freeze" calcMode="spline" keySplines="0.25 1 0.25 1" keyTimes="0;1"/>
+        </circle>
+        <circle cx="250" cy="250" r="228" stroke="#F5007A" stroke-width="7" stroke-linecap="round"
+          pathLength="100" stroke-dasharray="33 67" stroke-dashoffset="33"
+          transform="rotate(151.2 250 250)">
+          <animate attributeName="stroke-dashoffset" from="33" to="0" dur="0.7s" begin="1.1s" fill="freeze" calcMode="spline" keySplines="0.25 1 0.25 1" keyTimes="0;1"/>
+        </circle>
+      </g>
+    </svg>
+
+    <!-- Text: centred in ring, above back, below front -->
+    <div id="loader-text">
+      <div id="loader-name-main">Maia Comley</div>
+      <div id="loader-name-sub">Portfolio</div>
+    </div>
+
+    <!-- Front half: top arc, above text, vivid + thicker for depth -->
+    <svg id="lring-front" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <clipPath id="clip-front">
+          <rect x="0" y="0" width="500" height="250"/>
+        </clipPath>
+      </defs>
+      <g clip-path="url(#clip-front)">
+        <circle cx="250" cy="250" r="228" stroke="#F56200" stroke-width="14" stroke-linecap="round"
+          pathLength="100" stroke-dasharray="34 66" stroke-dashoffset="34"
+          transform="rotate(-90 250 250)">
+          <animate attributeName="stroke-dashoffset" from="34" to="0" dur="0.7s" begin="0.1s" fill="freeze" calcMode="spline" keySplines="0.25 1 0.25 1" keyTimes="0;1"/>
+        </circle>
+        <circle cx="250" cy="250" r="228" stroke="#0D46E7" stroke-width="14" stroke-linecap="round"
+          pathLength="100" stroke-dasharray="33 67" stroke-dashoffset="33"
+          transform="rotate(32.4 250 250)">
+          <animate attributeName="stroke-dashoffset" from="33" to="0" dur="0.7s" begin="0.6s" fill="freeze" calcMode="spline" keySplines="0.25 1 0.25 1" keyTimes="0;1"/>
+        </circle>
+        <circle cx="250" cy="250" r="228" stroke="#F5007A" stroke-width="14" stroke-linecap="round"
+          pathLength="100" stroke-dasharray="33 67" stroke-dashoffset="33"
+          transform="rotate(151.2 250 250)">
+          <animate attributeName="stroke-dashoffset" from="33" to="0" dur="0.7s" begin="1.1s" fill="freeze" calcMode="spline" keySplines="0.25 1 0.25 1" keyTimes="0;1"/>
+        </circle>
+      </g>
+    </svg>
+
   </div>
 </div>
 
@@ -641,33 +726,36 @@
   </div>
   <div class="work-grid">
     <div class="work-card card-1 reveal reveal-delay-1"
+         data-color="#0d5555"
          data-title="IDGateway"
-         data-tags="SEO · Content · Digital Experience"
-         data-desc="Led content strategy and SEO across a full website overhaul — improving organic visibility and shaping the brand's digital voice from the ground up."
-         data-link="#">
+         data-tags="Social Media · Strategy · Content · SEO · Website"
+         data-desc="I work as a Marketing Executive across the full mix — a generalist role that keeps me close to every part of how a brand shows up."
+         data-bullets="Managing social media across LinkedIn, Instagram and X|Shaping content strategy and campaign planning|Writing blog content and website copy|Designing and updating web pages|Reporting on performance and analytics">
       <div class="work-card-inner">
-        <div class="work-card-cat">Website &amp; Digital</div>
+        <div class="work-card-cat">Marketing Executive</div>
         <div class="work-card-name">IDGateway</div>
       </div>
     </div>
     <div class="work-card card-2 reveal reveal-delay-2"
+         data-color="#2a2a3a"
          data-title="Noirgaze"
-         data-tags="Social Media · Copywriting · Visual Storytelling"
-         data-desc="Built and managed content across social channels for an emerging beauty brand — developing tone of voice, visual direction, and community engagement strategy."
-         data-link="#">
+         data-tags="Social Media · Influencer Outreach · Content Planning · Website"
+         data-desc="I joined Noirgaze as a Social Media &amp; Marketing Assistant for an emerging beauty brand."
+         data-bullets="Creating social content for Instagram and TikTok|Leading influencer outreach and relationship management|Planning and managing the content calendar|Contributing to website design and updates">
       <div class="work-card-inner">
-        <div class="work-card-cat">Content &amp; Social</div>
+        <div class="work-card-cat">Social Media &amp; Marketing</div>
         <div class="work-card-name">Noirgaze</div>
       </div>
     </div>
     <div class="work-card card-3 reveal reveal-delay-3"
-         data-title="Project Three"
-         data-tags="Brand Strategy · Consumer Insight · Campaign"
-         data-desc="A brand strategy project exploring consumer behaviour and positioning — translating insight into a campaign framework built for longevity."
-         data-link="#">
+         data-color="#ffffff"
+         data-title="Simple Skincare"
+         data-tags="Advertising · Copywriting · Print · Radio · Film"
+         data-desc="I created a full advertising campaign for Simple Skincare — rooted in the insight that some things in life are better because they're simple."
+         data-bullets="Developed the campaign strategy, insight and creative direction|Wrote and art directed a series of print ads|Produced a radio advert script and concept|Created a film advert treatment and storyboard|Presented as part of a major university final project">
       <div class="work-card-inner">
-        <div class="work-card-cat">Brand Strategy</div>
-        <div class="work-card-name">Project Three</div>
+        <div class="work-card-cat">Advertising Campaign</div>
+        <div class="work-card-name">Simple Skincare</div>
       </div>
     </div>
   </div>
@@ -790,7 +878,8 @@
       <div class="card-modal-tags" id="modalTags"></div>
       <div class="card-modal-title" id="modalTitle"></div>
       <p class="card-modal-desc" id="modalDesc"></p>
-      <a class="card-modal-link" id="modalLink" href="#">View project →</a>
+      <ul class="card-modal-bullets" id="modalBullets"></ul>
+      <button class="card-modal-more" id="modalMore">See more →</button>
     </div>
   </div>
 </div>
@@ -851,10 +940,26 @@
     document.getElementById('modalTags').textContent  = card.dataset.tags;
     document.getElementById('modalTitle').textContent = card.dataset.title;
     document.getElementById('modalDesc').textContent  = card.dataset.desc;
-    document.getElementById('modalLink').href         = card.dataset.link;
 
-    // Match card's background colour
-    modal.style.background = getComputedStyle(card).backgroundColor;
+    const bulletList = document.getElementById('modalBullets');
+    bulletList.innerHTML = '';
+    if (card.dataset.bullets) {
+      card.dataset.bullets.split('|').forEach(text => {
+        const li = document.createElement('li');
+        li.textContent = text.trim();
+        bulletList.appendChild(li);
+      });
+    }
+
+    // Always use the original monochrome card colour regardless of theme
+    const hex = card.dataset.color || '#1a1a1a';
+    const bigint = parseInt(hex.replace('#',''), 16);
+    const r = (bigint >> 16) & 255, g = (bigint >> 8) & 255, b = bigint & 255;
+    const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+    const ink = luminance > 0.55 ? '#0A0A0A' : '#FFFFFF';
+    modal.style.backgroundColor = `rgba(${r},${g},${b},0.88)`;
+    modal.style.backgroundImage = 'none';
+    modal.style.color = ink;
 
     // Dim siblings
     workCards.forEach(c => { if (c !== card) c.classList.add('dimmed'); });
@@ -871,10 +976,9 @@
     modal.style.height = originRect.height + 'px';
     modal.style.opacity = '1';
 
-    // Target size: 1.5× the card, capped to viewport
-    const scale = 1.5;
-    const tw = Math.min(originRect.width  * scale, window.innerWidth  * 0.92);
-    const th = Math.min(originRect.height * scale, window.innerHeight * 0.90);
+    // Target size: comfortably larger than card, not full-screen
+    const tw = Math.min(originRect.width * 2, window.innerWidth  * 0.72);
+    const th = Math.min(originRect.height * 2, window.innerHeight * 0.78);
     const tx = window.innerWidth  / 2 - tw / 2;
     const ty = window.innerHeight / 2 - th / 2;
 
@@ -943,8 +1047,6 @@
 
   // Loader
   const loader = document.getElementById('loader');
-  const loaderName = document.getElementById('loader-name');
-  setTimeout(() => loaderName.classList.add('show'), 1600);
   setTimeout(() => loader.classList.add('done'), 2200);
-  setTimeout(() => loader.remove(), 3100);
+  setTimeout(() => loader.remove(), 3200);
 </script>
