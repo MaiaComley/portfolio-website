@@ -52,7 +52,7 @@
   .work-card, .space-prompt, .space-key {
     transition: background 0.55s ease, color 0.55s ease, border-color 0.55s ease;
   }
-  .btn-accent, .skill-dot, .nav-contact, .thought-row,
+  .btn-accent, .skill-dot, .nav-contact,
   .contact-link, .palette-label, .hl, .section-title,
   .footer-copy, .nav-name, .nav-links a {
     transition: color 0.5s ease, background 0.5s ease, border-color 0.5s ease, opacity 0.3s;
@@ -101,7 +101,7 @@
   }
   html.p-mono .nav-contact { background: var(--ink); color: #fff !important; }
   html.p-compl .nav-contact { background: #0D46E7; color: #FFFFFF !important; }
-  html.p-analog .nav-contact { background: #F5007A; color: #fff !important; }
+  html.p-analog .nav-contact { background: #F57A00; color: #fff !important; }
   .nav-contact:hover { opacity: 0.82; }
 
   /* ── HERO ── */
@@ -396,25 +396,6 @@
   html.p-analog .skill-pill .dot { background: #F5007A; }
   html.p-analog .skill-pill:hover { background: #F50000; color: #FFFFFF; border-color: #F50000; }
 
-  /* analogous — thought row turns red on hover */
-  html.p-analog .thought-row:hover {
-    background: #F50000;
-    color: #FFFFFF;
-    padding-left: 10px;
-  }
-  html.p-analog .thought-row:hover .thought-title,
-  html.p-analog .thought-row:hover .thought-tag,
-  html.p-analog .thought-row:hover .thought-date { color: #FFFFFF; }
-
-  /* complementary — thought row turns blue on hover */
-  html.p-compl .thought-row:hover {
-    background: #0D46E7;
-    color: #FFFFFF;
-    padding-left: 10px;
-  }
-  html.p-compl .thought-row:hover .thought-title,
-  html.p-compl .thought-row:hover .thought-tag,
-  html.p-compl .thought-row:hover .thought-date { color: #FFFFFF; }
 
   /* complementary palette card overrides — tint via background-color, keep image */
   html.p-compl .card-1,
@@ -422,88 +403,81 @@
   html.p-compl .card-3 { background-color: #ffffff; }
   html.p-compl .work-card-name { color: #E7AF0D; }
 
-  /* ── SKILLS TICKER ── */
-  .skills-ticker-wrap {
-    overflow: hidden;
-    padding: 0;
-    /* fade edges */
-    mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+  /* ── SKILLS CATEGORIES ── */
+  .skill-rows { width: 100%; }
+  .skill-row-item {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 24px;
+    align-items: baseline;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--rule);
   }
-  .skills-ticker-wrap:hover .skills-track { animation-play-state: paused; }
-  .skills-row { margin-bottom: 14px; }
-  .skills-row:last-child { margin-bottom: 0; }
-  .skills-track {
-    display: flex;
-    gap: 12px;
-    width: max-content;
-    animation: ticker-left 45s linear infinite;
-  }
-  .skills-row:nth-child(2) .skills-track {
-    animation-name: ticker-right;
-    animation-duration: 52s;
-  }
-  @keyframes ticker-left {
-    from { transform: translateX(0); }
-    to   { transform: translateX(-50%); }
-  }
-  @keyframes ticker-right {
-    from { transform: translateX(-50%); }
-    to   { transform: translateX(0); }
-  }
-  .skill-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    border: 1.5px solid var(--rule);
-    border-radius: 100px;
-    padding: 10px 22px;
+  .skill-row-item:first-child { border-top: 1px solid var(--rule); }
+  .skill-cat {
     font-family: system-ui, -apple-system, sans-serif;
-    font-size: 0.95rem;
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding-top: 2px;
+  }
+  .skill-list {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: clamp(1rem, 1.8vw, 1.2rem);
     font-weight: 400;
     color: var(--ink);
-    white-space: nowrap;
-    cursor: default;
-    transition: background 0.55s ease, border-color 0.55s ease, color 0.55s ease;
+    line-height: 1.5;
   }
-  .skill-pill .dot {
-    width: 6px; height: 6px; border-radius: 50%;
-    background: var(--accent);
-    flex-shrink: 0;
-    transition: background 0.5s ease;
+  @media (max-width: 540px) {
+    .skill-row-item { grid-template-columns: 1fr; gap: 6px; }
   }
-  .skill-pill:hover {
-    background: var(--ink);
-    color: var(--bg);
-  }
-  .skill-pill:hover .dot { background: var(--accent); }
 
-  /* ── THOUGHTS ── */
-  .thought-row {
-    display: grid; grid-template-columns: 88px 1fr auto;
-    align-items: baseline; gap: 28px;
-    padding: 22px 0; border-bottom: 1px solid var(--rule);
-    cursor: pointer; transition: padding-left 0.2s;
-    position: relative;
+  /* ── INTERESTS PEEK CAROUSEL ── */
+  .peek-carousel {
+    overflow: hidden;
+    margin: 0 -64px; /* bleed past section padding */
+    mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
   }
-  .thought-row:first-child { border-top: 1px solid var(--rule); }
-  .thought-row:hover { padding-left: 10px; }
-  .thought-tag {
-    font-family: system-ui, -apple-system, sans-serif; font-size: 0.62rem;
-    font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
+  .peek-belt {
+    display: flex; gap: 14px; width: max-content;
+    padding: 16px 64px 24px;
+    animation: peek-scroll 32s linear infinite;
   }
-  .thought-title {
-    font-family: system-ui, -apple-system, sans-serif;
-    font-size: clamp(1.4rem, 2.2vw, 2rem);
-    font-weight: 700;
-    letter-spacing: -0.04em;
-    line-height: 1;
-    color: var(--ink);
+  .peek-carousel:hover .peek-belt { animation-play-state: paused; }
+  @keyframes peek-scroll {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
   }
-  .thought-date {
-    font-family: system-ui, -apple-system, sans-serif; font-size: 0.62rem;
-    font-weight: 400; color: var(--muted); white-space: nowrap;
+  .peek-card {
+    flex-shrink: 0; border-radius: 12px;
+    background: var(--surface); overflow: hidden;
+    transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s;
+    cursor: pointer;
   }
+  .peek-card:hover { transform: translateY(-6px); box-shadow: 0 18px 48px rgba(0,0,0,0.11); }
+  .peek-media {
+    background: var(--rule); position: relative; overflow: hidden;
+  }
+  .peek-media.portrait { width: 210px; height: 320px; }
+  .peek-media.square   { width: 280px; height: 280px; }
+  .peek-media.wide     { width: 340px; height: 220px; }
+  .peek-placeholder {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 8px; color: var(--muted);
+  }
+  .peek-placeholder svg { opacity: 0.25; }
+  .peek-placeholder span { font-size: 0.5rem; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.4; }
+  .peek-play {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(0,0,0,0.12);
+  }
+  .peek-caption { padding: 10px 12px 12px; font-size: 0.72rem; color: var(--muted); }
+  .peek-caption strong { display: block; font-size: 0.8rem; font-weight: 400; color: var(--ink); margin-bottom: 2px; }
 
   /* ── CONTACT ── */
   .contact-inner {
@@ -573,8 +547,6 @@
     .work-grid { grid-template-columns: 1fr; }
     .work-card { aspect-ratio: 4/3; }
     .skills-grid { grid-template-columns: 1fr 1fr; }
-    .thought-row { grid-template-columns: 1fr; gap: 4px; }
-    .thought-date { display: none; }
     .contact-inner { grid-template-columns: 1fr; gap: 40px; }
     footer { padding: 20px; flex-direction: column; gap: 8px; text-align: center; }
     .space-prompt { bottom: 20px; }
@@ -700,10 +672,9 @@
 <nav id="nav">
   <div class="nav-name">Maia Comley <span style="opacity:0.45; font-weight:400;">Portfolio</span></div>
   <ul class="nav-links">
-    <li><a href="#">Work</a></li>
-    <li><a href="#">Experience</a></li>
-    <li><a href="#">Interests</a></li>
-    <li><a href="#" class="nav-contact">Contact</a></li>
+    <li><a href="work.html">Work</a></li>
+    <li><a href="interests.html">Interests</a></li>
+    <li><a href="contact.html" class="nav-contact">Contact</a></li>
   </ul>
 </nav>
 
@@ -722,7 +693,7 @@
 <div class="section reveal" style="padding-top:120px">
   <div class="section-header">
     <span class="section-title">Selected Work</span>
-    <a class="section-link" href="#">View all →</a>
+    <a class="section-link" href="work.html">View all →</a>
   </div>
   <div class="work-grid">
     <div class="work-card card-1 reveal reveal-delay-1"
@@ -761,92 +732,172 @@
   </div>
 </div>
 
-<!-- SKILLS -->
-<div class="section reveal">
-  <div class="section-header">
-    <span class="section-title">Skills</span>
-  </div>
-  <div class="skills-ticker-wrap">
-
-    <!-- Row 1 — scrolls left -->
-    <div class="skills-row">
-      <div class="skills-track">
-        <span class="skill-pill"><span class="dot"></span>Content Strategy</span>
-        <span class="skill-pill"><span class="dot"></span>Campaign Planning</span>
-        <span class="skill-pill"><span class="dot"></span>Brand Marketing</span>
-        <span class="skill-pill"><span class="dot"></span>Consumer Insight</span>
-        <span class="skill-pill"><span class="dot"></span>SEO / GEO</span>
-        <span class="skill-pill"><span class="dot"></span>Website Management</span>
-        <span class="skill-pill"><span class="dot"></span>Analytics</span>
-        <span class="skill-pill"><span class="dot"></span>CMS</span>
-        <!-- duplicate for seamless loop -->
-        <span class="skill-pill"><span class="dot"></span>Content Strategy</span>
-        <span class="skill-pill"><span class="dot"></span>Campaign Planning</span>
-        <span class="skill-pill"><span class="dot"></span>Brand Marketing</span>
-        <span class="skill-pill"><span class="dot"></span>Consumer Insight</span>
-        <span class="skill-pill"><span class="dot"></span>SEO / GEO</span>
-        <span class="skill-pill"><span class="dot"></span>Website Management</span>
-        <span class="skill-pill"><span class="dot"></span>Analytics</span>
-        <span class="skill-pill"><span class="dot"></span>CMS</span>
-      </div>
-    </div>
-
-    <!-- Row 2 — scrolls right -->
-    <div class="skills-row">
-      <div class="skills-track">
-        <span class="skill-pill"><span class="dot"></span>Social Media</span>
-        <span class="skill-pill"><span class="dot"></span>Copywriting</span>
-        <span class="skill-pill"><span class="dot"></span>Visual Storytelling</span>
-        <span class="skill-pill"><span class="dot"></span>Video Content</span>
-        <span class="skill-pill"><span class="dot"></span>Canva / Figma</span>
-        <span class="skill-pill"><span class="dot"></span>Google Analytics</span>
-        <span class="skill-pill"><span class="dot"></span>Notion</span>
-        <span class="skill-pill"><span class="dot"></span>Meta Business Suite</span>
-        <!-- duplicate for seamless loop -->
-        <span class="skill-pill"><span class="dot"></span>Social Media</span>
-        <span class="skill-pill"><span class="dot"></span>Copywriting</span>
-        <span class="skill-pill"><span class="dot"></span>Visual Storytelling</span>
-        <span class="skill-pill"><span class="dot"></span>Video Content</span>
-        <span class="skill-pill"><span class="dot"></span>Canva / Figma</span>
-        <span class="skill-pill"><span class="dot"></span>Google Analytics</span>
-        <span class="skill-pill"><span class="dot"></span>Notion</span>
-        <span class="skill-pill"><span class="dot"></span>Meta Business Suite</span>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<!-- THOUGHTS -->
+<!-- INTERESTS PEEK CAROUSEL -->
 <div class="section">
   <div class="section-header reveal">
     <span class="section-title">Interests & Thoughts</span>
-    <a class="section-link" href="#">All →</a>
+    <a class="section-link" href="interests.html">Explore →</a>
   </div>
-  <div class="thought-row reveal">
-    <span class="thought-tag">Brand</span>
-    <span class="thought-title">Why Yorkshire Tea's Hotel Campaign Worked</span>
-    <span class="thought-date">Coming soon</span>
-  </div>
-  <div class="thought-row reveal reveal-delay-1">
-    <span class="thought-tag">Food</span>
-    <span class="thought-title">What Makes Food Brands Feel Emotional</span>
-    <span class="thought-date">Coming soon</span>
-  </div>
-  <div class="thought-row reveal reveal-delay-2">
-    <span class="thought-tag">Life</span>
-    <span class="thought-title">Training For A Half Marathon Around A Full-Time Job</span>
-    <span class="thought-date">Coming soon</span>
-  </div>
-  <div class="thought-row reveal reveal-delay-3">
-    <span class="thought-tag">Travel</span>
-    <span class="thought-title">What Travel Teaches Us About Branding</span>
-    <span class="thought-date">Coming soon</span>
+</div>
+<div class="peek-carousel reveal">
+  <div class="peek-belt" id="peekBelt">
+    <!-- SET 1 -->
+    <div class="peek-card">
+      <div class="peek-media portrait">
+        <div class="peek-placeholder">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="3"/><polygon points="10,8 16,12 10,16"/></svg>
+          <span>Video</span>
+        </div>
+        <div class="peek-play">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="white" opacity="0.7"><polygon points="6,4 20,12 6,20"/></svg>
+        </div>
+      </div>
+      <div class="peek-caption"><strong>Behind the brief</strong>Social / TikTok</div>
+    </div>
+    <div class="peek-card">
+      <div class="peek-media square">
+        <div class="peek-placeholder">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/></svg>
+          <span>Design</span>
+        </div>
+      </div>
+      <div class="peek-caption"><strong>Poster work</strong>Design</div>
+    </div>
+    <div class="peek-card">
+      <div class="peek-media wide">
+        <div class="peek-placeholder">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
+          <span>Travel</span>
+        </div>
+      </div>
+      <div class="peek-caption"><strong>On the road</strong>Photography</div>
+    </div>
+    <div class="peek-card">
+      <div class="peek-media portrait">
+        <div class="peek-placeholder">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="3"/><polygon points="10,8 16,12 10,16"/></svg>
+          <span>Video</span>
+        </div>
+        <div class="peek-play">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="white" opacity="0.7"><polygon points="6,4 20,12 6,20"/></svg>
+        </div>
+      </div>
+      <div class="peek-caption"><strong>Day in the life</strong>Social / Reel</div>
+    </div>
+    <div class="peek-card">
+      <div class="peek-media square" style="display:flex;align-items:center;justify-content:center;padding:20px;">
+        <div style="font-family:system-ui,sans-serif;font-size:1rem;font-weight:700;color:var(--ink);line-height:1.3;text-align:center;">"Why Yorkshire Tea's Hotel Campaign Worked"</div>
+      </div>
+      <div class="peek-caption"><strong>Blog</strong>Brand</div>
+    </div>
+    <div class="peek-card">
+      <div class="peek-media wide">
+        <div class="peek-placeholder">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/></svg>
+          <span>Design</span>
+        </div>
+      </div>
+      <div class="peek-caption"><strong>Brand kit</strong>Design</div>
+    </div>
+    <div class="peek-card">
+      <div class="peek-media portrait">
+        <div class="peek-placeholder">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="3"/><polygon points="10,8 16,12 10,16"/></svg>
+          <span>Video</span>
+        </div>
+        <div class="peek-play">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="white" opacity="0.7"><polygon points="6,4 20,12 6,20"/></svg>
+        </div>
+      </div>
+      <div class="peek-caption"><strong>Travel edit</strong>Social / Reel</div>
+    </div>
+    <div class="peek-card">
+      <div class="peek-media square" style="display:flex;align-items:center;justify-content:center;padding:20px;">
+        <div style="font-family:system-ui,sans-serif;font-size:1rem;font-weight:700;color:var(--ink);line-height:1.3;text-align:center;">"Training For A Half Marathon Around A Full-Time Job"</div>
+      </div>
+      <div class="peek-caption"><strong>Blog</strong>Life</div>
+    </div>
+    <!-- SET 2 (duplicate for seamless loop) -->
+    <div class="peek-card">
+      <div class="peek-media portrait">
+        <div class="peek-placeholder">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="3"/><polygon points="10,8 16,12 10,16"/></svg>
+          <span>Video</span>
+        </div>
+        <div class="peek-play">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="white" opacity="0.7"><polygon points="6,4 20,12 6,20"/></svg>
+        </div>
+      </div>
+      <div class="peek-caption"><strong>Behind the brief</strong>Social / TikTok</div>
+    </div>
+    <div class="peek-card">
+      <div class="peek-media square">
+        <div class="peek-placeholder">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/></svg>
+          <span>Design</span>
+        </div>
+      </div>
+      <div class="peek-caption"><strong>Poster work</strong>Design</div>
+    </div>
+    <div class="peek-card">
+      <div class="peek-media wide">
+        <div class="peek-placeholder">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
+          <span>Travel</span>
+        </div>
+      </div>
+      <div class="peek-caption"><strong>On the road</strong>Photography</div>
+    </div>
+    <div class="peek-card">
+      <div class="peek-media portrait">
+        <div class="peek-placeholder">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="3"/><polygon points="10,8 16,12 10,16"/></svg>
+          <span>Video</span>
+        </div>
+        <div class="peek-play">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="white" opacity="0.7"><polygon points="6,4 20,12 6,20"/></svg>
+        </div>
+      </div>
+      <div class="peek-caption"><strong>Day in the life</strong>Social / Reel</div>
+    </div>
+    <div class="peek-card">
+      <div class="peek-media square" style="display:flex;align-items:center;justify-content:center;padding:20px;">
+        <div style="font-family:system-ui,sans-serif;font-size:1rem;font-weight:700;color:var(--ink);line-height:1.3;text-align:center;">"Why Yorkshire Tea's Hotel Campaign Worked"</div>
+      </div>
+      <div class="peek-caption"><strong>Blog</strong>Brand</div>
+    </div>
+    <div class="peek-card">
+      <div class="peek-media wide">
+        <div class="peek-placeholder">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/></svg>
+          <span>Design</span>
+        </div>
+      </div>
+      <div class="peek-caption"><strong>Brand kit</strong>Design</div>
+    </div>
+    <div class="peek-card">
+      <div class="peek-media portrait">
+        <div class="peek-placeholder">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="3"/><polygon points="10,8 16,12 10,16"/></svg>
+          <span>Video</span>
+        </div>
+        <div class="peek-play">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="white" opacity="0.7"><polygon points="6,4 20,12 6,20"/></svg>
+        </div>
+      </div>
+      <div class="peek-caption"><strong>Travel edit</strong>Social / Reel</div>
+    </div>
+    <div class="peek-card">
+      <div class="peek-media square" style="display:flex;align-items:center;justify-content:center;padding:20px;">
+        <div style="font-family:system-ui,sans-serif;font-size:1rem;font-weight:700;color:var(--ink);line-height:1.3;text-align:center;">"Training For A Half Marathon Around A Full-Time Job"</div>
+      </div>
+      <div class="peek-caption"><strong>Blog</strong>Life</div>
+    </div>
   </div>
 </div>
 
 <!-- CONTACT -->
-<div class="section">
+<div class="section" id="contact">
   <div class="section-header">
     <span class="section-title">Contact me</span>
   </div>
@@ -907,17 +958,26 @@
   const prompt = document.getElementById('spacePrompt');
   let idx = -1;
 
-  function applyPalette(i) {
+  function applyPalette(i, save = true) {
     ['p-mono','p-brand','p-compl','p-analog','p-contra'].forEach(c => htmlEl.classList.remove(c));
     if (i === -1) {
       htmlEl.classList.add('p-mono');
       label.textContent = 'Monochrome';
+      if (save) localStorage.removeItem('palette');
     } else {
       htmlEl.classList.add(palettes[i].cls);
       label.textContent = palettes[i].label;
+      if (save) localStorage.setItem('palette', palettes[i].cls);
     }
     label.classList.add('visible');
     prompt.classList.add('hide');
+  }
+
+  // Restore saved palette on load
+  const saved = localStorage.getItem('palette');
+  if (saved) {
+    const si = palettes.findIndex(p => p.cls === saved);
+    if (si > -1) { idx = si; applyPalette(idx, false); }
   }
 
   document.addEventListener('keydown', (e) => {

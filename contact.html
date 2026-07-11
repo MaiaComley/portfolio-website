@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Maia Comley</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  /* ── PALETTE ── */
+  :root {
+    --bg: #F5F4F0; --ink: #0A0A0A; --muted: #888; --rule: #E0DED9;
+    --surface: #ECEAE4; --accent: #0A0A0A;
+  }
+  html.p-compl  { --bg:#F56200; --ink:#FFFFFF; --muted:rgba(255,255,255,0.65); --rule:rgba(255,255,255,0.22); --surface:#E05800; --accent:#0D46E7; }
+  html.p-analog { --bg:#F5007A; --ink:#FFFFFF; --muted:rgba(255,255,255,0.65); --rule:rgba(255,255,255,0.22); --surface:#D4006A; --accent:#F57A00; }
+
+  html.p-compl .nav-contact  { background: #0D46E7; color: #fff !important; }
+  html.p-analog .nav-contact { background: #F57A00; color: #fff !important; }
+
+  html, body {
+    background: var(--bg); color: var(--ink);
+    font-family: system-ui, -apple-system, sans-serif;
+    height: 100%; overflow: hidden;
+    transition: background 0.55s ease, color 0.55s ease;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 28px 64px;
+    display: flex; align-items: center; justify-content: space-between;
+    transition: background 0.55s ease, border-color 0.3s;
+  }
+  .nav-name {
+    font-size: 0.68rem; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--ink); text-decoration: none;
+    line-height: 1.3; transition: color 0.55s;
+  }
+  .nav-links { display: flex; gap: 36px; list-style: none; align-items: center; }
+  .nav-links a {
+    font-size: 0.68rem; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--muted); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a.active, .nav-links a:hover { color: var(--ink); }
+  .nav-contact {
+    background: var(--ink); color: var(--bg) !important;
+    border-radius: 100px; padding: 8px 20px;
+    transition: background 0.55s, color 0.55s, opacity 0.2s;
+  }
+  .nav-contact:hover { opacity: 0.82; }
+
+  /* ── LAYOUT ── */
+  .page {
+    height: 100vh; display: flex; flex-direction: column;
+    padding-top: 80px;
+  }
+  .content {
+    flex: 1; display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 0;
+    max-width: 1100px; width: 100%; margin: 0 auto;
+    padding: 0 64px 60px;
+    align-items: center;
+  }
+
+  /* ── LEFT ── */
+  .left { padding-right: 72px; }
+  .greeting {
+    font-size: clamp(2.8rem, 5vw, 4.5rem);
+    font-weight: 300; letter-spacing: -0.04em; line-height: 0.95;
+    color: var(--ink); margin-bottom: 20px;
+    transition: color 0.55s;
+  }
+  .tagline {
+    font-size: 0.95rem; color: var(--muted); line-height: 1.6;
+    max-width: 320px; margin-bottom: 40px;
+    transition: color 0.55s;
+  }
+  .contact-links { display: flex; flex-direction: column; gap: 12px; }
+  .contact-link {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 0.72rem; font-weight: 500; letter-spacing: 0.05em;
+    text-transform: uppercase; text-decoration: none;
+    color: var(--ink); opacity: 0.7;
+    transition: opacity 0.2s, color 0.55s;
+  }
+  .contact-link:hover { opacity: 1; }
+  .link-icon {
+    width: 32px; height: 32px; border-radius: 50%;
+    border: 1px solid var(--rule); display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; transition: border-color 0.55s, background 0.2s;
+  }
+  .contact-link:hover .link-icon { background: var(--surface); }
+  .link-icon svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.5; }
+
+  .left-rule {
+    width: 1px; height: 100%; background: var(--rule);
+    position: absolute; right: 0; top: 0;
+    transition: background 0.55s;
+  }
+  .left { position: relative; }
+
+  /* ── RIGHT (form) ── */
+  .right { padding-left: 72px; }
+  .form-label {
+    font-size: 0.62rem; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--muted); margin-bottom: 24px;
+    transition: color 0.55s;
+  }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+  .field {
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .field label {
+    font-size: 0.6rem; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--muted);
+    transition: color 0.55s;
+  }
+  .field input, .field textarea {
+    width: 100%; min-width: 0;
+    background: var(--surface); border: 1px solid transparent;
+    border-radius: 10px; padding: 12px 14px;
+    font-family: inherit; font-size: 0.88rem; color: var(--ink);
+    outline: none; resize: none;
+    transition: background 0.55s, color 0.55s, border-color 0.2s;
+  }
+  .field input:focus, .field textarea:focus { border-color: var(--rule); }
+  .field input::placeholder, .field textarea::placeholder { color: var(--muted); opacity: 0.6; }
+  .field.full { margin-bottom: 16px; }
+  .field textarea { height: 110px; }
+  .send-btn {
+    width: 100%; background: var(--ink); color: var(--bg);
+    border: none; border-radius: 100px; padding: 14px 28px;
+    font-family: inherit; font-size: 0.8rem; font-weight: 500;
+    letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer;
+    transition: background 0.55s, color 0.55s, opacity 0.2s;
+  }
+  .send-btn:hover { opacity: 0.82; }
+
+  /* success state */
+  .success-msg {
+    display: none; text-align: center; padding: 32px 0;
+  }
+  .success-msg .tick {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: var(--ink); color: var(--bg);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 16px; font-size: 1.2rem;
+    transition: background 0.55s, color 0.55s;
+  }
+  .success-msg p { font-size: 0.9rem; color: var(--muted); line-height: 1.5; }
+  .success-msg.show { display: block; }
+  #contactForm.hidden { display: none; }
+
+  /* ── SPACE PROMPT ── */
+  .space-prompt {
+    position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%);
+    display: flex; align-items: center; gap: 10px;
+    background: var(--bg); border: 1px solid var(--rule);
+    border-radius: 100px; padding: 10px 20px;
+    font-size: 0.62rem; font-weight: 400; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--muted); white-space: nowrap;
+    z-index: 200;
+    transition: opacity 0.4s, background 0.55s, border-color 0.55s;
+  }
+  .space-prompt.hidden { opacity: 0; pointer-events: none; }
+  .space-key {
+    background: var(--ink); color: var(--bg);
+    border-radius: 6px; padding: 2px 10px;
+    font-size: 0.6rem; font-weight: 600; letter-spacing: 0.06em;
+    transition: background 0.55s, color 0.55s;
+  }
+
+  /* ── RESPONSIVE — medium: tighten internals ── */
+  @media (max-width: 900px) {
+    .content { padding: 0 40px; }
+    .left { padding-right: 40px; }
+    .right { padding-left: 40px; }
+    .greeting { font-size: clamp(2rem, 4.5vw, 3.5rem); }
+    .tagline { margin-bottom: 28px; }
+    .contact-links { gap: 8px; }
+    .contact-link { font-size: 0.68rem; }
+    .field textarea { height: 88px; }
+    .field.full { margin-bottom: 12px; }
+    .form-label { margin-bottom: 16px; }
+  }
+
+  /* ── RESPONSIVE — mobile: stack ── */
+  @media (max-width: 520px) {
+    html, body { overflow: auto; }
+    .page { height: auto; padding-top: 72px; }
+    nav { padding: 20px 24px; }
+    .content { grid-template-columns: 1fr; padding: 28px 24px 48px; gap: 32px; }
+    .left { padding-right: 0; }
+    .left-rule { display: none; }
+    .right { padding-left: 0; }
+    .greeting { font-size: 2.4rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-name" href="design-template.html">Maia Comley Portfolio</a>
+  <ul class="nav-links">
+    <li><a href="work.html">Work</a></li>
+    <li><a href="interests.html">Interests</a></li>
+    <li><a href="contact.html" class="nav-contact active">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="page">
+  <div class="content">
+
+    <!-- LEFT -->
+    <div class="left">
+      <div class="left-rule"></div>
+      <div class="contact-links">
+        <a class="contact-link" href="mailto:comleymaia@gmail.com" title="comleymaia@gmail.com">
+          <span class="link-icon">
+            <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+          </span>
+          <span>comleymaia@gmail.com</span>
+        </a>
+        <a class="contact-link" href="https://www.linkedin.com/in/maiacomley/" target="_blank" rel="noopener">
+          <span class="link-icon">
+            <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </span>
+          LinkedIn
+        </a>
+        <a class="contact-link" href="Maia_Comley_CV.pdf" download>
+          <span class="link-icon">
+            <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>
+          </span>
+          Download CV
+        </a>
+      </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="right">
+      <p class="form-label">Send a message</p>
+      <form id="contactForm" onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <div class="field">
+            <label for="fname">Name</label>
+            <input type="text" id="fname" name="name" placeholder="Your name" required>
+          </div>
+          <div class="field">
+            <label for="femail">Email</label>
+            <input type="email" id="femail" name="email" placeholder="your@email.com" required>
+          </div>
+        </div>
+        <div class="field full">
+          <label for="fmsg">Message</label>
+          <textarea id="fmsg" name="message" placeholder="What's on your mind?" required></textarea>
+        </div>
+        <button type="submit" class="send-btn">Send message →</button>
+      </form>
+      <div class="success-msg" id="successMsg">
+        <div class="tick">✓</div>
+        <p>Thanks for reaching out!<br>I'll get back to you soon.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="space-prompt" id="spacePrompt">
+  Press <span class="space-key">SPACE</span> to select your theme
+</div>
+
+<script>
+  // Palette
+  const palettes = ['p-compl', 'p-analog'];
+  let idx = -1;
+  const sp = document.getElementById('spacePrompt');
+  function applyPalette(i) {
+    document.documentElement.classList.remove('p-compl', 'p-analog');
+    if (i >= 0) { document.documentElement.classList.add(palettes[i]); localStorage.setItem('palette', palettes[i]); }
+    else { localStorage.removeItem('palette'); }
+  }
+  const saved = localStorage.getItem('palette');
+  if (saved) { idx = palettes.indexOf(saved); if (idx > -1) { applyPalette(idx); sp.classList.add('hidden'); } }
+  window.addEventListener('keydown', e => {
+    if (e.code === 'Space' && e.target === document.body) {
+      e.preventDefault();
+      idx = idx >= palettes.length - 1 ? -1 : idx + 1;
+      applyPalette(idx);
+    }
+  });
+
+  // Form — uses mailto as fallback; swap action URL for Formspree/Basin when ready
+  function handleSubmit(e) {
+    e.preventDefault();
+    const name    = document.getElementById('fname').value;
+    const email   = document.getElementById('femail').value;
+    const message = document.getElementById('fmsg').value;
+
+    const mailtoUrl = `mailto:comleymaia@gmail.com`
+      + `?subject=${encodeURIComponent('Portfolio enquiry from ' + name)}`
+      + `&body=${encodeURIComponent(message + '\n\nFrom: ' + name + '\nReply to: ' + email)}`;
+
+    window.location.href = mailtoUrl;
+
+    // Show success after short delay (email client will open)
+    setTimeout(() => {
+      document.getElementById('contactForm').classList.add('hidden');
+      document.getElementById('successMsg').classList.add('show');
+    }, 400);
+  }
+</script>
+</body>
+</html>

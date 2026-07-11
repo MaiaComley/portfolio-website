@@ -1,0 +1,528 @@
+<title>Interests — Maia Comley</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #FFFFFF; --ink: #0A0A0A; --muted: #888;
+    --rule: #E8E8E8; --surface: #F2F2F0; --accent: #0A0A0A;
+  }
+
+  html { background: var(--bg); color: var(--ink); font-size: 16px; scroll-behavior: smooth; transition: background 0.6s; }
+  body { font-family: system-ui, -apple-system, sans-serif; line-height: 1.5; overflow-x: hidden; transition: color 0.4s; }
+
+  html.p-mono  { --bg:#FFFFFF; --ink:#0A0A0A; --muted:#888; --rule:#E8E8E8; --surface:#F2F2F0; --accent:#0A0A0A; }
+  html.p-compl { --bg:#F56200; --ink:#FFFFFF; --muted:rgba(255,255,255,0.7); --rule:rgba(255,255,255,0.25); --surface:#E05800; --accent:#0D46E7; }
+  html.p-analog{ --bg:#F5007A; --ink:#FFFFFF; --muted:rgba(255,255,255,0.7); --rule:rgba(255,255,255,0.25); --surface:#D4006A; --accent:#F57A00; }
+  html, body, nav, footer { transition: background 0.55s, color 0.55s, border-color 0.55s; }
+  .nav-contact, .nav-links a, .nav-name { transition: color 0.5s, background 0.5s; }
+
+  /* ── NAV ── */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 36px 64px; background: var(--bg); border-bottom: 1px solid transparent; transition: border-color 0.3s, background 0.6s; }
+  nav.scrolled { border-bottom-color: var(--rule); }
+  .nav-name { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink); text-decoration: none; }
+  .nav-links { display: flex; gap: 36px; list-style: none; align-items: center; }
+  .nav-links a { font-size: 0.68rem; font-weight: 400; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--ink); }
+  .nav-contact { background: var(--accent); color: var(--bg) !important; padding: 7px 16px; border-radius: 100px; }
+  html.p-mono  .nav-contact { background: var(--ink); color: #fff !important; }
+  html.p-compl .nav-contact { background: #0D46E7; color: #fff !important; }
+  html.p-analog .nav-contact { background: #F57A00; color: #fff !important; }
+  .nav-contact:hover { opacity: 0.82; }
+
+  /* ── PAGE HEADER ── */
+  .page-header { padding: 160px 40px 72px; max-width: 1200px; margin: 0 auto; }
+  .page-header-title { font-size: clamp(3rem, 7vw, 6.5rem); font-weight: 300; letter-spacing: -0.04em; line-height: 0.95; color: var(--ink); }
+  .page-header-sub { margin-top: 20px; font-size: 1rem; font-weight: 300; color: var(--muted); max-width: 420px; line-height: 1.6; }
+
+  /* ── CONTENT SECTIONS ── */
+  .content-wrap { max-width: 1200px; margin: 0 auto; padding: 0 40px 120px; display: flex; flex-direction: column; gap: 80px; }
+
+  /* Section label */
+  .section-label {
+    font-size: 0.6rem; font-weight: 500; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--muted);
+    border-top: 1px solid var(--rule); padding-top: 20px;
+    margin-bottom: 32px;
+  }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal-item {
+    opacity: 0; transform: translateY(28px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+  }
+  .reveal-item.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── VIDEO GRID (portrait 9:16) ── */
+  /* ── 2-UP SLIDER (video + design) ── */
+  .slider-wrap {
+    position: relative;
+  }
+  .slider-viewport {
+    overflow: hidden;
+    border-radius: 14px;
+  }
+  .slider-track {
+    display: flex;
+    gap: 12px;
+    transition: transform 0.45s cubic-bezier(0.22,1,0.36,1);
+  }
+  .slider-item {
+    flex: 0 0 calc(33.333% - 8px);
+    min-width: 0;
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--surface);
+    cursor: pointer;
+    transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s;
+  }
+  .slider-item:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.1); }
+  .slider-btn {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    width: 38px; height: 38px; border-radius: 50%;
+    background: var(--bg); border: 1px solid var(--rule);
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    color: var(--ink); z-index: 10;
+    transition: background 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  }
+  .slider-btn:hover { background: var(--ink); color: var(--bg); }
+  .slider-btn svg { pointer-events: none; }
+  .slider-btn.prev { left: -16px; }
+  .slider-btn.next { right: -16px; }
+  .slider-btn:disabled { opacity: 0.25; cursor: default; }
+  .slider-dots {
+    display: flex; justify-content: center; gap: 6px; margin-top: 14px;
+  }
+  .slider-dot {
+    width: 5px; height: 5px; border-radius: 50%;
+    background: var(--rule); transition: background 0.25s, transform 0.25s;
+  }
+  .slider-dot.active { background: var(--ink); transform: scale(1.3); }
+
+  /* video card innards */
+  .video-card .vc-media {
+    aspect-ratio: 4/5; width: 100%;
+    background: var(--rule); position: relative; overflow: hidden;
+  }
+  .video-card .vc-media video { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .video-card .vc-media img  { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .vc-placeholder {
+    position: absolute; inset: 0; display: flex; align-items: center;
+    justify-content: center; flex-direction: column; gap: 10px; color: var(--muted);
+  }
+  .vc-placeholder svg { opacity: 0.28; }
+  .vc-placeholder span { font-size: 0.55rem; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.4; }
+  .vc-play {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    background: rgba(0,0,0,0.12); transition: background 0.2s;
+  }
+  .slider-item:hover .vc-play { background: rgba(0,0,0,0.04); }
+  .vc-caption { padding: 12px 14px 16px; font-size: 0.82rem; color: var(--muted); }
+
+  /* design card innards */
+  .dc-media { width: 100%; background: var(--rule); position: relative; overflow: hidden; }
+  .dc-media.sq  { aspect-ratio: 1/1; }
+  .dc-media.landscape { aspect-ratio: 4/3; }
+  .dc-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .dc-placeholder {
+    position: absolute; inset: 0; display: flex; align-items: center;
+    justify-content: center; flex-direction: column; gap: 10px; color: var(--muted);
+  }
+  .dc-placeholder svg { opacity: 0.28; }
+  .dc-placeholder span { font-size: 0.55rem; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.4; }
+  .dc-caption { padding: 12px 14px 16px; font-size: 0.82rem; color: var(--muted); }
+
+  /* ── BLOG GRID ── */
+  .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .blog-card {
+    border-radius: 14px; background: var(--surface);
+    cursor: pointer; padding: 28px 24px 24px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    min-height: 200px;
+    transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s;
+  }
+  .blog-card:hover { transform: translateY(-6px); box-shadow: 0 20px 56px rgba(0,0,0,0.12); }
+  .bc-tag { font-size: 0.52rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--rule); border-radius: 100px; padding: 2px 8px; width: fit-content; margin-bottom: 16px; }
+  .bc-title { font-size: 1.05rem; font-weight: 400; color: var(--ink); line-height: 1.35; flex: 1; }
+  .bc-arrow { margin-top: 20px; font-size: 0.72rem; color: var(--muted); letter-spacing: 0.04em; }
+
+  /* ── CARD TOOLTIP (click info) ── */
+  .card-tooltip {
+    position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(8px);
+    background: var(--ink); color: var(--bg);
+    border-radius: 100px; padding: 10px 20px;
+    font-size: 0.72rem; font-weight: 400; letter-spacing: 0.02em;
+    white-space: nowrap; z-index: 300;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.25s, transform 0.25s;
+    max-width: 90vw; white-space: normal; text-align: center;
+  }
+  .card-tooltip.show { opacity: 1; transform: translateX(-50%) translateY(0); pointer-events: auto; }
+
+  /* ── BLOG MODAL ── */
+  .blog-modal-bg {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+    z-index: 400; opacity: 0; pointer-events: none;
+    transition: opacity 0.3s;
+    display: flex; align-items: center; justify-content: center;
+    padding: 40px 24px;
+  }
+  .blog-modal-bg.open { opacity: 1; pointer-events: auto; }
+  .blog-modal {
+    background: var(--bg); border-radius: 18px;
+    max-width: 680px; width: 100%; max-height: 80vh; overflow-y: auto;
+    padding: 40px 44px; position: relative;
+    transform: translateY(16px); transition: transform 0.35s cubic-bezier(0.22,1,0.36,1);
+    scrollbar-width: none;
+  }
+  .blog-modal-bg.open .blog-modal { transform: translateY(0); }
+  .blog-modal::-webkit-scrollbar { display: none; }
+  .bm-close {
+    position: absolute; top: 20px; right: 20px;
+    width: 32px; height: 32px; border-radius: 50%;
+    border: 1px solid var(--rule); background: transparent;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    color: var(--muted); transition: background 0.2s;
+  }
+  .bm-close:hover { background: var(--surface); }
+  .bm-tag { font-size: 0.55rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+  .bm-title { font-size: 1.6rem; font-weight: 300; letter-spacing: -0.03em; color: var(--ink); line-height: 1.2; margin-bottom: 24px; }
+  .bm-image { width: 100%; aspect-ratio: 16/9; background: var(--rule); border-radius: 10px; margin-bottom: 28px; overflow: hidden; }
+  .bm-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .bm-image-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: var(--muted); opacity: 0.3; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; }
+  .bm-body { font-size: 0.95rem; font-weight: 300; color: var(--ink); line-height: 1.75; opacity: 0.85; }
+  .bm-body p + p { margin-top: 1.2em; }
+
+  /* ── SPACE PROMPT ── */
+  .space-prompt { position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 10px; background: var(--bg); border: 1px solid var(--rule); border-radius: 100px; padding: 10px 20px; font-size: 0.62rem; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); white-space: nowrap; z-index: 200; transition: opacity 0.4s, background 0.55s, border-color 0.55s; }
+  .space-prompt.hidden { opacity: 0; pointer-events: none; }
+  .space-key { background: var(--ink); color: var(--bg); border-radius: 6px; padding: 2px 10px; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.06em; transition: background 0.55s, color 0.55s; }
+
+  /* ── FOOTER ── */
+  footer { border-top: 1px solid var(--rule); }
+  .footer-wrap { padding: 32px 64px; max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+  .footer-copy { font-size: 0.62rem; font-weight: 400; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 540px) {
+    nav { padding: 24px; }
+    .page-header { padding: 130px 24px 48px; }
+    .content-wrap { padding: 0 24px 80px; }
+    .video-grid, .design-grid, .blog-grid { grid-template-columns: repeat(2, 1fr); }
+    .design-card.span-2 { grid-column: span 2; }
+    .footer-wrap { padding: 24px; flex-direction: column; gap: 12px; text-align: center; }
+    .blog-modal { padding: 28px 24px; }
+  }
+</style>
+
+<nav id="nav">
+  <a class="nav-name" href="design-template.html">Maia Comley Portfolio</a>
+  <ul class="nav-links">
+    <li><a href="work.html">Work</a></li>
+    <li><a href="interests.html" class="active">Interests</a></li>
+    <li><a href="contact.html" class="nav-contact">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="page-header">
+  <h1 class="page-header-title reveal-item">Outside<br>the brief</h1>
+  <p class="page-header-sub reveal-item" style="transition-delay:0.1s">A collection of projects and pieces of everything I love to do and am interested in.</p>
+</div>
+
+<div class="content-wrap">
+
+  <!-- ── SOCIAL / VIDEO ── -->
+  <div>
+    <div class="section-label reveal-item">Social &amp; Video</div>
+    <div class="slider-wrap reveal-item">
+      <button class="slider-btn prev" data-slider="video" aria-label="Previous">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="10,3 5,8 10,13"/></svg>
+      </button>
+      <div class="slider-viewport">
+        <div class="slider-track" id="videoTrack">
+
+          <div class="slider-item video-card" data-tip="Fashion Week content I filmed and edited for Indera Tamara's SS26 show.">
+            <div class="vc-media">
+              <div class="vc-placeholder">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                <span>Video coming</span>
+              </div>
+              <div class="vc-play"><svg width="48" height="48" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="23" fill="white" fill-opacity="0.88"/><polygon points="20,15 36,24 20,33" fill="#0A0A0A"/></svg></div>
+            </div>
+            <div class="vc-caption">LFW Runway · SS26</div>
+          </div>
+
+          <div class="slider-item video-card" data-tip="A TikTok I created for Noirgaze during their Black Friday campaign.">
+            <div class="vc-media">
+              <div class="vc-placeholder">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                <span>Video coming</span>
+              </div>
+              <div class="vc-play"><svg width="48" height="48" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="23" fill="white" fill-opacity="0.88"/><polygon points="20,15 36,24 20,33" fill="#0A0A0A"/></svg></div>
+            </div>
+            <div class="vc-caption">Noirgaze · Black Friday</div>
+          </div>
+
+          <div class="slider-item video-card" data-tip="A TikTok product shoot I led and edited — styling, art direction and post-production.">
+            <div class="vc-media">
+              <div class="vc-placeholder">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                <span>Video coming</span>
+              </div>
+              <div class="vc-play"><svg width="48" height="48" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="23" fill="white" fill-opacity="0.88"/><polygon points="20,15 36,24 20,33" fill="#0A0A0A"/></svg></div>
+            </div>
+            <div class="vc-caption">Noirgaze · Product Shoot</div>
+          </div>
+
+        </div>
+      </div>
+      <button class="slider-btn next" data-slider="video" aria-label="Next">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,3 11,8 6,13"/></svg>
+      </button>
+      <div class="slider-dots" id="videoDots"></div>
+    </div>
+  </div>
+
+  <!-- ── DESIGN & PHOTOGRAPHY ── -->
+  <div>
+    <div class="section-label reveal-item">Design &amp; Photography</div>
+    <div class="slider-wrap reveal-item">
+      <button class="slider-btn prev" data-slider="design" aria-label="Previous">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="10,3 5,8 10,13"/></svg>
+      </button>
+      <div class="slider-viewport">
+        <div class="slider-track" id="designTrack">
+
+          <div class="slider-item" data-tip="A birthday card I designed — hand-illustrated and printed.">
+            <div class="dc-media sq">
+              <div class="dc-placeholder">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                <span>Image coming</span>
+              </div>
+            </div>
+            <div class="dc-caption">Birthday Card</div>
+          </div>
+
+          <div class="slider-item" data-tip="A Christmas card I designed and sent out — illustrated in Adobe Illustrator.">
+            <div class="dc-media sq">
+              <div class="dc-placeholder">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                <span>Image coming</span>
+              </div>
+            </div>
+            <div class="dc-caption">Christmas Card</div>
+          </div>
+
+          <div class="slider-item" data-tip="A third card design — part of my personal stationery collection.">
+            <div class="dc-media sq">
+              <div class="dc-placeholder">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                <span>Image coming</span>
+              </div>
+            </div>
+            <div class="dc-caption">Card Design</div>
+          </div>
+
+          <div class="slider-item" data-tip="A personal print poster — designed in Adobe InDesign and printed A2.">
+            <div class="dc-media landscape">
+              <div class="dc-placeholder">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                <span>Image coming</span>
+              </div>
+            </div>
+            <div class="dc-caption">Print Poster</div>
+          </div>
+
+          <div class="slider-item" data-tip="Travel photography coming soon — Thailand, Bali, Europe and beyond." style="display:flex;align-items:center;justify-content:space-between;padding:32px 28px;border:1px dashed var(--rule);border-radius:14px;">
+            <div>
+              <div style="font-size:0.6rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">Photography</div>
+              <div style="font-size:1.2rem;font-weight:300;letter-spacing:-0.02em;color:var(--ink);">Travel Photography</div>
+              <div style="font-size:0.78rem;color:var(--muted);margin-top:6px;">Thailand, Bali, Europe and beyond.</div>
+            </div>
+            <span style="font-size:0.55rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);border:1px solid var(--rule);border-radius:100px;padding:6px 14px;white-space:nowrap;flex-shrink:0;">Coming Soon</span>
+          </div>
+
+        </div>
+      </div>
+      <button class="slider-btn next" data-slider="design" aria-label="Next">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,3 11,8 6,13"/></svg>
+      </button>
+      <div class="slider-dots" id="designDots"></div>
+    </div>
+  </div>
+
+  <!-- ── BLOG / WRITING ── -->
+  <div>
+    <div class="section-label reveal-item">My Words</div>
+    <div class="blog-grid">
+
+      <div class="blog-card reveal-item"
+           data-blog="true"
+           data-title="Why Every Brand Needs a Point of View"
+           data-tag="Marketing"
+           data-body="<p>In a world saturated with content, the brands that cut through aren't the loudest — they're the ones with something to say. A point of view isn't just a tagline. It's the consistent lens through which every piece of communication is filtered.</p><p>I've been thinking about this a lot in my work at IDGateway. Identity verification isn't the most glamorous sector, but there's a genuinely important story to tell about trust, security and digital freedom — and that story needs a perspective to land.</p><p>The brands I admire most — Patagonia, Oatly, even early Apple — don't describe what they do. They describe what they believe. And everything else follows from that.</p>">
+        <div class="bc-tag">Marketing</div>
+        <div class="bc-title">Why Every Brand Needs a Point of View</div>
+        <div class="bc-arrow">Read →</div>
+      </div>
+
+      <div class="blog-card reveal-item" style="transition-delay:0.08s"
+           data-blog="true"
+           data-title="What Fashion Week Taught Me About Storytelling"
+           data-tag="Creative"
+           data-body="<p>When I worked on Kyle Ho's SS26 show for Indera Tamara, I wasn't just filming a runway — I was learning what it means to build a moment. Fashion Week is theatre. Every detail, from the seating arrangement to the soundtrack, is part of the story being told.</p><p>What struck me most was how the best shows didn't need to explain themselves. The work spoke. The atmosphere did the rest. That's the standard I try to hold creative work to: if you need to explain it, it's not quite there yet.</p><p>Content creation in this world moves fast — a show that took months to prepare lives on social media for 48 hours. The challenge is distilling all of that craft into something that travels.</p>">
+        <div class="bc-tag">Creative</div>
+        <div class="bc-title">What Fashion Week Taught Me About Storytelling</div>
+        <div class="bc-arrow">Read →</div>
+      </div>
+
+      <div class="blog-card reveal-item" style="transition-delay:0.16s"
+           data-blog="true"
+           data-title="Growing a Brand on TikTok Without Losing Your Soul"
+           data-tag="Social Media"
+           data-body="<p>When I joined Noirgaze, their TikTok had a presence but no real pulse. The content was fine — products looked good, captions were clean — but it felt like it was made by a brand, not a person. That's the TikTok death sentence.</p><p>What worked wasn't tricks or trends. It was leaning into specificity. Showing the behind-the-scenes of a shoot rather than the polished result. Letting imperfection in. Speaking like a real person who happened to love the product.</p><p>Five months in, the following had grown by 3,000 across platforms. But more than the number, the comments shifted. People started talking back. That's when you know it's working.</p>">
+        <div class="bc-tag">Social Media</div>
+        <div class="bc-title">Growing a Brand on TikTok Without Losing Your Soul</div>
+        <div class="bc-arrow">Read →</div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-wrap">
+    <span class="footer-copy">© 2025 Maia Comley</span>
+    <span class="footer-copy">London, UK</span>
+  </div>
+</footer>
+
+<div class="space-prompt" id="spacePrompt">
+  Press <span class="space-key">SPACE</span> to select your theme
+</div>
+
+<!-- Tooltip -->
+<div class="card-tooltip" id="cardTooltip"></div>
+
+<!-- Blog modal -->
+<div class="blog-modal-bg" id="blogModalBg">
+  <div class="blog-modal" id="blogModal">
+    <button class="bm-close" id="blogClose" aria-label="Close">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M1 1l10 10M11 1L1 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </button>
+    <div class="bm-tag" id="bmTag"></div>
+    <div class="bm-title" id="bmTitle"></div>
+    <div class="bm-image"><div class="bm-image-placeholder">Image coming soon</div></div>
+    <div class="bm-body" id="bmBody"></div>
+  </div>
+</div>
+
+<script>
+  // ── 2-up Sliders ──
+  function initSlider(trackId, dotsId, btnAttr) {
+    const track = document.getElementById(trackId);
+    const dotsEl = document.getElementById(dotsId);
+    if (!track) return;
+    const items = track.querySelectorAll('.slider-item');
+    const total = items.length;
+    const perPage = 3;
+    const pages = Math.ceil(total / perPage);
+    let current = 0;
+
+    // build dots
+    for (let i = 0; i < pages; i++) {
+      const d = document.createElement('div');
+      d.className = 'slider-dot' + (i === 0 ? ' active' : '');
+      d.addEventListener('click', () => goTo(i));
+      dotsEl.appendChild(d);
+    }
+
+    function goTo(page) {
+      current = Math.max(0, Math.min(page, pages - 1));
+      const itemWidth = track.querySelector('.slider-item').offsetWidth + 12;
+      track.style.transform = `translateX(-${current * perPage * itemWidth}px)`;
+      dotsEl.querySelectorAll('.slider-dot').forEach((d, i) => d.classList.toggle('active', i === current));
+      document.querySelectorAll(`.slider-btn[data-slider="${btnAttr}"]`).forEach(btn => {
+        if (btn.classList.contains('prev')) btn.disabled = current === 0;
+        if (btn.classList.contains('next')) btn.disabled = current === pages - 1;
+      });
+    }
+
+    document.querySelectorAll(`.slider-btn[data-slider="${btnAttr}"]`).forEach(btn => {
+      btn.addEventListener('click', () => {
+        goTo(btn.classList.contains('prev') ? current - 1 : current + 1);
+      });
+    });
+
+    goTo(0);
+  }
+
+  initSlider('videoTrack', 'videoDots', 'video');
+  initSlider('designTrack', 'designDots', 'design');
+
+  // Nav scroll
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 20));
+
+  // Palette
+  const palettes = ['p-compl', 'p-analog'];
+  let idx = -1;
+  const saved = localStorage.getItem('palette');
+  if (saved) { idx = palettes.indexOf(saved); if (idx > -1) document.documentElement.classList.add(saved); }
+  function applyPalette(i) {
+    document.documentElement.classList.remove('p-mono','p-compl','p-analog');
+    if (i >= 0) { document.documentElement.classList.add(palettes[i]); localStorage.setItem('palette', palettes[i]); }
+    else { localStorage.removeItem('palette'); }
+  }
+  document.addEventListener('keydown', (e) => {
+    if (e.code === 'Space' && e.target === document.body) {
+      e.preventDefault();
+      idx = idx >= palettes.length - 1 ? -1 : idx + 1;
+      applyPalette(idx);
+      document.getElementById('spacePrompt').classList.add('hidden');
+    }
+  });
+  if (localStorage.getItem('palette')) document.getElementById('spacePrompt').classList.add('hidden');
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(el => { if (el.isIntersecting) el.target.classList.add('visible'); });
+  }, { rootMargin: '0px 0px -50px 0px' });
+  document.querySelectorAll('.reveal-item').forEach(el => observer.observe(el));
+
+  // Tooltip for non-blog cards
+  const tooltip = document.getElementById('cardTooltip');
+  let tooltipTimer;
+  document.querySelectorAll('[data-tip]').forEach(card => {
+    card.addEventListener('click', (e) => {
+      if (card.dataset.blog) return;
+      tooltip.textContent = card.dataset.tip;
+      tooltip.classList.add('show');
+      clearTimeout(tooltipTimer);
+      tooltipTimer = setTimeout(() => tooltip.classList.remove('show'), 3000);
+    });
+  });
+
+  // Blog modal
+  const modalBg  = document.getElementById('blogModalBg');
+  const bmTag    = document.getElementById('bmTag');
+  const bmTitle  = document.getElementById('bmTitle');
+  const bmBody   = document.getElementById('bmBody');
+  document.querySelectorAll('[data-blog]').forEach(card => {
+    card.addEventListener('click', () => {
+      bmTag.textContent  = card.dataset.tag;
+      bmTitle.textContent = card.dataset.title;
+      bmBody.innerHTML   = card.dataset.body;
+      modalBg.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+  function closeModal() {
+    modalBg.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.getElementById('blogClose').addEventListener('click', closeModal);
+  modalBg.addEventListener('click', (e) => { if (e.target === modalBg) closeModal(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+</script>
