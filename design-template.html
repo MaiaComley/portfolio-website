@@ -379,6 +379,23 @@
   }
   .card-modal-more:hover { opacity: 1; }
 
+  /* media strip inside card modal */
+  .modal-media-strip {
+    display: flex; gap: 12px; overflow-x: auto;
+    margin: 20px 0 4px; padding-bottom: 8px;
+    scrollbar-width: none;
+  }
+  .modal-media-strip::-webkit-scrollbar { display: none; }
+  .modal-media-strip:empty { display: none; }
+  .modal-media-item {
+    flex: 0 0 auto; border-radius: 10px; overflow: hidden;
+    background: rgba(0,0,0,0.15);
+  }
+  .modal-media-item.portrait  { width: 120px; height: 200px; }
+  .modal-media-item.landscape { width: 260px; height: 160px; }
+  .modal-media-item img,
+  .modal-media-item video { width: 100%; height: 100%; object-fit: cover; display: block; }
+
   /* analogous palette card overrides — tint via pseudo, keep image */
   html.p-analog .card-1 { background-color: #F50000; }
   html.p-analog .card-1 .work-card-name { color: #F5007A; }
@@ -930,6 +947,7 @@
       <div class="card-modal-title" id="modalTitle"></div>
       <p class="card-modal-desc" id="modalDesc"></p>
       <ul class="card-modal-bullets" id="modalBullets"></ul>
+      <div class="modal-media-strip" id="modalMediaStrip"></div>
       <button class="card-modal-more" id="modalMore">See more →</button>
     </div>
   </div>
