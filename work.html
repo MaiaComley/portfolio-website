@@ -69,13 +69,56 @@
 
   /* ── PAGE HEADER ── */
   .page-header {
-    padding: 160px 64px 56px;
+    padding: 160px 64px 40px;
     max-width: 1200px; margin: 0 auto;
   }
   .page-header-title {
     font-size: clamp(3.5rem, 8vw, 7rem);
     font-weight: 300; letter-spacing: -0.04em; line-height: 0.95;
     color: var(--ink);
+  }
+
+  /* ── SKILLS CAROUSEL ── */
+  .skills-belt {
+    position: relative;
+    overflow: hidden;
+    padding: 28px 0 36px;
+    max-width: 1200px; margin: 0 auto;
+  }
+  /* fade edges */
+  .skills-belt::before,
+  .skills-belt::after {
+    content: ''; position: absolute; top: 0; bottom: 0; width: 120px; z-index: 2; pointer-events: none;
+    transition: background 0.55s;
+  }
+  .skills-belt::before { left: 0;  background: linear-gradient(to right, var(--bg), transparent); }
+  .skills-belt::after  { right: 0; background: linear-gradient(to left,  var(--bg), transparent); }
+  .skills-track {
+    display: flex; gap: 10px;
+    width: max-content;
+    animation: beltScroll 30s linear infinite;
+  }
+  .skills-track:hover { animation-play-state: paused; }
+  @keyframes beltScroll {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .skill-chip {
+    flex-shrink: 0;
+    display: flex; align-items: center; gap: 8px;
+    border: 1px solid var(--rule); border-radius: 100px;
+    padding: 8px 18px;
+    font-size: 0.7rem; font-weight: 500; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--muted);
+    white-space: nowrap;
+    transition: color 0.2s, border-color 0.55s, background 0.2s;
+    cursor: default;
+  }
+  .skill-chip:hover { color: var(--ink); background: var(--surface); }
+  .skill-chip .chip-dot {
+    width: 5px; height: 5px; border-radius: 50%;
+    background: var(--rule); flex-shrink: 0;
+    transition: background 0.55s;
   }
 
   /* ── TIMELINE ── */
@@ -395,6 +438,50 @@
   <h1 class="page-header-title reveal">Work</h1>
 </div>
 
+<!-- ── SKILLS CAROUSEL ── -->
+<div class="skills-belt">
+  <div class="skills-track" id="skillsTrack">
+    <!-- set 1 -->
+    <div class="skill-chip"><span class="chip-dot"></span>Content Creation</div>
+    <div class="skill-chip"><span class="chip-dot"></span>Brand Strategy</div>
+    <div class="skill-chip"><span class="chip-dot"></span>Canva</div>
+    <div class="skill-chip"><span class="chip-dot"></span>SEO / GEO</div>
+    <div class="skill-chip"><span class="chip-dot"></span>Adobe Photoshop</div>
+    <div class="skill-chip"><span class="chip-dot"></span>Campaign Planning</div>
+    <div class="skill-chip"><span class="chip-dot"></span>Premiere Pro</div>
+    <div class="skill-chip"><span class="chip-dot"></span>Analytics</div>
+    <div class="skill-chip"><span class="chip-dot"></span>Copywriting</div>
+    <div class="skill-chip"><span class="chip-dot"></span>HubSpot</div>
+    <div class="skill-chip"><span class="chip-dot"></span>CapCut</div>
+    <div class="skill-chip"><span class="chip-dot"></span>Social Media</div>
+    <div class="skill-chip"><span class="chip-dot"></span>Lightroom</div>
+    <div class="skill-chip"><span class="chip-dot"></span>Wix</div>
+    <div class="skill-chip"><span class="chip-dot"></span>Advertising</div>
+    <div class="skill-chip"><span class="chip-dot"></span>Figma</div>
+    <div class="skill-chip"><span class="chip-dot"></span>Influencer Relations</div>
+    <div class="skill-chip"><span class="chip-dot"></span>InDesign</div>
+    <!-- set 2 — duplicate for seamless loop -->
+    <div class="skill-chip"><span class="chip-dot"></span>Content Creation</div>
+    <div class="skill-chip"><span class="chip-dot"></span>Brand Strategy</div>
+    <div class="skill-chip"><span class="chip-dot"></span>Canva</div>
+    <div class="skill-chip"><span class="chip-dot"></span>SEO / GEO</div>
+    <div class="skill-chip"><span class="chip-dot"></span>Adobe Photoshop</div>
+    <div class="skill-chip"><span class="chip-dot"></span>Campaign Planning</div>
+    <div class="skill-chip"><span class="chip-dot"></span>Premiere Pro</div>
+    <div class="skill-chip"><span class="chip-dot"></span>Analytics</div>
+    <div class="skill-chip"><span class="chip-dot"></span>Copywriting</div>
+    <div class="skill-chip"><span class="chip-dot"></span>HubSpot</div>
+    <div class="skill-chip"><span class="chip-dot"></span>CapCut</div>
+    <div class="skill-chip"><span class="chip-dot"></span>Social Media</div>
+    <div class="skill-chip"><span class="chip-dot"></span>Lightroom</div>
+    <div class="skill-chip"><span class="chip-dot"></span>Wix</div>
+    <div class="skill-chip"><span class="chip-dot"></span>Advertising</div>
+    <div class="skill-chip"><span class="chip-dot"></span>Figma</div>
+    <div class="skill-chip"><span class="chip-dot"></span>Influencer Relations</div>
+    <div class="skill-chip"><span class="chip-dot"></span>InDesign</div>
+  </div>
+</div>
+
 <div class="timeline-outer">
   <div class="tl-spine"></div>
 
@@ -409,13 +496,14 @@
           <span>2024 – Present</span>
         </div>
         <h2 class="role-company">IDGateway</h2>
-        <p class="role-desc">Full-stack marketing role spanning social, content, SEO and analytics — keeping me close to every part of how a brand shows up.</p>
+        <p class="role-desc">End-to-end marketing at a B2B SaaS company — combining creativity and strategy to build a brand that connects.</p>
         <ul class="role-bullets">
-          <li>Managing social media across LinkedIn, Instagram and X</li>
-          <li>Shaping content strategy and campaign planning</li>
-          <li>Writing blog content and website copy</li>
-          <li>Designing and updating web pages</li>
-          <li>Reporting on performance and analytics</li>
+          <li>Own the LinkedIn content strategy for AirportGateway and VettingGateway, delivering 5–6 posts per week</li>
+          <li>Produce blogs, case studies, thought leadership, video content and campaign assets</li>
+          <li>Manage website content and UX, supporting SEO, GEO and AEO to improve digital visibility</li>
+          <li>Build AI-powered marketing workflows to streamline content planning, briefing and reporting</li>
+          <li>Support event marketing for HR Technologies UK and the International Security Expo</li>
+          <li>Manage external platforms including G2, Capterra and PromptWatch for review and AI search visibility</li>
         </ul>
         <button class="role-see-btn" data-role="idgateway">See work →</button>
       </div>
@@ -448,12 +536,13 @@
           <span>2024</span>
         </div>
         <h2 class="role-company">Noirgaze</h2>
-        <p class="role-desc">Social media and content creation for a fashion start-up, driving 3k+ follower growth through campaign execution and product storytelling.</p>
+        <p class="role-desc">Social media and content for a fashion start-up — growing the brand's following by 3,000+ in five months.</p>
         <ul class="role-bullets">
-          <li>Creating social content for Instagram and TikTok</li>
-          <li>Leading influencer outreach and relationship management</li>
-          <li>Planning and managing the content calendar</li>
-          <li>Contributing to website design and updates</li>
+          <li>Led planning and creation of content for Instagram and TikTok across campaigns, launches and Fashion Week</li>
+          <li>Acted as Creative Lead for product shoots — overseeing styling, art direction and post-production</li>
+          <li>Managed CRM and email marketing via Klaviyo, designing automated flows and seasonal newsletters</li>
+          <li>Collaborated with the founder to shape brand voice, strategy and visual identity</li>
+          <li>Wrote product descriptions and web copy to enhance brand storytelling</li>
         </ul>
         <button class="role-see-btn" data-role="noirgaze">See work →</button>
       </div>
@@ -480,12 +569,13 @@
           <span>Sept – Oct 2025</span>
         </div>
         <h2 class="role-company">Indera Tamara</h2>
-        <p class="role-desc">PR and content support for an independent fashion label around London Fashion Week SS26.</p>
+        <p class="role-desc">PR and content support for an independent fashion label across London Fashion Week SS26.</p>
         <ul class="role-bullets">
-          <li>Filming and editing LFW runway content</li>
-          <li>PR documentation and press materials</li>
-          <li>Brand kit development</li>
-          <li>SS26 show coverage and social output</li>
+          <li>Managed end-to-end event logistics for LFW — VIP relations, seating plans and press coordination</li>
+          <li>Planned, storyboarded, filmed and edited runway content for Kyle Ho's SS26 show</li>
+          <li>Designed brand kits and social media style guides in Canva</li>
+          <li>Compiled press, influencer and talent contact lists for event outreach</li>
+          <li>Delivered post-event analytics and press coverage reports to measure campaign ROI</li>
         </ul>
         <button class="role-see-btn" data-role="indera">See work →</button>
       </div>
