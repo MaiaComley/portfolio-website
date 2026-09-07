@@ -3,42 +3,32 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Work — Maia Comley</title>
+<title>Work | Maia Comley</title>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   /* ── PALETTE ── */
   :root {
-    --bg: #F5F4F0; --ink: #0A0A0A; --muted: #888; --rule: #E0DED9;
-    --surface: #ECEAE4; --accent: #0A0A0A;
+    --bg: #FFFFFF; --ink: #0A0A0A; --muted: #888; --rule: #E8E8E8;
+    --surface: #F2F2F2; --accent: #0A0A0A;
   }
   html.p-compl  { --bg:#F56200; --ink:#FFFFFF; --muted:rgba(255,255,255,0.65); --rule:rgba(255,255,255,0.22); --surface:#E05800; --accent:#0D46E7; }
   html.p-analog { --bg:#F5007A; --ink:#FFFFFF; --muted:rgba(255,255,255,0.65); --rule:rgba(255,255,255,0.22); --surface:#D4006A; --accent:#F57A00; }
-
-  /* nav-contact overrides per palette */
   html.p-compl .nav-contact  { background: #0D46E7; color: #fff !important; }
   html.p-analog .nav-contact { background: #F57A00; color: #fff !important; }
-
-  /* stack-badge & honours-badge on coloured bg */
   html.p-compl .stack-badge, html.p-compl .honours-badge  { background: #FFFFFF; color: #F56200; }
   html.p-analog .stack-badge, html.p-analog .honours-badge { background: #FFFFFF; color: #F5007A; }
+  html.p-compl .ual-logo, html.p-analog .ual-logo { filter: brightness(0) invert(1); }
 
   html, body {
     background: var(--bg); color: var(--ink);
     font-family: system-ui, -apple-system, sans-serif;
     transition: background 0.55s ease, color 0.55s ease;
-    min-height: 100vh;
-  }
-
-  /* palette transition */
-  html, body, nav, .role-card, .gallery-modal, .gallery-modal-bg, footer,
-  .nav-contact, .space-prompt, .space-key, .tl-spine, .stack-badge, .honours-badge {
-    transition: background 0.55s ease, color 0.55s ease, border-color 0.55s ease;
   }
 
   /* ── NAV ── */
   nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
     padding: 28px 64px;
     display: flex; align-items: center; justify-content: space-between;
     background: var(--bg);
@@ -49,7 +39,7 @@
   .nav-name {
     font-size: 0.68rem; font-weight: 500; letter-spacing: 0.1em;
     text-transform: uppercase; color: var(--ink); text-decoration: none;
-    line-height: 1.3;
+    transition: color 0.55s;
   }
   .nav-links { display: flex; gap: 36px; list-style: none; align-items: center; }
   .nav-links a {
@@ -57,38 +47,66 @@
     text-transform: uppercase; color: var(--muted); text-decoration: none;
     transition: color 0.2s;
   }
-  .nav-links a.active { color: var(--ink); }
-  .nav-links a:hover { color: var(--ink); }
+  .nav-links a.active, .nav-links a:hover { color: var(--ink); }
   .nav-contact {
     background: var(--ink); color: var(--bg) !important;
-    border-radius: 100px; padding: 8px 20px;
+    border-radius: 5px; padding: 8px 20px;
+    transition: background 0.55s, color 0.55s, opacity 0.2s;
   }
-  html.p-compl .nav-contact  { background: #0D46E7; }
-  html.p-analog .nav-contact { background: #F5007A; }
   .nav-contact:hover { opacity: 0.82; }
 
-  /* ── PAGE HEADER ── */
-  .page-header {
-    padding: 160px 64px 40px;
-    max-width: 1200px; margin: 0 auto;
+  /* ── HORIZONTAL SCROLL ── */
+  .hscroll-wrapper {
+    position: relative; /* height set by JS */
+    width: 100%; max-width: 100vw;
+    overflow: clip; /* blocks paint overflow without breaking sticky */
   }
-  .page-header-title {
-    font-size: clamp(3.5rem, 8vw, 7rem);
-    font-weight: 300; letter-spacing: -0.04em; line-height: 0.95;
-    color: var(--ink);
+  .hscroll-sticky {
+    position: sticky; top: 0;
+    width: 100vw; height: 100vh;
+    overflow: hidden;
+  }
+  .hscroll-track {
+    display: flex; height: 100%;
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
-  /* ── SKILLS CAROUSEL ── */
-  .skills-belt {
-    position: relative;
-    overflow: hidden;
-    padding: 28px 0 36px;
-    max-width: 1200px; margin: 0 auto;
+  /* ── PANEL BASE ── */
+  .h-panel {
+    width: 100vw; height: 100%; flex-shrink: 0;
+    display: flex; align-items: center;
+    padding: 96px 80px 80px;
+    position: relative; overflow: hidden;
   }
-  /* fade edges */
-  .skills-belt::before,
-  .skills-belt::after {
-    content: ''; position: absolute; top: 0; bottom: 0; width: 120px; z-index: 2; pointer-events: none;
+
+  /* ── INTRO PANEL ── */
+  .h-intro {
+    flex-direction: column; align-items: flex-start; justify-content: center;
+  }
+  .scroll-cue {
+    display: flex; align-items: center; gap: 12px;
+    font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted);
+    margin-top: 20px; margin-bottom: 4px;
+    transition: color 0.55s;
+  }
+  .scroll-cue svg { animation: cueBounce 1.6s ease-in-out infinite; }
+  @keyframes cueBounce { 0%,100% { transform: translateX(0); } 50% { transform: translateX(7px); } }
+  .intro-title {
+    font-size: clamp(4.5rem, 10vw, 10rem);
+    font-weight: 300; letter-spacing: -0.05em; line-height: 0.88;
+    color: var(--ink); margin-bottom: 36px;
+    transition: color 0.55s;
+  }
+
+  /* skills belt inside intro */
+  .skills-belt {
+    overflow: hidden; padding: 18px 0;
+    border-top: 1px solid var(--rule);
+    margin-top: 28px;
+    transition: border-color 0.55s;
+  }
+  .skills-belt::before, .skills-belt::after {
+    content: ''; position: absolute; top: 0; bottom: 0; width: 100px; z-index: 2; pointer-events: none;
     transition: background 0.55s;
   }
   .skills-belt::before { left: 0;  background: linear-gradient(to right, var(--bg), transparent); }
@@ -96,219 +114,211 @@
   .skills-track {
     display: flex; gap: 10px;
     width: max-content;
-    animation: beltScroll 30s linear infinite;
+    animation: beltScroll 55s linear infinite;
   }
   .skills-track:hover { animation-play-state: paused; }
-  @keyframes beltScroll {
-    0%   { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-  }
+  @keyframes beltScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
   .skill-chip {
-    flex-shrink: 0;
-    display: flex; align-items: center; gap: 8px;
-    border: 1px solid var(--rule); border-radius: 100px;
-    padding: 8px 18px;
-    font-size: 0.7rem; font-weight: 500; letter-spacing: 0.06em;
-    text-transform: uppercase; color: var(--muted);
-    white-space: nowrap;
-    transition: color 0.2s, border-color 0.55s, background 0.2s;
-    cursor: default;
+    flex-shrink: 0; display: flex; align-items: center; gap: 8px;
+    border: 1px solid var(--rule); border-radius: 5px; padding: 7px 16px;
+    font-size: 0.68rem; font-weight: 500; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--muted); white-space: nowrap;
+    transition: color 0.2s, border-color 0.55s, background 0.2s; cursor: default;
   }
   .skill-chip:hover { color: var(--ink); background: var(--surface); }
-  .skill-chip .chip-dot {
-    width: 5px; height: 5px; border-radius: 50%;
-    background: var(--rule); flex-shrink: 0;
-    transition: background 0.55s;
-  }
+  .chip-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--rule); flex-shrink: 0; transition: background 0.55s; }
 
-  /* ── TIMELINE ── */
-  .timeline-outer {
-    max-width: 1200px; margin: 0 auto;
-    padding: 0 64px 100px 96px;
-    position: relative;
+  /* ── WORK PANEL INNER ── */
+  .panel-inner {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: center;
+    width: 100%; height: 100%;
   }
-  .tl-spine {
-    position: absolute;
-    left: 76px; top: 0; bottom: 60px;
-    width: 1px; background: var(--rule);
+  .panel-left {
+    display: flex; flex-direction: column; justify-content: center;
+    height: 100%; padding: 20px 0;
+    overflow-y: auto; scrollbar-width: none;
   }
+  .panel-left::-webkit-scrollbar { display: none; }
 
-  /* ── ROLE BLOCK ── */
-  .role-block {
-    position: relative;
-    margin-bottom: 32px;
+  .panel-meta {
+    font-size: 0.7rem; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--muted); margin-bottom: 10px;
+    display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: center;
+    transition: color 0.55s;
   }
-  .tl-dot {
-    position: absolute;
-    left: -28px; top: 36px;
-    width: 10px; height: 10px; border-radius: 50%;
-    background: var(--ink);
-    border: 2px solid var(--bg);
-    box-shadow: 0 0 0 1px var(--rule);
-    z-index: 2;
-    transition: background 0.55s;
+  .panel-company {
+    font-size: clamp(2.6rem, 5vw, 5rem);
+    font-weight: 300; letter-spacing: -0.04em; line-height: 0.95;
+    color: var(--ink); margin-bottom: 20px;
+    transition: color 0.55s;
   }
-  .role-card {
-    background: var(--surface);
-    border-radius: 20px;
-    padding: 40px 40px 40px 44px;
-    display: grid;
-    grid-template-columns: 1fr 280px;
-    gap: 40px;
-    align-items: center;
-    overflow: visible;
+  .panel-desc {
+    font-size: 0.9rem; line-height: 1.65; color: var(--muted);
+    max-width: 460px; margin-bottom: 22px;
+    transition: color 0.55s;
   }
-
-  /* LEFT */
-  .role-meta {
-    font-size: 0.62rem; font-weight: 500; letter-spacing: 0.1em;
-    text-transform: uppercase; color: var(--muted);
-    margin-bottom: 12px; display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: center;
+  .panel-bullets {
+    list-style: none; padding: 0; margin: 0 0 24px;
+    display: flex; flex-direction: column; gap: 8px;
   }
-  .role-company {
-    font-size: clamp(1.8rem, 3vw, 2.8rem);
-    font-weight: 400; letter-spacing: -0.04em; color: var(--ink);
-    margin-bottom: 14px; line-height: 1;
+  .panel-bullets li {
+    font-size: 0.82rem; color: var(--muted);
+    padding-left: 16px; position: relative; line-height: 1.45;
+    transition: color 0.55s;
   }
-  .role-desc {
-    font-size: 0.9rem; color: var(--ink); opacity: 0.75;
-    line-height: 1.65; margin-bottom: 20px; max-width: 460px;
-  }
-  .role-bullets {
-    list-style: none; padding: 0; margin: 0 0 28px;
-    display: flex; flex-direction: column; gap: 7px;
-  }
-  .role-bullets li {
-    font-size: 0.84rem; color: var(--muted);
-    padding-left: 18px; position: relative; line-height: 1.4;
-  }
-  .role-bullets li::before {
-    content: '—'; position: absolute; left: 0; color: var(--rule);
-  }
-  .role-see-btn {
-    background: none; border: none; padding: 0;
-    font-family: inherit; font-size: 0.85rem; color: var(--ink);
+  .panel-bullets li::before { content: ''; position: absolute; left: 2px; top: 7px; width: 5px; height: 5px; border-radius: 50%; background: var(--rule); transition: background 0.55s; }
+  .panel-see-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 0.8rem; font-weight: 500; letter-spacing: 0.04em;
+    color: var(--ink); background: none; border: none;
     text-decoration: underline; text-underline-offset: 4px;
-    cursor: pointer; letter-spacing: 0.01em;
-    transition: opacity 0.2s;
+    cursor: pointer; padding: 0; font-family: inherit;
+    transition: opacity 0.2s, color 0.55s;
+    align-self: flex-start;
   }
-  .role-see-btn:hover { opacity: 0.5; }
-  .role-see-btn.hidden { display: none; }
+  .panel-see-btn:hover { opacity: 0.5; }
 
-  /* RIGHT — image stack */
+  /* Right side: decorative */
+  .panel-right {
+    display: flex; align-items: center; justify-content: center;
+    height: 100%; position: relative;
+  }
+  .panel-bg-num {
+    font-size: clamp(8rem, 18vw, 20rem);
+    font-weight: 700; letter-spacing: -0.06em; line-height: 1;
+    color: var(--rule); user-select: none;
+    transition: color 0.55s;
+    opacity: 0.7;
+  }
+
+  /* Image stack (Noirgaze) */
   .img-stack-wrap {
-    position: relative; height: 220px;
-    display: flex; align-items: center; justify-content: flex-start;
-    overflow: visible;
+    position: relative; width: 200px; height: 260px;
   }
   .stack-card {
-    position: absolute;
-    width: 160px; height: 200px;
-    border-radius: 14px; background: var(--rule);
+    position: absolute; width: 180px; height: 240px;
+    border-radius: 5px; background: var(--rule);
     overflow: hidden; cursor: pointer;
     transition: transform 0.3s cubic-bezier(0.22,1,0.36,1), box-shadow 0.3s;
   }
   .stack-card.card-a { left: 0; top: 0; z-index: 2; }
-  .stack-card.card-b { left: 80px; top: 16px; z-index: 1; transform: rotate(4deg); }
-  .stack-card:hover { transform: translateY(-4px) !important; box-shadow: 0 16px 40px rgba(0,0,0,0.13); }
-  .stack-ph {
-    position: absolute; inset: 0;
-    display: flex; align-items: center; justify-content: center;
-    flex-direction: column; gap: 8px; color: var(--muted);
-  }
-  .stack-ph svg { opacity: 0.22; }
-  .stack-ph span { font-size: 0.5rem; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.35; }
-  .stack-ph img { width: 100%; height: 100%; object-fit: cover; display: block; position: absolute; inset: 0; }
+  .stack-card.card-b { left: 30px; top: 20px; z-index: 1; transform: rotate(4deg); }
+  .stack-card:hover { transform: translateY(-6px) scale(1.02) !important; box-shadow: 0 20px 50px rgba(0,0,0,0.15); }
+  .stack-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .stack-badge {
-    position: absolute; right: -8px; bottom: 8px;
+    position: absolute; right: -10px; bottom: 10px;
     background: var(--ink); color: var(--bg);
-    width: 38px; height: 38px; border-radius: 50%;
+    width: 36px; height: 36px; border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
     font-size: 0.62rem; font-weight: 600; z-index: 3;
-    transition: background 0.55s;
+    transition: background 0.55s, color 0.55s;
   }
 
-  /* education card — full width with project sub-cards */
-  .role-card.edu { grid-template-columns: 1fr; }
-  .edu-tags {
-    display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px;
-  }
-  .edu-tag {
-    font-size: 0.65rem; font-weight: 500; letter-spacing: 0.08em;
-    text-transform: uppercase; color: var(--muted);
-    border: 1px solid var(--rule); border-radius: 100px; padding: 5px 12px;
-  }
-
-  /* project sub-cards */
-  .proj-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    gap: 12px;
-    margin-top: 28px;
+  /* LCC right: project cards */
+  .lcc-proj-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+    width: 100%; max-width: 380px;
   }
   .proj-card {
     background: var(--bg); border: 1px solid var(--rule);
-    border-radius: 14px; overflow: hidden;
-    cursor: pointer; transition: transform 0.25s, box-shadow 0.25s, border-color 0.55s, background 0.55s;
+    border-radius: 5px; overflow: hidden; cursor: pointer;
+    transition: transform 0.25s, box-shadow 0.25s, border-color 0.55s, background 0.55s;
     display: flex; flex-direction: column;
   }
   .proj-card:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(0,0,0,0.10); }
-  .proj-thumb {
-    height: 110px; background: var(--rule); overflow: hidden; position: relative;
-    transition: background 0.55s;
-  }
+  .proj-thumb { height: 90px; background: var(--rule); overflow: hidden; position: relative; transition: background 0.55s; }
   .proj-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .proj-thumb-ph {
     position: absolute; inset: 0;
     display: flex; align-items: center; justify-content: center;
     color: var(--muted); opacity: 0.35;
   }
-  .proj-info { padding: 12px 14px; flex: 1; }
-  .proj-name {
-    font-size: 0.78rem; font-weight: 500; color: var(--ink);
-    margin-bottom: 4px; line-height: 1.3;
+  .proj-info { padding: 10px 12px; }
+  .proj-name { font-size: 0.74rem; font-weight: 500; color: var(--ink); margin-bottom: 3px; transition: color 0.55s; }
+  .proj-type { font-size: 0.56rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); transition: color 0.55s; }
+
+  /* LCC left extras */
+  .honours-badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.04em;
+    color: var(--ink); margin-bottom: 12px;
     transition: color 0.55s;
   }
-  .proj-type {
-    font-size: 0.58rem; letter-spacing: 0.08em; text-transform: uppercase;
-    color: var(--muted); transition: color 0.55s;
+  .ual-logo { height: 28px; width: auto; margin-left: 12px; vertical-align: middle; filter: var(--logo-filter, none); transition: filter 0.55s; }
+  .edu-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
+  .edu-tag {
+    font-size: 0.6rem; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--muted);
+    border: 1px solid var(--rule); border-radius: 4px; padding: 4px 10px;
+    transition: border-color 0.55s, color 0.55s;
   }
 
-  .honours-badge {
-    display: inline-flex; align-items: center; gap: 6px;
-    background: var(--ink); color: var(--bg);
-    border-radius: 100px; padding: 5px 14px;
-    font-size: 0.62rem; font-weight: 600; letter-spacing: 0.06em;
-    text-transform: uppercase; margin-top: 20px;
+  /* ── WORK STICKY HEADER ── */
+  .work-sticky-header {
+    position: fixed; top: 72px; left: 0; right: 0; z-index: 150;
+    background: var(--bg);
+    transform: translateY(-110%);
+    transition: transform 0.55s cubic-bezier(0.22,1,0.36,1), background 0.55s, border-color 0.55s;
+  }
+  .work-sticky-header.visible { transform: translateY(0); }
+  .wsh-inner {
+    display: flex; align-items: center; gap: 20px;
+    padding: 10px 64px; border-bottom: 1px solid var(--rule);
+    transition: border-color 0.55s;
+  }
+  .wsh-title {
+    font-size: 1.05rem; font-weight: 300; letter-spacing: -0.04em;
+    color: var(--ink); flex-shrink: 0; line-height: 1;
+    transition: color 0.55s;
+  }
+  .wsh-divider {
+    width: 1px; height: 20px; background: var(--rule); flex-shrink: 0;
     transition: background 0.55s;
   }
+  .wsh-belt {
+    flex: 1; overflow: hidden; position: relative; min-width: 0;
+    mask-image: linear-gradient(to right, transparent, black 60px, black calc(100% - 60px), transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 60px, black calc(100% - 60px), transparent);
+  }
+  .wsh-track {
+    display: flex; gap: 8px; width: max-content;
+    animation: beltScroll 55s linear infinite;
+  }
+  .wsh-chip {
+    flex-shrink: 0; display: flex; align-items: center; gap: 6px;
+    font-size: 0.6rem; font-weight: 500; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--muted); white-space: nowrap;
+    transition: color 0.55s;
+  }
+  .wsh-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--rule); flex-shrink: 0; transition: background 0.55s; }
+  .wsh-progress {
+    height: 2px; background: var(--rule); position: relative;
+    transition: background 0.55s;
+  }
+  .wsh-fill {
+    position: absolute; left: 0; top: 0; bottom: 0;
+    background: var(--ink); width: 0%;
+    transition: width 0.4s cubic-bezier(0.22,1,0.36,1), background 0.55s;
+  }
 
-  /* ── GALLERY MODAL — slideshow ── */
+  /* ── GALLERY MODAL ── */
   .gallery-modal-bg {
     position: fixed; inset: 0; background: rgba(0,0,0,0.72);
     z-index: 400; opacity: 0; pointer-events: none;
     transition: opacity 0.3s;
-    display: flex; align-items: center; justify-content: center;
-    padding: 20px;
+    display: flex; align-items: center; justify-content: center; padding: 20px;
   }
   .gallery-modal-bg.open { opacity: 1; pointer-events: auto; }
   .gallery-modal {
-    background: var(--bg); border-radius: 20px;
-    width: 100%; max-width: 620px;
-    height: 92vh;
-    display: flex; flex-direction: column;
-    position: relative;
+    background: var(--bg); border-radius: 3px;
+    width: 100%; max-width: 620px; height: 92vh;
+    display: flex; flex-direction: column; position: relative;
     transform: translateY(16px); transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), background 0.55s;
     overflow: hidden;
   }
   .gallery-modal-bg.open .gallery-modal { transform: translateY(0); }
-
-  /* header strip */
-  .gm-header {
-    display: flex; align-items: flex-start; justify-content: space-between;
-    padding: 24px 28px 18px; flex-shrink: 0;
-  }
-  .gm-header-text {}
+  .gm-header { display: flex; align-items: flex-start; justify-content: space-between; padding: 24px 28px 18px; flex-shrink: 0; }
   .gm-meta { font-size: 0.6rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 5px; transition: color 0.55s; }
   .gm-title { font-size: 1.5rem; font-weight: 300; letter-spacing: -0.03em; color: var(--ink); line-height: 1.1; transition: color 0.55s; }
   .gm-close {
@@ -319,35 +329,15 @@
     margin-left: 16px; margin-top: 2px;
   }
   .gm-close:hover { background: var(--surface); }
-
-  /* media stage — flex:1 + min-height:0 lets image fill remaining space */
   .gm-stage {
-    flex: 1; min-height: 0;
-    display: flex; align-items: center; justify-content: center;
-    background: var(--surface); transition: background 0.55s;
-    padding: 0 12px;
+    flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center;
+    background: var(--surface); transition: background 0.55s; padding: 0 12px;
   }
-  .gm-stage img {
-    max-width: 100%; max-height: 100%;
-    width: auto; height: auto;
-    display: block; object-fit: contain;
-  }
-  .gm-stage video {
-    max-width: 100%; max-height: 100%;
-    width: auto; height: auto;
-    display: block; background: #000;
-  }
-  .gm-stage-ph {
-    display: flex; flex-direction: column; align-items: center; gap: 12px;
-    color: var(--muted); opacity: 0.4;
-  }
+  .gm-stage img { max-width: 100%; max-height: 100%; width: auto; height: auto; display: block; object-fit: contain; }
+  .gm-stage video { max-width: 100%; max-height: 100%; width: auto; height: auto; display: block; background: #000; }
+  .gm-stage-ph { display: flex; flex-direction: column; align-items: center; gap: 12px; color: var(--muted); opacity: 0.4; }
   .gm-stage-ph span { font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; }
-
-  /* footer: caption + nav */
-  .gm-footer {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 14px 28px 20px; flex-shrink: 0; gap: 16px;
-  }
+  .gm-footer { display: flex; align-items: center; justify-content: space-between; padding: 14px 28px 20px; flex-shrink: 0; gap: 16px; }
   .gm-caption { font-size: 0.78rem; color: var(--muted); transition: color 0.55s; flex: 1; }
   .gm-counter { font-size: 0.65rem; color: var(--muted); letter-spacing: 0.05em; white-space: nowrap; transition: color 0.55s; }
   .gm-nav { display: flex; gap: 8px; flex-shrink: 0; }
@@ -363,10 +353,10 @@
 
   /* ── SPACE PROMPT ── */
   .space-prompt {
-    position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%);
+    position: fixed; bottom: 28px; right: 40px;
     display: flex; align-items: center; gap: 10px;
     background: var(--bg); border: 1px solid var(--rule);
-    border-radius: 100px; padding: 10px 20px;
+    border-radius: 5px; padding: 10px 20px;
     font-size: 0.62rem; font-weight: 400; letter-spacing: 0.1em;
     text-transform: uppercase; color: var(--muted); white-space: nowrap;
     z-index: 200; transition: opacity 0.4s, background 0.55s, border-color 0.55s;
@@ -374,56 +364,56 @@
   .space-prompt.hidden { opacity: 0; pointer-events: none; }
   .space-key {
     background: var(--ink); color: var(--bg);
-    border-radius: 6px; padding: 2px 10px;
+    border-radius: 3px; padding: 2px 10px;
     font-size: 0.6rem; font-weight: 600; letter-spacing: 0.06em;
     transition: background 0.55s, color 0.55s;
   }
 
-  /* ── FOOTER ── */
-  footer { border-top: 1px solid var(--rule); }
-  .footer-wrap {
-    padding: 32px 64px; max-width: 1200px; margin: 0 auto;
-    display: flex; justify-content: space-between; align-items: center;
-  }
-  .footer-copy {
-    font-size: 0.62rem; font-weight: 400; letter-spacing: 0.06em;
-    text-transform: uppercase; color: var(--muted);
+  /* ── MOBILE FALLBACK ── */
+  @media (max-width: 768px) {
+    /* Nav */
+    nav { padding: 16px 20px; }
+    .nav-links { gap: 14px; }
+    .nav-links a { font-size: 0.62rem; letter-spacing: 0.05em; }
+    .nav-contact { padding: 6px 12px; font-size: 0.62rem; }
+
+    /* Disable horizontal scroll, stack vertically */
+    .work-sticky-header { display: none; }
+    .hscroll-wrapper { height: auto !important; }
+    .hscroll-sticky { position: static; height: auto; overflow: visible; }
+    .hscroll-track { flex-direction: column; transform: none !important; }
+
+    /* Panels */
+    .h-panel { width: 100%; height: auto; padding: 80px 24px 56px; min-height: 0; }
+    .h-panel:first-child { padding-top: 100px; min-height: 100vh; }
+    .panel-inner { grid-template-columns: 1fr; gap: 32px; }
+    .panel-right { justify-content: flex-start; }
+    .panel-bg-num { font-size: clamp(4rem, 18vw, 7rem); }
+    .img-stack-wrap { display: none; }
+    .panel-company { font-size: clamp(2rem, 8vw, 3rem); }
+    .intro-title { font-size: clamp(3rem, 12vw, 5rem); }
+    .lcc-proj-grid { max-width: 100%; grid-template-columns: 1fr 1fr; }
+
+    /* Skills belt: keep relative so it doesn't position: absolute incorrectly */
+    .skills-belt { position: relative; }
+
+    /* Space prompt */
+    .space-prompt { right: 16px; bottom: 16px; font-size: 0.6rem; padding: 8px 14px; }
+
+    /* Gallery modal */
+    .gallery-modal { height: 88vh; }
+    .gm-header { padding: 18px 20px 14px; }
+    .gm-footer { padding: 10px 20px 14px; }
   }
 
-  /* ── REVEAL ── */
-  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
-  .reveal-delay-1 { transition-delay: 0.1s; }
-  .reveal-delay-2 { transition-delay: 0.2s; }
-  .reveal-delay-3 { transition-delay: 0.3s; }
-  .reveal-delay-4 { transition-delay: 0.4s; }
-
-  /* ── RESPONSIVE ── */
-  @media (max-width: 860px) {
-    .timeline-outer { padding: 0 32px 80px 60px; }
-    .tl-spine { left: 40px; }
-    .role-card { grid-template-columns: 1fr 200px; gap: 24px; padding: 32px 28px 32px 32px; }
-    .img-stack-wrap { height: 200px; }
-    .stack-card { width: 130px; height: 180px; }
-    .stack-card.card-b { left: 68px; top: 14px; }
-  }
-
-  @media (max-width: 540px) {
-    nav { padding: 24px; }
-    .page-header { padding: 130px 24px 40px; }
-    .timeline-outer { padding: 0 20px 80px 48px; }
-    .tl-spine { left: 28px; }
-    .tl-dot { left: -24px; }
-    .role-card { grid-template-columns: 1fr; padding: 24px 20px; gap: 20px; }
-    .img-stack-wrap { height: 160px; }
-    .stack-card { width: 120px; height: 150px; }
-    .stack-card.card-b { left: 60px; }
-    .gallery-grid { grid-template-columns: repeat(2, 1fr); }
-    .gi.wide { grid-column: span 2; }
-    .gallery-modal { padding: 28px 24px; }
-    .footer-wrap { padding: 24px; flex-direction: column; gap: 8px; }
+  @media (min-width: 769px) and (max-width: 1100px) {
+    .h-panel { padding: 96px 48px 72px; }
+    .panel-inner { gap: 48px; }
+    .panel-company { font-size: clamp(2.2rem, 4vw, 3.5rem); }
   }
 </style>
+</head>
+<body>
 
 <nav id="nav">
   <a class="nav-name" href="design-template.html">Maia Comley Portfolio</a>
@@ -434,258 +424,289 @@
   </ul>
 </nav>
 
-<div class="page-header">
-  <h1 class="page-header-title reveal">Work</h1>
+<!-- ── WORK STICKY HEADER ── -->
+<div class="work-sticky-header" id="workStickyHeader">
+  <div class="wsh-inner">
+    <span class="wsh-title">Work</span>
+    <div class="wsh-divider"></div>
+    <div class="wsh-belt">
+      <div class="wsh-track">
+        <span class="wsh-chip"><span class="wsh-dot"></span>Content Creation</span>
+        <span class="wsh-chip"><span class="wsh-dot"></span>Brand Strategy</span>
+        <span class="wsh-chip"><span class="wsh-dot"></span>Canva</span>
+        <span class="wsh-chip"><span class="wsh-dot"></span>SEO / GEO</span>
+        <span class="wsh-chip"><span class="wsh-dot"></span>Adobe Photoshop</span>
+        <span class="wsh-chip"><span class="wsh-dot"></span>Campaign Planning</span>
+        <span class="wsh-chip"><span class="wsh-dot"></span>Premiere Pro</span>
+        <span class="wsh-chip"><span class="wsh-dot"></span>Analytics</span>
+        <span class="wsh-chip"><span class="wsh-dot"></span>Copywriting</span>
+        <span class="wsh-chip"><span class="wsh-dot"></span>HubSpot</span>
+        <span class="wsh-chip"><span class="wsh-dot"></span>CapCut</span>
+        <span class="wsh-chip"><span class="wsh-dot"></span>Social Media</span>
+        <span class="wsh-chip"><span class="wsh-dot"></span>Lightroom</span>
+        <span class="wsh-chip"><span class="wsh-dot"></span>Claude</span>
+        <span class="wsh-chip"><span class="wsh-dot"></span>OpenAI</span>
+        <span class="wsh-chip"><span class="wsh-dot"></span>AI Solutions</span>
+        <span class="wsh-chip"><span class="wsh-dot"></span>Advertising</span>
+        <span class="wsh-chip"><span class="wsh-dot"></span>Figma</span>
+        <span class="wsh-chip"><span class="wsh-dot"></span>Influencer Relations</span>
+        <span class="wsh-chip"><span class="wsh-dot"></span>InDesign</span>
+        <!-- duplicate -->
+        <span class="wsh-chip"><span class="wsh-dot"></span>Content Creation</span>
+        <span class="wsh-chip"><span class="wsh-dot"></span>Brand Strategy</span>
+        <span class="wsh-chip"><span class="wsh-dot"></span>Canva</span>
+        <span class="wsh-chip"><span class="wsh-dot"></span>SEO / GEO</span>
+        <span class="wsh-chip"><span class="wsh-dot"></span>Adobe Photoshop</span>
+        <span class="wsh-chip"><span class="wsh-dot"></span>Campaign Planning</span>
+        <span class="wsh-chip"><span class="wsh-dot"></span>Premiere Pro</span>
+        <span class="wsh-chip"><span class="wsh-dot"></span>Analytics</span>
+        <span class="wsh-chip"><span class="wsh-dot"></span>Copywriting</span>
+        <span class="wsh-chip"><span class="wsh-dot"></span>HubSpot</span>
+        <span class="wsh-chip"><span class="wsh-dot"></span>CapCut</span>
+        <span class="wsh-chip"><span class="wsh-dot"></span>Social Media</span>
+        <span class="wsh-chip"><span class="wsh-dot"></span>Lightroom</span>
+        <span class="wsh-chip"><span class="wsh-dot"></span>Claude</span>
+        <span class="wsh-chip"><span class="wsh-dot"></span>OpenAI</span>
+        <span class="wsh-chip"><span class="wsh-dot"></span>AI Solutions</span>
+        <span class="wsh-chip"><span class="wsh-dot"></span>Advertising</span>
+        <span class="wsh-chip"><span class="wsh-dot"></span>Figma</span>
+        <span class="wsh-chip"><span class="wsh-dot"></span>Influencer Relations</span>
+        <span class="wsh-chip"><span class="wsh-dot"></span>InDesign</span>
+      </div>
+    </div>
+  </div>
+  <div class="wsh-progress"><div class="wsh-fill" id="wshFill"></div></div>
 </div>
 
-<!-- ── SKILLS CAROUSEL ── -->
-<div class="skills-belt">
-  <div class="skills-track" id="skillsTrack">
-    <!-- set 1 -->
-    <div class="skill-chip"><span class="chip-dot"></span>Content Creation</div>
-    <div class="skill-chip"><span class="chip-dot"></span>Brand Strategy</div>
-    <div class="skill-chip"><span class="chip-dot"></span>Canva</div>
-    <div class="skill-chip"><span class="chip-dot"></span>SEO / GEO</div>
-    <div class="skill-chip"><span class="chip-dot"></span>Adobe Photoshop</div>
-    <div class="skill-chip"><span class="chip-dot"></span>Campaign Planning</div>
-    <div class="skill-chip"><span class="chip-dot"></span>Premiere Pro</div>
-    <div class="skill-chip"><span class="chip-dot"></span>Analytics</div>
-    <div class="skill-chip"><span class="chip-dot"></span>Copywriting</div>
-    <div class="skill-chip"><span class="chip-dot"></span>HubSpot</div>
-    <div class="skill-chip"><span class="chip-dot"></span>CapCut</div>
-    <div class="skill-chip"><span class="chip-dot"></span>Social Media</div>
-    <div class="skill-chip"><span class="chip-dot"></span>Lightroom</div>
-    <div class="skill-chip"><span class="chip-dot"></span>Wix</div>
-    <div class="skill-chip"><span class="chip-dot"></span>Advertising</div>
-    <div class="skill-chip"><span class="chip-dot"></span>Figma</div>
-    <div class="skill-chip"><span class="chip-dot"></span>Influencer Relations</div>
-    <div class="skill-chip"><span class="chip-dot"></span>InDesign</div>
-    <!-- set 2 — duplicate for seamless loop -->
-    <div class="skill-chip"><span class="chip-dot"></span>Content Creation</div>
-    <div class="skill-chip"><span class="chip-dot"></span>Brand Strategy</div>
-    <div class="skill-chip"><span class="chip-dot"></span>Canva</div>
-    <div class="skill-chip"><span class="chip-dot"></span>SEO / GEO</div>
-    <div class="skill-chip"><span class="chip-dot"></span>Adobe Photoshop</div>
-    <div class="skill-chip"><span class="chip-dot"></span>Campaign Planning</div>
-    <div class="skill-chip"><span class="chip-dot"></span>Premiere Pro</div>
-    <div class="skill-chip"><span class="chip-dot"></span>Analytics</div>
-    <div class="skill-chip"><span class="chip-dot"></span>Copywriting</div>
-    <div class="skill-chip"><span class="chip-dot"></span>HubSpot</div>
-    <div class="skill-chip"><span class="chip-dot"></span>CapCut</div>
-    <div class="skill-chip"><span class="chip-dot"></span>Social Media</div>
-    <div class="skill-chip"><span class="chip-dot"></span>Lightroom</div>
-    <div class="skill-chip"><span class="chip-dot"></span>Wix</div>
-    <div class="skill-chip"><span class="chip-dot"></span>Advertising</div>
-    <div class="skill-chip"><span class="chip-dot"></span>Figma</div>
-    <div class="skill-chip"><span class="chip-dot"></span>Influencer Relations</div>
-    <div class="skill-chip"><span class="chip-dot"></span>InDesign</div>
-  </div>
-</div>
+<!-- ── HORIZONTAL SCROLL CONTAINER ── -->
+<div class="hscroll-wrapper" id="hscrollWrapper">
+  <div class="hscroll-sticky" id="hscrollSticky">
 
-<div class="timeline-outer">
-  <div class="tl-spine"></div>
+    <div class="hscroll-track" id="hscrollTrack">
 
-  <!-- ── IDGateway ── -->
-  <div class="role-block reveal reveal-delay-1">
-    <div class="tl-dot"></div>
-    <div class="role-card">
-      <div class="role-left">
-        <div class="role-meta">
-          <span>Marketing Executive</span>
-          <span>·</span>
-          <span>2024 – Present</span>
-        </div>
-        <h2 class="role-company">IDGateway</h2>
-        <p class="role-desc">End-to-end marketing at a B2B SaaS company — combining creativity and strategy to build a brand that connects.</p>
-        <ul class="role-bullets">
-          <li>Own the LinkedIn content strategy for AirportGateway and VettingGateway, delivering 5–6 posts per week</li>
-          <li>Produce blogs, case studies, thought leadership, video content and campaign assets</li>
-          <li>Manage website content and UX, supporting SEO, GEO and AEO to improve digital visibility</li>
-          <li>Build AI-powered marketing workflows to streamline content planning, briefing and reporting</li>
-          <li>Support event marketing for HR Technologies UK and the International Security Expo</li>
-          <li>Manage external platforms including G2, Capterra and PromptWatch for review and AI search visibility</li>
-        </ul>
-        <button class="role-see-btn" data-role="idgateway">See work →</button>
-      </div>
-      <div class="img-stack-wrap">
-        <div class="stack-card card-a" data-role="idgateway">
-          <div class="stack-ph">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-            <span>Preview</span>
+      <!-- ── 00 INTRO ── -->
+      <section class="h-panel h-intro">
+        <div>
+          <h1 class="intro-title">Work</h1>
+          <div class="scroll-cue">
+            Scroll to explore
+            <svg width="18" height="14" viewBox="0 0 18 14" fill="none" stroke="currentColor" stroke-width="1.5">
+              <line x1="0" y1="7" x2="16" y2="7"/>
+              <polyline points="10,1 16,7 10,13"/>
+            </svg>
+          </div>
+          <!-- Skills belt inline under title -->
+          <div class="skills-belt skills-belt-inline">
+          <div class="skills-track">
+            <div class="skill-chip"><span class="chip-dot"></span>Content Creation</div>
+            <div class="skill-chip"><span class="chip-dot"></span>Brand Strategy</div>
+            <div class="skill-chip"><span class="chip-dot"></span>Canva</div>
+            <div class="skill-chip"><span class="chip-dot"></span>SEO / GEO</div>
+            <div class="skill-chip"><span class="chip-dot"></span>Adobe Photoshop</div>
+            <div class="skill-chip"><span class="chip-dot"></span>Campaign Planning</div>
+            <div class="skill-chip"><span class="chip-dot"></span>Premiere Pro</div>
+            <div class="skill-chip"><span class="chip-dot"></span>Analytics</div>
+            <div class="skill-chip"><span class="chip-dot"></span>Copywriting</div>
+            <div class="skill-chip"><span class="chip-dot"></span>HubSpot</div>
+            <div class="skill-chip"><span class="chip-dot"></span>CapCut</div>
+            <div class="skill-chip"><span class="chip-dot"></span>Social Media</div>
+            <div class="skill-chip"><span class="chip-dot"></span>Lightroom</div>
+            <div class="skill-chip"><span class="chip-dot"></span>Wix</div>
+            <div class="skill-chip"><span class="chip-dot"></span>Advertising</div>
+            <div class="skill-chip"><span class="chip-dot"></span>Figma</div>
+            <div class="skill-chip"><span class="chip-dot"></span>Influencer Relations</div>
+            <div class="skill-chip"><span class="chip-dot"></span>InDesign</div>
+            <!-- duplicate -->
+            <div class="skill-chip"><span class="chip-dot"></span>Content Creation</div>
+            <div class="skill-chip"><span class="chip-dot"></span>Brand Strategy</div>
+            <div class="skill-chip"><span class="chip-dot"></span>Canva</div>
+            <div class="skill-chip"><span class="chip-dot"></span>SEO / GEO</div>
+            <div class="skill-chip"><span class="chip-dot"></span>Adobe Photoshop</div>
+            <div class="skill-chip"><span class="chip-dot"></span>Campaign Planning</div>
+            <div class="skill-chip"><span class="chip-dot"></span>Premiere Pro</div>
+            <div class="skill-chip"><span class="chip-dot"></span>Analytics</div>
+            <div class="skill-chip"><span class="chip-dot"></span>Copywriting</div>
+            <div class="skill-chip"><span class="chip-dot"></span>HubSpot</div>
+            <div class="skill-chip"><span class="chip-dot"></span>CapCut</div>
+            <div class="skill-chip"><span class="chip-dot"></span>Social Media</div>
+            <div class="skill-chip"><span class="chip-dot"></span>Lightroom</div>
+            <div class="skill-chip"><span class="chip-dot"></span>Wix</div>
+            <div class="skill-chip"><span class="chip-dot"></span>Advertising</div>
+            <div class="skill-chip"><span class="chip-dot"></span>Figma</div>
+            <div class="skill-chip"><span class="chip-dot"></span>Influencer Relations</div>
+            <div class="skill-chip"><span class="chip-dot"></span>InDesign</div>
+            <div class="skill-chip"><span class="chip-dot"></span>Claude</div>
+            <div class="skill-chip"><span class="chip-dot"></span>OpenAI</div>
+            <div class="skill-chip"><span class="chip-dot"></span>AI Solutions</div>
+          </div>
           </div>
         </div>
-        <div class="stack-card card-b" data-role="idgateway">
-          <div class="stack-ph">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-            <span>Preview</span>
-          </div>
-        </div>
-        <div class="stack-badge">+4</div>
-      </div>
-    </div>
-  </div>
+      </section>
 
-  <!-- ── Noirgaze ── -->
-  <div class="role-block reveal reveal-delay-2">
-    <div class="tl-dot"></div>
-    <div class="role-card">
-      <div class="role-left">
-        <div class="role-meta">
-          <span>Social Media &amp; Marketing</span>
-          <span>·</span>
-          <span>2024</span>
+      <!-- ── 01 IDGateway ── -->
+      <section class="h-panel" id="idgateway">
+        <div class="panel-inner">
+          <div class="panel-left">
+            <div class="panel-meta">
+              <span>Marketing Executive</span>
+              <span>·</span>
+              <span>April 2026 – Present</span>
+            </div>
+            <h2 class="panel-company">IDGateway</h2>
+            <p class="panel-desc">Full-mix marketing at a B2B SaaS company in identity verification, owning content, digital and strategy while working closely with sales, operations and leadership.</p>
+            <ul class="panel-bullets">
+              <li>Own the LinkedIn content strategy and content calendar across AirportGateway and VettingGateway, delivering 5–6 posts per week</li>
+              <li>Create marketing content including blogs, case studies, thought leadership, social media, video and campaign assets</li>
+              <li>Manage website content and optimisation, conducting UX research, competitor analysis and supporting SEO, GEO and AEO</li>
+              <li>Build AI-powered marketing workflows using Claude to streamline content planning, briefing, reporting and creative production</li>
+            </ul>
+          </div>
+          <div class="panel-right"></div>
         </div>
-        <h2 class="role-company">Noirgaze</h2>
-        <p class="role-desc">Social media and content for a fashion start-up — growing the brand's following by 3,000+ in five months.</p>
-        <ul class="role-bullets">
-          <li>Led planning and creation of content for Instagram and TikTok across campaigns, launches and Fashion Week</li>
-          <li>Acted as Creative Lead for product shoots — overseeing styling, art direction and post-production</li>
-          <li>Managed CRM and email marketing via Klaviyo, designing automated flows and seasonal newsletters</li>
-          <li>Collaborated with the founder to shape brand voice, strategy and visual identity</li>
-          <li>Wrote product descriptions and web copy to enhance brand storytelling</li>
-        </ul>
-        <button class="role-see-btn" data-role="noirgaze">See work →</button>
-      </div>
-      <div class="img-stack-wrap">
-        <div class="stack-card card-a" data-role="noirgaze">
-          <img src="Images/Noirgaze christmas content one.jpg" alt="Noirgaze Christmas campaign" style="width:100%;height:100%;object-fit:cover;border-radius:12px;">
-        </div>
-        <div class="stack-card card-b" data-role="noirgaze">
-          <img src="Images/Noirgaze christmas content two.jpg" alt="Noirgaze Merry Xmas" style="width:100%;height:100%;object-fit:cover;border-radius:12px;">
-        </div>
-        <div class="stack-badge">+3</div>
-      </div>
-    </div>
-  </div>
+      </section>
 
-  <!-- ── Indera Tamara ── -->
-  <div class="role-block reveal reveal-delay-3">
-    <div class="tl-dot"></div>
-    <div class="role-card">
-      <div class="role-left">
-        <div class="role-meta">
-          <span>PR Assistant</span>
-          <span>·</span>
-          <span>Sept – Oct 2025</span>
+      <!-- ── 02 Indera Tamara ── -->
+      <section class="h-panel" id="indera">
+        <div class="panel-inner">
+          <div class="panel-left">
+            <div class="panel-meta">
+              <span>PR Assistant</span>
+              <span>·</span>
+              <span>Sept – Oct 2025</span>
+            </div>
+            <h2 class="panel-company">Indera Tamara</h2>
+            <p class="panel-desc">PR and content support for an independent PR agency across London Fashion Week SS26, from event logistics and runway content to brand kits and post-event reporting.</p>
+            <ul class="panel-bullets">
+              <li>Facilitated end-to-end event logistics for LFW, managing VIP stakeholder relations and high-priority seating plans for press and talent</li>
+              <li>Planned, storyboarded, filmed and edited runway content for Kyle Ho's SS26 show</li>
+              <li>Designed brand kits and social media style guides in Canva for multiple brands</li>
+              <li>Delivered post-event analytics and press coverage reports to measure campaign ROI</li>
+            </ul>
+          </div>
+          <div class="panel-right"></div>
         </div>
-        <h2 class="role-company">Indera Tamara</h2>
-        <p class="role-desc">PR and content support for an independent fashion label across London Fashion Week SS26.</p>
-        <ul class="role-bullets">
-          <li>Managed end-to-end event logistics for LFW — VIP relations, seating plans and press coordination</li>
-          <li>Planned, storyboarded, filmed and edited runway content for Kyle Ho's SS26 show</li>
-          <li>Designed brand kits and social media style guides in Canva</li>
-          <li>Compiled press, influencer and talent contact lists for event outreach</li>
-          <li>Delivered post-event analytics and press coverage reports to measure campaign ROI</li>
-        </ul>
-        <button class="role-see-btn" data-role="indera">See work →</button>
-      </div>
-      <div class="img-stack-wrap">
-        <div class="stack-card card-a" data-role="indera">
-          <div class="stack-ph">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-            <span>Preview</span>
-          </div>
-        </div>
-        <div class="stack-card card-b" data-role="indera">
-          <div class="stack-ph">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="2" y="2" width="20" height="20" rx="3"/><polygon points="10,8 16,12 10,16"/></svg>
-            <span>Preview</span>
-          </div>
-        </div>
-        <div class="stack-badge">+3</div>
-      </div>
-    </div>
-  </div>
+      </section>
 
-  <!-- ── LCC / UAL ── -->
-  <div class="role-block reveal reveal-delay-4">
-    <div class="tl-dot"></div>
-    <div class="role-card edu">
-      <div class="role-meta">
-        <span>BA Advertising &amp; Brand Management</span>
-        <span>·</span>
-        <span>2021 – 2024</span>
-      </div>
-      <h2 class="role-company">LCC / UAL</h2>
-      <p class="role-desc">A practice-led degree in brand strategy, campaign planning, copywriting, digital design and creative direction at London College of Communication.</p>
-      <div class="honours-badge">★ First Class Honours</div>
-      <div class="edu-tags">
-        <span class="edu-tag">Brand Strategy</span>
-        <span class="edu-tag">Campaign Planning</span>
-        <span class="edu-tag">Copywriting</span>
-        <span class="edu-tag">Digital Design</span>
-        <span class="edu-tag">UI/UX</span>
-        <span class="edu-tag">Storytelling</span>
-      </div>
-
-      <!-- Project sub-cards -->
-      <div class="proj-grid">
-
-        <div class="proj-card" data-role="simple-skincare">
-          <div class="proj-thumb">
-            <img src="Images/Simple skincare print 1.jpg" alt="Simple Skincare">
+      <!-- ── 03 Noirgaze ── -->
+      <section class="h-panel" id="noirgaze">
+        <div class="panel-inner">
+          <div class="panel-left">
+            <div class="panel-meta">
+              <span>Social Media &amp; Marketing</span>
+              <span>·</span>
+              <span>Aug – Dec 2024</span>
+            </div>
+            <h2 class="panel-company">Noirgaze</h2>
+            <p class="panel-desc">Social media and marketing for an independent luxury bag company, growing the brand's following by 3,000+ in five months through content, creative direction and campaign work.</p>
+            <ul class="panel-bullets">
+              <li>Led content planning and creation for Instagram and TikTok, supporting Fashion Week, Black Friday and Christmas campaigns</li>
+              <li>Acted as Creative Lead for product-focused shoots, overseeing styling, art direction and post-production</li>
+              <li>Managed CRM and email marketing via Klaviyo, designing automated flows and newsletters aligned with seasonal launches</li>
+              <li>Collaborated with the founder to shape brand voice, develop strategy and maintain a consistent visual identity</li>
+            </ul>
+            <button class="panel-see-btn" data-role="noirgaze">See work →</button>
           </div>
-          <div class="proj-info">
-            <div class="proj-name">Simple Skincare</div>
-            <div class="proj-type">Print · Radio · Film · FMP</div>
-          </div>
-        </div>
-
-        <div class="proj-card" data-role="nature-valley">
-          <div class="proj-thumb">
-            <img src="Images/Nature Valley print one.jpg" alt="Nature Valley">
-          </div>
-          <div class="proj-info">
-            <div class="proj-name">Nature Valley</div>
-            <div class="proj-type">Print · TV · Radio</div>
-          </div>
-        </div>
-
-        <div class="proj-card" data-role="more-than-a-kit">
-          <div class="proj-thumb">
-            <img src="Images/More than a kit campaign poster.png" alt="More Than a Kit">
-          </div>
-          <div class="proj-info">
-            <div class="proj-name">More Than a Kit</div>
-            <div class="proj-type">Print · Film · Campaign</div>
-          </div>
-        </div>
-
-        <div class="proj-card" data-role="slow-walkers">
-          <div class="proj-thumb">
-            <div class="proj-thumb-ph">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="2" y="2" width="20" height="20" rx="3"/><polygon points="10,8 16,12 10,16"/></svg>
+          <div class="panel-right">
+            <div class="img-stack-wrap">
+              <div class="stack-card card-a" data-role="noirgaze">
+                <img src="Images/Noirgaze christmas content one.jpg" alt="Noirgaze Christmas campaign">
+              </div>
+              <div class="stack-card card-b" data-role="noirgaze">
+                <img src="Images/Noirgaze christmas content two.jpg" alt="Noirgaze Merry Xmas">
+              </div>
+              <div class="stack-badge">+3</div>
             </div>
           </div>
-          <div class="proj-info">
-            <div class="proj-name">Slow Walkers</div>
-            <div class="proj-type">Film · Campaign</div>
-          </div>
         </div>
+      </section>
 
-        <div class="proj-card" data-role="dissertation">
-          <div class="proj-thumb">
-            <div class="proj-thumb-ph">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg>
+      <!-- ── 04 LCC / UAL ── -->
+      <section class="h-panel" id="lcc">
+        <div class="panel-inner">
+          <div class="panel-left">
+            <div class="panel-meta">
+              <span>BA (Hons) Advertising</span>
+              <span>·</span>
+              <span>2022 – 2025</span>
+            </div>
+            <h2 class="panel-company">
+              London College of Communication
+              <img src="Images/UAL LOGO.webp" alt="UAL" class="ual-logo">
+            </h2>
+            <p class="panel-desc">Practice-led advertising degree covering brand strategy, campaign planning, copywriting, consumer behaviour and creative direction.</p>
+            <div class="honours-badge">★ First Class Honours</div>
+            <ul class="panel-bullets">
+              <li>Explored creative strategy, branding, digital campaign planning and consumer behaviour through industry-led modules</li>
+              <li>Produced full advertising campaigns across Final Major Projects, including print, radio and TV, pitching to tutors with industry backgrounds and receiving professional feedback</li>
+              <li>Completed a dissertation and multiple cross-discipline projects across print, digital and film</li>
+            </ul>
+            <div class="edu-tags">
+              <span class="edu-tag">Brand Strategy</span>
+              <span class="edu-tag">Campaign Planning</span>
+              <span class="edu-tag">Copywriting</span>
+              <span class="edu-tag">Consumer Behaviour</span>
+              <span class="edu-tag">Creative Direction</span>
             </div>
           </div>
-          <div class="proj-info">
-            <div class="proj-name">Dissertation</div>
-            <div class="proj-type">Research · Writing</div>
+          <div class="panel-right">
+            <div class="lcc-proj-grid">
+              <div class="proj-card" data-role="simple-skincare">
+                <div class="proj-thumb"><img src="Images/Simple skincare print 1.jpg" alt="Simple Skincare"></div>
+                <div class="proj-info">
+                  <div class="proj-name">Simple Skincare</div>
+                  <div class="proj-type">Print · Radio · Film · FMP</div>
+                </div>
+              </div>
+              <div class="proj-card" data-role="nature-valley">
+                <div class="proj-thumb"><img src="Images/Nature Valley print one.jpg" alt="Nature Valley"></div>
+                <div class="proj-info">
+                  <div class="proj-name">Nature Valley</div>
+                  <div class="proj-type">Print · TV · Radio</div>
+                </div>
+              </div>
+              <div class="proj-card" data-role="more-than-a-kit">
+                <div class="proj-thumb"><img src="Images/More than a kit campaign poster.png" alt="More Than a Kit"></div>
+                <div class="proj-info">
+                  <div class="proj-name">More Than a Kit</div>
+                  <div class="proj-type">Print · Film · Campaign</div>
+                </div>
+              </div>
+              <div class="proj-card" data-role="slow-walkers">
+                <div class="proj-thumb">
+                  <div class="proj-thumb-ph">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="2" y="2" width="20" height="20" rx="3"/><polygon points="10,8 16,12 10,16"/></svg>
+                  </div>
+                </div>
+                <div class="proj-info">
+                  <div class="proj-name">Slow Walkers</div>
+                  <div class="proj-type">Film · Campaign</div>
+                </div>
+              </div>
+              <div class="proj-card" data-role="dissertation">
+                <div class="proj-thumb">
+                  <div class="proj-thumb-ph">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                  </div>
+                </div>
+                <div class="proj-info">
+                  <div class="proj-name">Dissertation</div>
+                  <div class="proj-type">Research · Writing</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+      </section>
 
-      </div>
-    </div>
-  </div>
-
-</div><!-- /timeline-outer -->
+    </div><!-- /hscroll-track -->
+  </div><!-- /hscroll-sticky -->
+</div><!-- /hscroll-wrapper -->
 
 <!-- ── GALLERY MODAL ── -->
 <div class="gallery-modal-bg" id="galleryBg">
   <div class="gallery-modal" id="galleryModal">
     <div class="gm-header">
-      <div class="gm-header-text">
+      <div>
         <div class="gm-meta" id="gmMeta"></div>
         <div class="gm-title" id="gmTitle"></div>
       </div>
@@ -707,27 +728,66 @@
   </div>
 </div>
 
-<!-- Space prompt -->
 <div class="space-prompt" id="spacePrompt">
   Press <span class="space-key">SPACE</span> to select your theme
 </div>
 
-<footer>
-  <div class="footer-wrap">
-    <span class="footer-copy">© 2025 Maia Comley</span>
-    <span class="footer-copy">London, UK</span>
-  </div>
-</footer>
-
 <script>
-  // Nav scroll
-  const nav = document.getElementById('nav');
-  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 20));
+  const PANELS = 5;
+  const SCROLL_PER_PANEL = 0.4; // fraction of innerHeight per panel
+  const wrapper    = document.getElementById('hscrollWrapper');
+  const track      = document.getElementById('hscrollTrack');
+  const nav        = document.getElementById('nav');
+  const sp         = document.getElementById('spacePrompt');
+  const stickyHdr  = document.getElementById('workStickyHeader');
+  const wshFill    = document.getElementById('wshFill');
+
+  // Set wrapper height so each panel gets ~100vh of scroll
+  function setWrapperHeight() {
+    wrapper.style.height = (window.innerHeight + (PANELS - 1) * window.innerHeight * SCROLL_PER_PANEL) + 'px';
+  }
+  setWrapperHeight();
+  window.addEventListener('resize', () => { setWrapperHeight(); onScroll(); });
+
+  // Convert scroll to horizontal
+  function onScroll() {
+    const maxScroll = (PANELS - 1) * window.innerHeight * SCROLL_PER_PANEL;
+    const progress  = Math.max(0, Math.min(1, window.scrollY / maxScroll));
+    const maxTranslate = (PANELS - 1) * window.innerWidth;
+    track.style.transform = `translateX(${-maxTranslate * progress}px)`;
+
+    // Sticky work header — slides in when entering panel 1
+    const rawProgress = progress * (PANELS - 1);
+    stickyHdr.classList.toggle('visible', rawProgress >= 0.75);
+
+    // Progress fill: 0% at panel 1, 100% at panel 4
+    const workPct = Math.max(0, Math.min(1, (rawProgress - 1) / (PANELS - 2)));
+    wshFill.style.width = (workPct * 100) + '%';
+
+    // Hide space prompt on scroll
+    if (window.scrollY > 60) sp.classList.add('hidden');
+
+    // Nav border
+    nav.classList.toggle('scrolled', window.scrollY > 20);
+
+    // Hide space prompt after first scroll
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  // Handle anchor links from homepage (#idgateway etc.)
+  const anchorPanelMap = { 'idgateway': 1, 'indera': 2, 'noirgaze': 3, 'lcc': 4 };
+  window.addEventListener('load', () => {
+    const hash = window.location.hash.slice(1);
+    if (hash && anchorPanelMap[hash] !== undefined) {
+      const panelIdx = anchorPanelMap[hash];
+      const target = panelIdx * window.innerHeight * SCROLL_PER_PANEL;
+      setTimeout(() => window.scrollTo({ top: target, behavior: 'smooth' }), 100);
+    }
+  });
 
   // Palette
   const palettes = ['p-compl', 'p-analog'];
   let idx = -1;
-  const sp = document.getElementById('spacePrompt');
   function applyPalette(i) {
     document.documentElement.classList.remove('p-compl', 'p-analog');
     if (i >= 0) { document.documentElement.classList.add(palettes[i]); localStorage.setItem('palette', palettes[i]); }
@@ -736,60 +796,32 @@
   const saved = localStorage.getItem('palette');
   if (saved) { idx = palettes.indexOf(saved); if (idx > -1) { applyPalette(idx); sp.classList.add('hidden'); } }
   window.addEventListener('keydown', e => {
-    if (e.code === 'Space' && e.target === document.body) {
+    if (e.code === 'Space' && !['INPUT','TEXTAREA','SELECT'].includes(e.target.tagName)) {
       e.preventDefault();
       idx = idx >= palettes.length - 1 ? -1 : idx + 1;
       applyPalette(idx);
     }
   });
-  window.addEventListener('scroll', () => { if (window.scrollY > 80) sp.classList.add('hidden'); });
-
-  // Reveal
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
   // Gallery data
   const galleryData = {
-    idgateway: {
-      meta: 'Marketing Executive · 2024–Present',
-      title: 'IDGateway',
-      items: [
-        { type: 'sq',   caption: 'Social post — LinkedIn',   icon: 'image' },
-        { type: 'sq',   caption: 'Social post — Instagram',  icon: 'image' },
-        { type: 'land', caption: 'Blog article',             icon: 'doc',   wide: true },
-        { type: 'land', caption: 'Website wireframe',        icon: 'image' },
-        { type: 'sq',   caption: 'Analytics dashboard',      icon: 'image' },
-        { type: 'sq',   caption: 'Social post — X',         icon: 'image' },
-      ]
-    },
     noirgaze: {
       meta: 'Social Media & Marketing · 2024',
       title: 'Noirgaze',
       items: [
-        { type: 'port', caption: 'Christmas 2024 — Instagram story', src: 'Images/Noirgaze christmas content one.jpg' },
-        { type: 'port', caption: 'Merry Xmas — Instagram story',     src: 'Images/Noirgaze christmas content two.jpg' },
-        { type: 'port', caption: 'Gift of style — Instagram story',  src: 'Images/Noirgaze christmas content three.jpg' },
-        { type: 'port', caption: 'Fashion Week — Instagram post',    src: 'Images/Noirgaze fashion week 1 .jpg' },
-        { type: 'port', caption: 'Fashion Week — Instagram post',    src: 'Images/Noirgaze fashion week 2.jpg' },
-        { type: 'port', caption: 'TikTok — Black Friday',    icon: 'video' },
-        { type: 'port', caption: 'TikTok — Product Shoot',   icon: 'video' },
+        { type: 'port', caption: 'Christmas 2024, Instagram story', src: 'Images/Noirgaze christmas content one.jpg' },
+        { type: 'port', caption: 'Merry Xmas, Instagram story',     src: 'Images/Noirgaze christmas content two.jpg' },
+        { type: 'port', caption: 'Gift of style, Instagram story',  src: 'Images/Noirgaze christmas content three.jpg' },
+        { type: 'port', caption: 'Fashion Week, Instagram post',    src: 'Images/Noirgaze fashion week 1 .jpg' },
+        { type: 'port', caption: 'Fashion Week, Instagram post',    src: 'Images/Noirgaze fashion week 2.jpg' },
+        { type: 'port', caption: 'TikTok, Black Friday',    icon: 'video' },
+        { type: 'port', caption: 'TikTok, Product Shoot',   icon: 'video' },
         { type: 'land', caption: 'Content calendar',         icon: 'doc',   wide: true },
       ]
     },
-    indera: {
-      meta: 'PR Assistant · Sept–Oct 2025',
-      title: 'Indera Tamara',
-      items: [
-        { type: 'port', caption: 'SS26 Runway — LFW',        icon: 'video' },
-        { type: 'doc',  caption: 'LFW Press PDF',            icon: 'doc',   wide: true },
-        { type: 'land', caption: 'Brand Kit',                icon: 'doc' },
-      ]
-    },
     'simple-skincare': {
-      meta: 'Final Major Project · BA Advertising & Brand Management',
-      title: 'Simple Skincare — "Keep It Simple"',
+      meta: 'Final Major Project · BA Advertising',
+      title: 'Simple Skincare: Keep It Simple',
       items: [
         { type: 'port', caption: 'Print ad 1', src: 'Images/Simple skincare print 1.jpg' },
         { type: 'port', caption: 'Print ad 2', src: 'Images/Simple skincare print 2.jpg' },
@@ -799,7 +831,7 @@
       ]
     },
     'nature-valley': {
-      meta: 'University Project · BA Advertising & Brand Management',
+      meta: 'University Project · BA Advertising',
       title: 'Nature Valley',
       items: [
         { type: 'port', caption: 'Print ad 1', src: 'Images/Nature Valley print one.jpg' },
@@ -809,7 +841,7 @@
       ]
     },
     'more-than-a-kit': {
-      meta: 'University Project · BA Advertising & Brand Management',
+      meta: 'University Project · BA Advertising',
       title: 'More Than a Kit',
       items: [
         { type: 'port', caption: 'Campaign poster 1', src: 'Images/More than a kit campaign poster.png' },
@@ -818,14 +850,14 @@
       ]
     },
     'slow-walkers': {
-      meta: 'University Project · BA Advertising & Brand Management',
+      meta: 'University Project · BA Advertising',
       title: 'Slow Walkers',
       items: [
         { type: 'land', caption: 'Campaign film', video: 'Images/Slow walkers campaign .mp4', wide: true },
       ]
     },
     'dissertation': {
-      meta: 'Dissertation · BA Advertising & Brand Management',
+      meta: 'Dissertation · BA Advertising',
       title: 'Dissertation',
       items: [
         { type: 'doc', caption: 'Full dissertation', pdf: 'Images/Maia Comley Dissertation.pdf' },
@@ -833,7 +865,6 @@
     }
   };
 
-  // ── Slideshow state ──
   let slideItems = [], slideIdx = 0;
 
   const phIcon = type => {
@@ -851,11 +882,7 @@
     } else if (item.video) {
       stage.innerHTML = `<video src="${item.video}" controls preload="metadata"></video>`;
     } else if (item.pdf) {
-      stage.innerHTML = `<div class="gm-stage-ph">
-        ${phIcon('doc')}
-        <a href="${item.pdf}" target="_blank" rel="noopener" style="font-size:0.75rem;color:var(--ink);text-underline-offset:3px;text-decoration:underline;opacity:0.7;">Open PDF</a>
-        <a href="${item.pdf}" download style="font-size:0.65rem;color:var(--muted);text-underline-offset:3px;text-decoration:underline;margin-top:-4px;">Download</a>
-      </div>`;
+      stage.innerHTML = `<div class="gm-stage-ph">${phIcon('doc')}<a href="${item.pdf}" target="_blank" rel="noopener" style="font-size:0.75rem;color:var(--ink);text-underline-offset:3px;text-decoration:underline;opacity:0.7;">Open PDF</a><a href="${item.pdf}" download style="font-size:0.65rem;color:var(--muted);text-underline-offset:3px;text-decoration:underline;margin-top:-4px;">Download</a></div>`;
     } else {
       stage.innerHTML = `<div class="gm-stage-ph">${phIcon(item.icon)}<span>${item.icon === 'video' ? 'Video coming soon' : item.icon === 'doc' ? 'PDF coming soon' : 'Image coming soon'}</span></div>`;
     }
@@ -872,19 +899,16 @@
     document.getElementById('gmTitle').textContent = d.title;
     renderSlide(0);
     document.getElementById('galleryBg').classList.add('open');
-    document.body.style.overflow = 'hidden';
   }
 
   function closeGallery() {
     document.getElementById('gmStage').querySelectorAll('video').forEach(v => v.pause());
     document.getElementById('galleryBg').classList.remove('open');
-    document.body.style.overflow = '';
   }
 
   document.getElementById('gmPrev').addEventListener('click', () => { if (slideIdx > 0) renderSlide(--slideIdx); });
   document.getElementById('gmNext').addEventListener('click', () => { if (slideIdx < slideItems.length - 1) renderSlide(++slideIdx); });
-
-  document.querySelectorAll('.role-see-btn, .stack-card, .proj-card').forEach(el => {
+  document.querySelectorAll('.panel-see-btn, .stack-card, .proj-card').forEach(el => {
     el.addEventListener('click', () => openGallery(el.dataset.role));
   });
   document.getElementById('galleryClose').addEventListener('click', closeGallery);
@@ -895,4 +919,5 @@
     if (e.key === 'ArrowRight' && slideIdx < slideItems.length - 1) renderSlide(++slideIdx);
   });
 </script>
+</body>
 </html>

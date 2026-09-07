@@ -1,4 +1,4 @@
-<title>Interests — Maia Comley</title>
+<title>Interests | Maia Comley</title>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -23,7 +23,7 @@
   .nav-links { display: flex; gap: 36px; list-style: none; align-items: center; }
   .nav-links a { font-size: 0.68rem; font-weight: 400; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
   .nav-links a:hover, .nav-links a.active { color: var(--ink); }
-  .nav-contact { background: var(--accent); color: var(--bg) !important; padding: 7px 16px; border-radius: 100px; }
+  .nav-contact { background: var(--accent); color: var(--bg) !important; padding: 7px 16px; border-radius: 5px; }
   html.p-mono  .nav-contact { background: var(--ink); color: #fff !important; }
   html.p-compl .nav-contact { background: #0D46E7; color: #fff !important; }
   html.p-analog .nav-contact { background: #F57A00; color: #fff !important; }
@@ -59,7 +59,7 @@
   }
   .slider-viewport {
     overflow: hidden;
-    border-radius: 14px;
+    border-radius: 5px;
   }
   .slider-track {
     display: flex;
@@ -69,7 +69,7 @@
   .slider-item {
     flex: 0 0 calc(33.333% - 8px);
     min-width: 0;
-    border-radius: 14px;
+    border-radius: 5px;
     overflow: hidden;
     background: var(--surface);
     cursor: pointer;
@@ -119,7 +119,7 @@
   .slider-item:hover .vc-play { background: rgba(0,0,0,0.04); }
   .vc-caption { padding: 12px 14px 16px; font-size: 0.82rem; color: var(--muted); }
 
-  /* design card innards — smaller, 4-up */
+  /* design card innards, smaller, 4-up */
   .design-slider .slider-item { flex: 0 0 calc(25% - 9px); }
   .dc-media { width: 100%; background: var(--rule); position: relative; overflow: hidden; }
   .dc-media.sq  { aspect-ratio: 1/1; }
@@ -133,6 +133,37 @@
   .dc-placeholder span { font-size: 0.55rem; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.4; }
   .dc-caption { padding: 8px 10px 12px; font-size: 0.72rem; color: var(--muted); }
 
+  /* ── VIDEO LIGHTBOX ── */
+  .video-lb-bg {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.92);
+    z-index: 600; opacity: 0; pointer-events: none;
+    transition: opacity 0.3s;
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px;
+  }
+  .video-lb-bg.open { opacity: 1; pointer-events: auto; }
+  .video-lb {
+    position: relative; width: 100%; max-width: 900px;
+    transform: scale(0.96); transition: transform 0.35s cubic-bezier(0.22,1,0.36,1);
+  }
+  .video-lb-bg.open .video-lb { transform: scale(1); }
+  .video-lb video {
+    width: 100%; display: block; border-radius: 4px;
+    max-height: 82vh; background: #000;
+  }
+  .video-lb-close {
+    position: absolute; top: -40px; right: 0;
+    background: none; border: none; color: #fff;
+    font-size: 1.4rem; cursor: pointer; opacity: 0.7; line-height: 1;
+    padding: 4px 8px;
+  }
+  .video-lb-close:hover { opacity: 1; }
+  .video-lb-caption {
+    color: rgba(255,255,255,0.55); font-size: 0.72rem;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    margin-top: 10px; text-align: center;
+  }
+
   /* ── DESIGN LIGHTBOX ── */
   .design-lb-bg {
     position: fixed; inset: 0; background: rgba(0,0,0,0.82);
@@ -143,7 +174,7 @@
   }
   .design-lb-bg.open { opacity: 1; pointer-events: auto; }
   .design-lb {
-    background: var(--bg); border-radius: 20px;
+    background: var(--bg); border-radius: 3px;
     width: 100%; max-width: 560px;
     height: 88vh;
     display: flex; flex-direction: column;
@@ -192,14 +223,14 @@
   /* ── BLOG GRID ── */
   .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
   .blog-card {
-    border-radius: 14px; background: var(--surface);
+    border-radius: 5px; background: var(--surface);
     cursor: pointer; padding: 28px 24px 24px;
     display: flex; flex-direction: column; justify-content: space-between;
     min-height: 200px;
     transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s;
   }
   .blog-card:hover { transform: translateY(-6px); box-shadow: 0 20px 56px rgba(0,0,0,0.12); }
-  .bc-tag { font-size: 0.52rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--rule); border-radius: 100px; padding: 2px 8px; width: fit-content; margin-bottom: 16px; }
+  .bc-tag { font-size: 0.52rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--rule); border-radius: 5px; padding: 2px 8px; width: fit-content; margin-bottom: 16px; }
   .bc-title { font-size: 1.05rem; font-weight: 400; color: var(--ink); line-height: 1.35; flex: 1; }
   .bc-arrow { margin-top: 20px; font-size: 0.72rem; color: var(--muted); letter-spacing: 0.04em; }
 
@@ -207,7 +238,7 @@
   .card-tooltip {
     position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(8px);
     background: var(--ink); color: var(--bg);
-    border-radius: 100px; padding: 10px 20px;
+    border-radius: 5px; padding: 10px 20px;
     font-size: 0.72rem; font-weight: 400; letter-spacing: 0.02em;
     white-space: nowrap; z-index: 300;
     opacity: 0; pointer-events: none;
@@ -226,7 +257,7 @@
   }
   .blog-modal-bg.open { opacity: 1; pointer-events: auto; }
   .blog-modal {
-    background: var(--bg); border-radius: 18px;
+    background: var(--bg); border-radius: 3px;
     max-width: 680px; width: 100%; max-height: 80vh; overflow-y: auto;
     padding: 40px 44px; position: relative;
     transform: translateY(16px); transition: transform 0.35s cubic-bezier(0.22,1,0.36,1);
@@ -244,16 +275,16 @@
   .bm-close:hover { background: var(--surface); }
   .bm-tag { font-size: 0.55rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
   .bm-title { font-size: 1.6rem; font-weight: 300; letter-spacing: -0.03em; color: var(--ink); line-height: 1.2; margin-bottom: 24px; }
-  .bm-image { width: 100%; aspect-ratio: 16/9; background: var(--rule); border-radius: 10px; margin-bottom: 28px; overflow: hidden; }
+  .bm-image { width: 100%; aspect-ratio: 16/9; background: var(--rule); border-radius: 2px; margin-bottom: 28px; overflow: hidden; }
   .bm-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .bm-image-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: var(--muted); opacity: 0.3; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; }
   .bm-body { font-size: 0.95rem; font-weight: 300; color: var(--ink); line-height: 1.75; opacity: 0.85; }
   .bm-body p + p { margin-top: 1.2em; }
 
   /* ── SPACE PROMPT ── */
-  .space-prompt { position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 10px; background: var(--bg); border: 1px solid var(--rule); border-radius: 100px; padding: 10px 20px; font-size: 0.62rem; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); white-space: nowrap; z-index: 200; transition: opacity 0.4s, background 0.55s, border-color 0.55s; }
+  .space-prompt { position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 10px; background: var(--bg); border: 1px solid var(--rule); border-radius: 5px; padding: 10px 20px; font-size: 0.62rem; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); white-space: nowrap; z-index: 200; transition: opacity 0.4s, background 0.55s, border-color 0.55s; }
   .space-prompt.hidden { opacity: 0; pointer-events: none; }
-  .space-key { background: var(--ink); color: var(--bg); border-radius: 6px; padding: 2px 10px; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.06em; transition: background 0.55s, color 0.55s; }
+  .space-key { background: var(--ink); color: var(--bg); border-radius: 3px; padding: 2px 10px; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.06em; transition: background 0.55s, color 0.55s; }
 
   /* ── FOOTER ── */
   footer { border-top: 1px solid var(--rule); }
@@ -261,14 +292,53 @@
   .footer-copy { font-size: 0.62rem; font-weight: 400; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
 
   /* ── RESPONSIVE ── */
-  @media (max-width: 540px) {
-    nav { padding: 24px; }
-    .page-header { padding: 130px 24px 48px; }
-    .content-wrap { padding: 0 24px 80px; }
-    .video-grid, .design-grid, .blog-grid { grid-template-columns: repeat(2, 1fr); }
-    .design-card.span-2 { grid-column: span 2; }
+  @media (max-width: 768px) {
+    /* Nav */
+    nav { padding: 18px 20px; }
+    .nav-links { gap: 14px; }
+    .nav-links a { font-size: 0.62rem; letter-spacing: 0.05em; }
+    .nav-contact { padding: 6px 12px; font-size: 0.62rem; }
+
+    /* Page header */
+    .page-header { padding: 100px 20px 40px; }
+    .page-header-title { font-size: clamp(2.4rem, 10vw, 4rem); }
+    .page-header-sub { font-size: 0.9rem; }
+
+    /* Content */
+    .content-wrap { padding: 0 20px 72px; gap: 56px; }
+
+    /* Sliders: 1-up + peek on mobile */
+    .slider-item { flex: 0 0 calc(82% - 6px); }
+    .design-slider .slider-item { flex: 0 0 calc(48% - 6px); }
+
+    /* Pull slider buttons inside viewport */
+    .slider-btn.prev { left: 4px; }
+    .slider-btn.next { right: 4px; }
+
+    /* Blog grid: single column */
+    .blog-grid { grid-template-columns: 1fr; }
+
+    /* Blog modal: tighter padding */
+    .blog-modal-bg { padding: 16px; }
+    .blog-modal { padding: 28px 20px; }
+
+    /* Design lightbox: full width */
+    .design-lb { max-width: 100%; height: 82vh; }
+
+    /* Video lightbox */
+    .video-lb-bg { padding: 12px; }
+    .video-lb-close { top: -32px; font-size: 1.1rem; }
+
+    /* Space prompt */
+    .space-prompt { font-size: 0.6rem; padding: 8px 14px; }
+
+    /* Footer */
     .footer-wrap { padding: 24px; flex-direction: column; gap: 12px; text-align: center; }
-    .blog-modal { padding: 28px 24px; }
+  }
+
+  @media (max-width: 400px) {
+    .slider-item { flex: 0 0 calc(90% - 6px); }
+    .design-slider .slider-item { flex: 0 0 calc(62% - 6px); }
   }
 </style>
 
@@ -298,11 +368,38 @@
       <div class="slider-viewport">
         <div class="slider-track" id="videoTrack">
 
+          <div class="slider-item video-card" data-tip="A travel edit from my trip to Vietnam, filmed and edited on my own.">
+            <div class="vc-media">
+              <img src="Images/Vietnam travel video thumbnail.png" alt="Vietnam travel video thumbnail">
+              <video src="Images/Vietnam Travel video.MP4" preload="none" playsinline loop muted style="display:none;"></video>
+              <div class="vc-play"><svg width="48" height="48" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="23" fill="white" fill-opacity="0.88"/><polygon points="20,15 36,24 20,33" fill="#0A0A0A"/></svg></div>
+            </div>
+            <div class="vc-caption">Vietnam · Travel Edit</div>
+          </div>
+
+          <div class="slider-item video-card" data-tip="A personal vlog from my 15km run, filmed along the way.">
+            <div class="vc-media">
+              <img src="Images/15km run vlog thumbnail.PNG" alt="15km run vlog thumbnail">
+              <video src="Images/15km run vlog .MP4" preload="none" playsinline loop muted style="display:none;"></video>
+              <div class="vc-play"><svg width="48" height="48" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="23" fill="white" fill-opacity="0.88"/><polygon points="20,15 36,24 20,33" fill="#0A0A0A"/></svg></div>
+            </div>
+            <div class="vc-caption">15km Run · Vlog</div>
+          </div>
+
+          <div class="slider-item video-card" data-tip="A short intro video: who I am and what I do.">
+            <div class="vc-media">
+              <img src="Images/Intro video thumbnail.PNG" alt="Intro video thumbnail">
+              <video src="Images/Intro video.MP4" preload="none" playsinline loop muted style="display:none;"></video>
+              <div class="vc-play"><svg width="48" height="48" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="23" fill="white" fill-opacity="0.88"/><polygon points="20,15 36,24 20,33" fill="#0A0A0A"/></svg></div>
+            </div>
+            <div class="vc-caption">Intro · About Me</div>
+          </div>
+
           <div class="slider-item video-card" data-tip="Fashion Week content I filmed and edited for Indera Tamara's SS26 show.">
             <div class="vc-media">
               <div class="vc-placeholder">
                 <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                <span>Video coming</span>
+                <span>Video coming soon</span>
               </div>
               <div class="vc-play"><svg width="48" height="48" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="23" fill="white" fill-opacity="0.88"/><polygon points="20,15 36,24 20,33" fill="#0A0A0A"/></svg></div>
             </div>
@@ -313,18 +410,18 @@
             <div class="vc-media">
               <div class="vc-placeholder">
                 <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                <span>Video coming</span>
+                <span>Video coming soon</span>
               </div>
               <div class="vc-play"><svg width="48" height="48" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="23" fill="white" fill-opacity="0.88"/><polygon points="20,15 36,24 20,33" fill="#0A0A0A"/></svg></div>
             </div>
             <div class="vc-caption">Noirgaze · Black Friday</div>
           </div>
 
-          <div class="slider-item video-card" data-tip="A TikTok product shoot I led and edited — styling, art direction and post-production.">
+          <div class="slider-item video-card" data-tip="A TikTok product shoot I led and edited, covering styling, art direction and post-production.">
             <div class="vc-media">
               <div class="vc-placeholder">
                 <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                <span>Video coming</span>
+                <span>Video coming soon</span>
               </div>
               <div class="vc-play"><svg width="48" height="48" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="23" fill="white" fill-opacity="0.88"/><polygon points="20,15 36,24 20,33" fill="#0A0A0A"/></svg></div>
             </div>
@@ -424,7 +521,7 @@
            data-blog="true"
            data-title="Why Every Brand Needs a Point of View"
            data-tag="Marketing"
-           data-body="<p>In a world saturated with content, the brands that cut through aren't the loudest — they're the ones with something to say. A point of view isn't just a tagline. It's the consistent lens through which every piece of communication is filtered.</p><p>I've been thinking about this a lot in my work at IDGateway. Identity verification isn't the most glamorous sector, but there's a genuinely important story to tell about trust, security and digital freedom — and that story needs a perspective to land.</p><p>The brands I admire most — Patagonia, Oatly, even early Apple — don't describe what they do. They describe what they believe. And everything else follows from that.</p>">
+           data-body="<p>In a world saturated with content, the brands that cut through aren't the loudest; they're the ones with something to say. A point of view is not just a tagline; it's the consistent lens through which every piece of communication is filtered.</p><p>I've been thinking about this a lot in my work at IDGateway. Identity verification isn't the most glamorous sector, but there's a genuinely important story to tell about trust, security and digital freedom, and that story needs a perspective to land.</p><p>The brands I admire most, Patagonia, Oatly, even early Apple, don't describe what they do; they describe what they believe. And everything else follows from that.</p>">
         <div class="bc-tag">Marketing</div>
         <div class="bc-title">Why Every Brand Needs a Point of View</div>
         <div class="bc-arrow">Read →</div>
@@ -434,7 +531,7 @@
            data-blog="true"
            data-title="What Fashion Week Taught Me About Storytelling"
            data-tag="Creative"
-           data-body="<p>When I worked on Kyle Ho's SS26 show for Indera Tamara, I wasn't just filming a runway — I was learning what it means to build a moment. Fashion Week is theatre. Every detail, from the seating arrangement to the soundtrack, is part of the story being told.</p><p>What struck me most was how the best shows didn't need to explain themselves. The work spoke. The atmosphere did the rest. That's the standard I try to hold creative work to: if you need to explain it, it's not quite there yet.</p><p>Content creation in this world moves fast — a show that took months to prepare lives on social media for 48 hours. The challenge is distilling all of that craft into something that travels.</p>">
+           data-body="<p>When I worked on Kyle Ho's SS26 show for Indera Tamara, I wasn't just filming a runway; I was learning what it means to build a moment. Fashion Week is theatre. Every detail, from the seating arrangement to the soundtrack, is part of the story being told.</p><p>What struck me most was how the best shows didn't need to explain themselves. The work spoke. The atmosphere did the rest. That's the standard I try to hold creative work to: if you need to explain it, it's not quite there yet.</p><p>Content creation in this world moves fast: a show that took months to prepare lives on social media for 48 hours. The challenge is distilling all of that craft into something that travels.</p>">
         <div class="bc-tag">Creative</div>
         <div class="bc-title">What Fashion Week Taught Me About Storytelling</div>
         <div class="bc-arrow">Read →</div>
@@ -444,7 +541,7 @@
            data-blog="true"
            data-title="Growing a Brand on TikTok Without Losing Your Soul"
            data-tag="Social Media"
-           data-body="<p>When I joined Noirgaze, their TikTok had a presence but no real pulse. The content was fine — products looked good, captions were clean — but it felt like it was made by a brand, not a person. That's the TikTok death sentence.</p><p>What worked wasn't tricks or trends. It was leaning into specificity. Showing the behind-the-scenes of a shoot rather than the polished result. Letting imperfection in. Speaking like a real person who happened to love the product.</p><p>Five months in, the following had grown by 3,000 across platforms. But more than the number, the comments shifted. People started talking back. That's when you know it's working.</p>">
+           data-body="<p>When I joined Noirgaze, their TikTok had a presence but no real pulse. The content was fine; products looked good, captions were clean, but it felt like it was made by a brand, not a person. That's the TikTok death sentence.</p><p>What worked wasn't tricks or trends. It was leaning into specificity. Showing the behind-the-scenes of a shoot rather than the polished result. Letting imperfection in. Speaking like a real person who happened to love the product.</p><p>Five months in, the following had grown by 3,000 across platforms. But more than the number, the comments shifted. People started talking back. That's when you know it's working.</p>">
         <div class="bc-tag">Social Media</div>
         <div class="bc-title">Growing a Brand on TikTok Without Losing Your Soul</div>
         <div class="bc-arrow">Read →</div>
@@ -470,6 +567,14 @@
 <div class="card-tooltip" id="cardTooltip"></div>
 
 <!-- Design lightbox -->
+<div class="video-lb-bg" id="videoLbBg">
+  <div class="video-lb">
+    <button class="video-lb-close" id="videoLbClose">✕</button>
+    <video id="videoLbPlayer" controls playsinline style="width:100%;border-radius:4px;max-height:82vh;background:#000;"></video>
+    <div class="video-lb-caption" id="videoLbCaption"></div>
+  </div>
+</div>
+
 <div class="design-lb-bg" id="designLbBg">
   <div class="design-lb" id="designLb">
     <div class="design-lb-header">
@@ -548,7 +653,10 @@
 
   // Nav scroll
   const nav = document.getElementById('nav');
-  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 20));
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 20);
+    if (window.scrollY > 60) document.getElementById('spacePrompt').classList.add('hidden');
+  });
 
   // Palette
   const palettes = ['p-compl', 'p-analog'];
@@ -561,7 +669,7 @@
     else { localStorage.removeItem('palette'); }
   }
   document.addEventListener('keydown', (e) => {
-    if (e.code === 'Space' && e.target === document.body) {
+    if (e.code === 'Space' && !['INPUT','TEXTAREA','SELECT'].includes(e.target.tagName)) {
       e.preventDefault();
       idx = idx >= palettes.length - 1 ? -1 : idx + 1;
       applyPalette(idx);
@@ -609,6 +717,34 @@
     document.getElementById('designLbBg').classList.remove('open');
     document.body.style.overflow = '';
   }
+
+  const videoLbBg     = document.getElementById('videoLbBg');
+  const videoLbPlayer = document.getElementById('videoLbPlayer');
+  const videoLbCaption = document.getElementById('videoLbCaption');
+  const videoLbClose  = document.getElementById('videoLbClose');
+
+  function openVideoLb(src, caption) {
+    videoLbPlayer.src = src;
+    videoLbCaption.textContent = caption;
+    videoLbBg.classList.add('open');
+    videoLbPlayer.play();
+  }
+  function closeVideoLb() {
+    videoLbBg.classList.remove('open');
+    videoLbPlayer.pause();
+    videoLbPlayer.src = '';
+  }
+
+  document.querySelectorAll('.video-card').forEach(card => {
+    const video = card.querySelector('video');
+    if (!video) return;
+    const caption = card.querySelector('.vc-caption')?.textContent || '';
+    card.addEventListener('click', () => openVideoLb(video.src, caption));
+  });
+
+  videoLbClose.addEventListener('click', closeVideoLb);
+  videoLbBg.addEventListener('click', e => { if (e.target === videoLbBg) closeVideoLb(); });
+  window.addEventListener('keydown', e => { if (e.key === 'Escape') closeVideoLb(); });
 
   document.querySelectorAll('.design-card').forEach(card => {
     card.addEventListener('click', () => lbOpen(parseInt(card.dataset.designIndex)));

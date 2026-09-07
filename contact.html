@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contact — Maia Comley</title>
+<title>Contact | Maia Comley</title>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   /* ── PALETTE ── */
   :root {
-    --bg: #F5F4F0; --ink: #0A0A0A; --muted: #888; --rule: #E0DED9;
-    --surface: #ECEAE4; --accent: #0A0A0A;
+    --bg: #FFFFFF; --ink: #0A0A0A; --muted: #888; --rule: #E8E8E8;
+    --surface: #F2F2F2; --accent: #0A0A0A;
   }
   html.p-compl  { --bg:#F56200; --ink:#FFFFFF; --muted:rgba(255,255,255,0.65); --rule:rgba(255,255,255,0.22); --surface:#E05800; --accent:#0D46E7; }
   html.p-analog { --bg:#F5007A; --ink:#FFFFFF; --muted:rgba(255,255,255,0.65); --rule:rgba(255,255,255,0.22); --surface:#D4006A; --accent:#F57A00; }
@@ -46,7 +46,7 @@
   .nav-links a.active, .nav-links a:hover { color: var(--ink); }
   .nav-contact {
     background: var(--ink); color: var(--bg) !important;
-    border-radius: 100px; padding: 8px 20px;
+    border-radius: 5px; padding: 8px 20px;
     transition: background 0.55s, color 0.55s, opacity 0.2s;
   }
   .nav-contact:hover { opacity: 0.82; }
@@ -121,7 +121,7 @@
   .field input, .field textarea {
     width: 100%; min-width: 0;
     background: var(--surface); border: 1px solid transparent;
-    border-radius: 10px; padding: 12px 14px;
+    border-radius: 2px; padding: 12px 14px;
     font-family: inherit; font-size: 0.88rem; color: var(--ink);
     outline: none; resize: none;
     transition: background 0.55s, color 0.55s, border-color 0.2s;
@@ -132,7 +132,7 @@
   .field textarea { height: 110px; }
   .send-btn {
     width: 100%; background: var(--ink); color: var(--bg);
-    border: none; border-radius: 100px; padding: 14px 28px;
+    border: none; border-radius: 5px; padding: 14px 28px;
     font-family: inherit; font-size: 0.8rem; font-weight: 500;
     letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer;
     transition: background 0.55s, color 0.55s, opacity 0.2s;
@@ -159,7 +159,7 @@
     position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%);
     display: flex; align-items: center; gap: 10px;
     background: var(--bg); border: 1px solid var(--rule);
-    border-radius: 100px; padding: 10px 20px;
+    border-radius: 5px; padding: 10px 20px;
     font-size: 0.62rem; font-weight: 400; letter-spacing: 0.1em;
     text-transform: uppercase; color: var(--muted); white-space: nowrap;
     z-index: 200;
@@ -168,12 +168,12 @@
   .space-prompt.hidden { opacity: 0; pointer-events: none; }
   .space-key {
     background: var(--ink); color: var(--bg);
-    border-radius: 6px; padding: 2px 10px;
+    border-radius: 3px; padding: 2px 10px;
     font-size: 0.6rem; font-weight: 600; letter-spacing: 0.06em;
     transition: background 0.55s, color 0.55s;
   }
 
-  /* ── RESPONSIVE — medium: tighten internals ── */
+  /* ── RESPONSIVE, medium ── */
   @media (max-width: 900px) {
     .content { padding: 0 40px; }
     .left { padding-right: 40px; }
@@ -187,16 +187,30 @@
     .form-label { margin-bottom: 16px; }
   }
 
-  /* ── RESPONSIVE — mobile: stack ── */
-  @media (max-width: 520px) {
+  /* ── RESPONSIVE, mobile ── */
+  @media (max-width: 768px) {
     html, body { overflow: auto; }
-    .page { height: auto; padding-top: 72px; }
-    nav { padding: 20px 24px; }
-    .content { grid-template-columns: 1fr; padding: 28px 24px 48px; gap: 32px; }
+    .page { height: auto; padding-top: 64px; }
+
+    /* Nav */
+    nav { padding: 16px 20px; }
+    .nav-links { gap: 14px; }
+    .nav-links a { font-size: 0.62rem; letter-spacing: 0.05em; }
+    .nav-contact { padding: 6px 12px; font-size: 0.62rem; }
+
+    /* Layout */
+    .content { grid-template-columns: 1fr; padding: 28px 20px 48px; gap: 36px; }
     .left { padding-right: 0; }
     .left-rule { display: none; }
     .right { padding-left: 0; }
-    .greeting { font-size: 2.4rem; }
+    .greeting { font-size: clamp(1.8rem, 8vw, 2.8rem); }
+    .tagline { font-size: 0.9rem; }
+
+    /* Form */
+    .form-row { grid-template-columns: 1fr; }
+
+    /* Space prompt */
+    .space-prompt { font-size: 0.6rem; padding: 8px 14px; bottom: 16px; }
   }
 </style>
 </head>
@@ -292,7 +306,7 @@
     }
   });
 
-  // Form — uses mailto as fallback; swap action URL for Formspree/Basin when ready
+  // Form, uses mailto as fallback; swap action URL for Formspree/Basin when ready
   function handleSubmit(e) {
     e.preventDefault();
     const name    = document.getElementById('fname').value;

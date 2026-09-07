@@ -28,25 +28,25 @@
   }
 
   /* ── PALETTE DEFINITIONS ── */
-  /* Full-page colour immersion — bg, ink, and all derived variables shift per palette */
+  /* Full-page colour immersion, bg, ink, and all derived variables shift per palette */
   html.p-mono {
     --bg: #FFFFFF; --ink: #0A0A0A; --muted: #888; --rule: #E8E8E8;
     --surface: #F2F2F0; --accent: #0A0A0A; --accent2: #555;
   }
-  /* 2 — Complementary: Strong orange bg, white text, blue accents */
+  /* 2, Complementary: Strong orange bg, white text, blue accents */
   html.p-compl {
     --bg: #F56200; --ink: #FFFFFF; --muted: rgba(255,255,255,0.7);
     --rule: rgba(255,255,255,0.25); --surface: #E05800;
     --accent: #0D46E7; --accent2: #0D46E7;
   }
-  /* 3 — Analogous: Pink bg, white text, red + orange accents */
+  /* 3, Analogous: Pink bg, white text, red + orange accents */
   html.p-analog {
     --bg: #F5007A; --ink: #FFFFFF; --muted: rgba(255,255,255,0.7);
     --rule: rgba(255,255,255,0.25); --surface: #D4006A;
     --accent: #F57A00; --accent2: #F50000;
   }
 
-  /* Global palette transitions — everything that carries colour */
+  /* Global palette transitions, everything that carries colour */
   html, body, nav, .section, .skill-group, footer,
   .hero, .hero-headline, .hero-bio, .footer-slogan,
   .work-card, .space-prompt, .space-key {
@@ -96,7 +96,7 @@
     background: var(--accent);
     color: var(--bg) !important;
     padding: 7px 16px;
-    border-radius: 100px;
+    border-radius: 5px;
     transition: background 0.5s ease, opacity 0.2s !important;
   }
   html.p-mono .nav-contact { background: var(--ink); color: #fff !important; }
@@ -105,17 +105,13 @@
   .nav-contact:hover { opacity: 0.82; }
 
   /* ── HERO ── */
+  /* ── HERO (full-screen, headline only) ── */
   .hero {
-    min-height: 60vh;
-    padding: 200px 64px 64px;
-    max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
-    width: 100%;
+    height: 100vh;
+    padding: 0 64px;
     display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    gap: 20px;
+    align-items: center;
+    justify-content: center;
     position: relative;
   }
 
@@ -125,9 +121,9 @@
     font-size: clamp(2.8rem, 7.2vw, 9rem);
     letter-spacing: -0.03em;
     line-height: 1;
-    white-space: nowrap;
     color: var(--ink);
     text-transform: none;
+    text-align: center;
     width: 100%;
     opacity: 0;
     transform: translateY(40px);
@@ -137,29 +133,50 @@
   /* Accent word */
   .hl { color: var(--accent); transition: color 0.5s ease; }
 
+  /* Typewriter */
+  .type-cursor {
+    display: inline-block; width: 2px; height: 0.78em;
+    background: var(--accent); margin-left: 3px; vertical-align: 0.05em;
+    animation: cursorBlink 0.75s step-end infinite;
+    transition: background 0.55s;
+  }
+  @keyframes cursorBlink { 0%,100%{opacity:1} 50%{opacity:0} }
+
   @keyframes rise { to { opacity: 1; transform: translateY(0); } }
 
+  /* ── INTRO REVEAL (bio + photo, appears on scroll) ── */
+  .hero-intro {
+    display: flex;
+    gap: 52px;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 64px 100px;
+    width: 100%;
+  }
   .hero-bio {
     font-family: system-ui, -apple-system, sans-serif;
-    font-size: 1.3rem;
+    font-size: 1rem;
     font-weight: 400;
-    line-height: 1.6;
+    line-height: 1.65;
     color: var(--ink);
-    max-width: 62ch;
-    opacity: 0;
-    animation: rise 0.7s ease 0.5s forwards;
-    padding-bottom: 4px;
+    max-width: 44ch;
+    transition: color 0.55s;
   }
-
-  .hero-links {
-    display: flex; gap: 12px; flex-wrap: wrap;
-    opacity: 0; animation: rise 0.7s ease 0.7s forwards;
+  .hero-photo {
+    width: 240px; height: 320px; flex-shrink: 0;
+    border-radius: 28px;
+    overflow: hidden;
+    background: var(--rule);
+    transition: background 0.55s;
+  }
+  .hero-photo img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
   }
   .hero-link-btn {
     font-family: system-ui, -apple-system, sans-serif;
     font-size: 0.85rem; font-weight: 600; letter-spacing: 0.04em;
     text-decoration: none; text-transform: uppercase;
-    padding: 10px 20px; border-radius: 100px;
+    padding: 10px 20px; border-radius: 5px;
     background: var(--ink); color: var(--bg);
     transition: opacity 0.2s ease;
   }
@@ -183,7 +200,7 @@
     color: var(--ink);
     background: var(--bg);
     border: 1.5px solid var(--ink);
-    border-radius: 100px;
+    border-radius: 5px;
     padding: 12px 24px;
     opacity: 0;
     animation: fadeIn 1.2s ease 1.4s forwards;
@@ -198,7 +215,7 @@
   .space-key {
     background: var(--ink);
     color: var(--bg);
-    border-radius: 4px;
+    border-radius: 2px;
     padding: 3px 12px;
     font-size: 0.72rem;
     font-weight: 700;
@@ -388,7 +405,7 @@
   .modal-media-strip::-webkit-scrollbar { display: none; }
   .modal-media-strip:empty { display: none; }
   .modal-media-item {
-    flex: 0 0 auto; border-radius: 10px; overflow: hidden;
+    flex: 0 0 auto; border-radius: 2px; overflow: hidden;
     background: rgba(0,0,0,0.15);
   }
   .modal-media-item.portrait  { width: 120px; height: 200px; }
@@ -396,7 +413,7 @@
   .modal-media-item img,
   .modal-media-item video { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-  /* analogous palette card overrides — tint via pseudo, keep image */
+  /* analogous palette card overrides, tint via pseudo, keep image */
   html.p-analog .card-1 { background-color: #F50000; }
   html.p-analog .card-1 .work-card-name { color: #F5007A; }
   html.p-analog .card-2 { background-color: #F5007A; }
@@ -404,7 +421,7 @@
   html.p-analog .card-3 { background-color: #ffffff; }
   html.p-analog .card-3 .work-card-name { color: #F5007A; }
 
-  /* analogous — skill pills: white bg, red text */
+  /* analogous, skill pills: white bg, red text */
   html.p-analog .skill-pill {
     background: #FFFFFF;
     color: #F50000;
@@ -414,7 +431,7 @@
   html.p-analog .skill-pill:hover { background: #F50000; color: #FFFFFF; border-color: #F50000; }
 
 
-  /* complementary palette card overrides — tint via background-color, keep image */
+  /* complementary palette card overrides, tint via background-color, keep image */
   html.p-compl .card-1,
   html.p-compl .card-2 { background-color: #0D46E7; }
   html.p-compl .card-3 { background-color: #ffffff; }
@@ -469,7 +486,7 @@
     100% { transform: translateX(-50%); }
   }
   .peek-card {
-    flex-shrink: 0; border-radius: 12px;
+    flex-shrink: 0; border-radius: 2px;
     background: var(--surface); overflow: hidden;
     transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s;
     cursor: pointer;
@@ -526,7 +543,7 @@
     color: var(--bg);
     font-family: system-ui, -apple-system, sans-serif;
     font-size: 0.65rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
-    padding: 11px 22px; border-radius: 100px;
+    padding: 11px 22px; border-radius: 5px;
     text-decoration: none; transition: opacity 0.2s, background 0.5s, color 0.5s;
     margin-top: 28px; display: inline-block;
   }
@@ -544,8 +561,8 @@
   /* ── SCROLL REVEAL ── */
   .reveal {
     opacity: 0;
-    transform: translateY(32px);
-    transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
+    transform: translateY(24px);
+    transition: opacity 0.5s cubic-bezier(0.16,1,0.3,1), transform 0.5s cubic-bezier(0.16,1,0.3,1);
   }
   .reveal.visible {
     opacity: 1;
@@ -557,133 +574,60 @@
 
   /* ── RESPONSIVE ── */
   @media (max-width: 760px) {
+    /* Nav */
     nav { padding: 18px 20px; }
-    .nav-links { gap: 16px; }
-    .hero { padding: 160px 24px 64px; }
-    .section { padding: 56px 24px; }
-    .work-grid { grid-template-columns: 1fr; }
+    .nav-links { gap: 14px; }
+    .nav-links a { font-size: 0.62rem; letter-spacing: 0.05em; }
+    .nav-contact { padding: 6px 12px; font-size: 0.62rem; }
+
+    /* Hero */
+    .hero { padding: 0 20px; }
+    .hero-headline { font-size: clamp(2rem, 9vw, 3.5rem); }
+    .hero-intro { flex-direction: column-reverse; gap: 28px; padding: 32px 20px 72px; }
+    .hero-photo { width: 100%; height: 240px; border-radius: 18px; }
+    .hero-bio { font-size: 0.95rem; max-width: 100%; }
+
+    /* Sections */
+    .section { padding: 48px 20px; }
+    .section-header { margin-bottom: 24px; }
+
+    /* Work grid */
+    .work-grid { grid-template-columns: 1fr; gap: 3px; }
     .work-card { aspect-ratio: 4/3; }
+    .work-card-name { font-size: 1.05rem; white-space: normal; }
+    .work-card-cat { white-space: normal; }
+
+    /* Peek carousel */
+    .peek-carousel { margin: 0 -20px; }
+    .peek-belt { padding: 12px 20px 20px; gap: 10px; }
+    .peek-media.portrait { width: 150px; height: 220px; }
+    .peek-media.square   { width: 190px; height: 190px; }
+    .peek-media.wide     { width: 230px; height: 150px; }
+
+    /* Skills */
     .skills-grid { grid-template-columns: 1fr 1fr; }
+
+    /* Contact */
     .contact-inner { grid-template-columns: 1fr; gap: 40px; }
+    .contact-link { font-size: 1rem; }
+    .contact-headline { font-size: 2rem; }
+
+    /* Footer */
     footer { padding: 20px; flex-direction: column; gap: 8px; text-align: center; }
-    .space-prompt { bottom: 20px; }
-    .palette-label { bottom: 20px; right: 20px; }
+
+    /* UI overlays */
+    .space-prompt { bottom: 20px; font-size: 0.65rem; padding: 8px 16px; }
+    .palette-label { bottom: 20px; right: 16px; }
+  }
+
+  /* Very narrow — hide Contact button label, keep icon */
+  @media (max-width: 400px) {
+    .nav-links { gap: 10px; }
+    .hero-headline { font-size: clamp(1.8rem, 8.5vw, 2.5rem); }
   }
 
 
-  /* ── Loader ── */
-  #loader {
-    position: fixed; inset: 0; background: #FFFFFF; z-index: 9999;
-    display: flex; align-items: center; justify-content: center;
-    transition: transform 0.9s cubic-bezier(0.76,0,0.24,1);
-  }
-  #loader.done { transform: translateY(-100%); }
-  #loader-ring-wrap {
-    position: relative;
-    width: min(520px, 88vw);
-    height: min(520px, 88vw);
-  }
-  #lring-back, #lring-front {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    pointer-events: none;
-    overflow: visible;
-  }
-  #lring-back { z-index: 1; }
-  #lring-front { z-index: 3; }
-  #loader-text {
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 2;
-    text-align: center;
-    display: flex; flex-direction: column; align-items: center; gap: 10px;
-    width: 72%;
-  }
-  #loader-name-main {
-    font-family: system-ui, -apple-system, sans-serif;
-    font-size: clamp(1.8rem, 6vw, 3.8rem);
-    font-weight: 300;
-    letter-spacing: -0.03em;
-    color: #0A0A0A;
-    line-height: 1;
-    white-space: nowrap;
-  }
-  #loader-name-sub {
-    font-family: system-ui, -apple-system, sans-serif;
-    font-size: clamp(0.6rem, 1.2vw, 0.8rem);
-    font-weight: 300;
-    letter-spacing: 0.35em;
-    color: rgba(10,10,10,0.45);
-    text-transform: uppercase;
-  }
 </style>
-
-<!-- LOADER -->
-<div id="loader">
-  <div id="loader-ring-wrap">
-
-    <!-- Back half: bottom arc, behind text, faded + thinner for depth -->
-    <svg id="lring-back" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <clipPath id="clip-back">
-          <rect x="0" y="250" width="500" height="250"/>
-        </clipPath>
-      </defs>
-      <g clip-path="url(#clip-back)" opacity="0.28">
-        <circle cx="250" cy="250" r="228" stroke="#F56200" stroke-width="7" stroke-linecap="round"
-          pathLength="100" stroke-dasharray="34 66" stroke-dashoffset="34"
-          transform="rotate(-90 250 250)">
-          <animate attributeName="stroke-dashoffset" from="34" to="0" dur="0.7s" begin="0.1s" fill="freeze" calcMode="spline" keySplines="0.25 1 0.25 1" keyTimes="0;1"/>
-        </circle>
-        <circle cx="250" cy="250" r="228" stroke="#0D46E7" stroke-width="7" stroke-linecap="round"
-          pathLength="100" stroke-dasharray="33 67" stroke-dashoffset="33"
-          transform="rotate(32.4 250 250)">
-          <animate attributeName="stroke-dashoffset" from="33" to="0" dur="0.7s" begin="0.6s" fill="freeze" calcMode="spline" keySplines="0.25 1 0.25 1" keyTimes="0;1"/>
-        </circle>
-        <circle cx="250" cy="250" r="228" stroke="#F5007A" stroke-width="7" stroke-linecap="round"
-          pathLength="100" stroke-dasharray="33 67" stroke-dashoffset="33"
-          transform="rotate(151.2 250 250)">
-          <animate attributeName="stroke-dashoffset" from="33" to="0" dur="0.7s" begin="1.1s" fill="freeze" calcMode="spline" keySplines="0.25 1 0.25 1" keyTimes="0;1"/>
-        </circle>
-      </g>
-    </svg>
-
-    <!-- Text: centred in ring, above back, below front -->
-    <div id="loader-text">
-      <div id="loader-name-main">Maia Comley</div>
-      <div id="loader-name-sub">Portfolio</div>
-    </div>
-
-    <!-- Front half: top arc, above text, vivid + thicker for depth -->
-    <svg id="lring-front" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <clipPath id="clip-front">
-          <rect x="0" y="0" width="500" height="250"/>
-        </clipPath>
-      </defs>
-      <g clip-path="url(#clip-front)">
-        <circle cx="250" cy="250" r="228" stroke="#F56200" stroke-width="14" stroke-linecap="round"
-          pathLength="100" stroke-dasharray="34 66" stroke-dashoffset="34"
-          transform="rotate(-90 250 250)">
-          <animate attributeName="stroke-dashoffset" from="34" to="0" dur="0.7s" begin="0.1s" fill="freeze" calcMode="spline" keySplines="0.25 1 0.25 1" keyTimes="0;1"/>
-        </circle>
-        <circle cx="250" cy="250" r="228" stroke="#0D46E7" stroke-width="14" stroke-linecap="round"
-          pathLength="100" stroke-dasharray="33 67" stroke-dashoffset="33"
-          transform="rotate(32.4 250 250)">
-          <animate attributeName="stroke-dashoffset" from="33" to="0" dur="0.7s" begin="0.6s" fill="freeze" calcMode="spline" keySplines="0.25 1 0.25 1" keyTimes="0;1"/>
-        </circle>
-        <circle cx="250" cy="250" r="228" stroke="#F5007A" stroke-width="14" stroke-linecap="round"
-          pathLength="100" stroke-dasharray="33 67" stroke-dashoffset="33"
-          transform="rotate(151.2 250 250)">
-          <animate attributeName="stroke-dashoffset" from="33" to="0" dur="0.7s" begin="1.1s" fill="freeze" calcMode="spline" keySplines="0.25 1 0.25 1" keyTimes="0;1"/>
-        </circle>
-      </g>
-    </svg>
-
-  </div>
-</div>
 
 <!-- NAV -->
 <nav id="nav">
@@ -698,11 +642,18 @@
 <!-- HERO -->
 <div class="hero">
   <h1 class="hero-headline">
-    Curiosity. <span class="hl">Creativity.</span> Strategy.
+    Curiosity. Creativity. <span id="typeTarget" class="hl">Strategy.</span><span class="type-cursor"></span>
   </h1>
-  <p class="hero-bio">
-    My work sits at the intersection of strategy and storytelling. I create content, improve digital experiences and help bring marketing ideas to life through thoughtful planning, creativity and data. Outside of work, I'm inspired by branding, food culture, wellness and the experiences that shape how people connect with brands.
-  </p>
+</div>
+
+<!-- INTRO REVEAL -->
+<div class="hero-intro reveal">
+  <div>
+    <p class="hero-bio">I'm a Junior Marketing Executive with a love for brands, content and the thinking behind why things connect with people. Currently at IDGateway, I work across content strategy, digital and SEO in a B2B SaaS environment, bringing creativity and data together to make marketing actually land. Outside of work, I'm drawn to branding, consumer behaviour, food culture and thoughtful design.</p>
+  </div>
+  <div class="hero-photo">
+    <img src="Images/Maia Comley.jpg" alt="Maia Comley">
+  </div>
 </div>
 
 
@@ -717,8 +668,8 @@
          data-color="#0d5555"
          data-title="IDGateway"
          data-tags="Social Media · Strategy · Content · SEO · Website"
-         data-desc="I work as a Marketing Executive across the full mix — a generalist role that keeps me close to every part of how a brand shows up."
-         data-bullets="Managing social media across LinkedIn, Instagram and X|Shaping content strategy and campaign planning|Writing blog content and website copy|Designing and updating web pages|Reporting on performance and analytics">
+         data-desc="My current role at IDGateway, a B2B SaaS company in identity verification. I own the day-to-day marketing across content, LinkedIn, website and SEO — with a hand in campaign planning, AI workflows and events."
+         data-bullets="Own LinkedIn content strategy across AirportGateway and VettingGateway, 5–6 posts per week|Create blogs, case studies, thought leadership, video content and campaign assets|Manage website content, UX research and SEO, GEO and AEO initiatives|Build AI-powered marketing workflows to streamline content planning and reporting|Support event marketing for HR Technologies UK and the International Security Expo">
       <div class="work-card-inner">
         <div class="work-card-cat">Marketing Executive</div>
         <div class="work-card-name">IDGateway</div>
@@ -728,8 +679,8 @@
          data-color="#2a2a3a"
          data-title="Noirgaze"
          data-tags="Social Media · Influencer Outreach · Content Planning · Website"
-         data-desc="I joined Noirgaze as a Social Media &amp; Marketing Assistant for an emerging beauty brand."
-         data-bullets="Creating social content for Instagram and TikTok|Leading influencer outreach and relationship management|Planning and managing the content calendar|Contributing to website design and updates">
+         data-desc="Five months as Social Media and Marketing Assistant for an independent fashion label. Grew their following by 3,000+ across Instagram and TikTok through content strategy, creative direction and campaign work."
+         data-bullets="Led content planning and creation for Instagram and TikTok across campaigns, Fashion Week and product launches|Acted as Creative Lead for product shoots, overseeing styling, art direction and post-production|Managed CRM and email marketing via Klaviyo, building automated flows and seasonal newsletters|Collaborated with the founder to shape brand voice, strategy and visual identity">
       <div class="work-card-inner">
         <div class="work-card-cat">Social Media &amp; Marketing</div>
         <div class="work-card-name">Noirgaze</div>
@@ -739,8 +690,8 @@
          data-color="#ffffff"
          data-title="Simple Skincare"
          data-tags="Advertising · Copywriting · Print · Radio · Film"
-         data-desc="I created a full advertising campaign for Simple Skincare — rooted in the insight that some things in life are better because they're simple."
-         data-bullets="Developed the campaign strategy, insight and creative direction|Wrote and art directed a series of print ads|Produced a radio advert script and concept|Created a film advert treatment and storyboard|Presented as part of a major university final project">
+         data-desc="My Final Major Project at London College of Communication: a full advertising campaign for Simple Skincare, built on the insight that some things in life are better because they're simple."
+         data-bullets="Developed the campaign strategy, consumer insight and creative direction|Wrote and art directed a series of print ads|Produced a radio advert script and concept|Created a film advert treatment and storyboard|Graduated with First Class Honours, BA (Hons) Advertising">
       <div class="work-card-inner">
         <div class="work-card-cat">Advertising Campaign</div>
         <div class="work-card-name">Simple Skincare</div>
@@ -752,7 +703,7 @@
 <!-- INTERESTS PEEK CAROUSEL -->
 <div class="section">
   <div class="section-header reveal">
-    <span class="section-title">Interests & Thoughts</span>
+    <span class="section-title">Outside the Brief</span>
     <a class="section-link" href="interests.html">Explore →</a>
   </div>
 </div>
@@ -760,155 +711,131 @@
   <div class="peek-belt" id="peekBelt">
     <!-- SET 1 -->
     <div class="peek-card">
-      <div class="peek-media portrait">
-        <div class="peek-placeholder">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="3"/><polygon points="10,8 16,12 10,16"/></svg>
-          <span>Video</span>
-        </div>
-        <div class="peek-play">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="white" opacity="0.7"><polygon points="6,4 20,12 6,20"/></svg>
-        </div>
+      <div class="peek-media portrait" style="background:var(--rule);">
+        <img src="Images/Noirgaze fashion week 1 .jpg" alt="Noirgaze Fashion Week" style="width:100%;height:100%;object-fit:cover;display:block;">
       </div>
-      <div class="peek-caption"><strong>Behind the brief</strong>Social / TikTok</div>
+      <div class="peek-caption"><strong>Noirgaze · LFW</strong>Social / Campaign</div>
     </div>
     <div class="peek-card">
-      <div class="peek-media square">
-        <div class="peek-placeholder">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/></svg>
-          <span>Design</span>
-        </div>
+      <div class="peek-media wide" style="background:var(--rule);">
+        <img src="Images/Vietnam travel video thumbnail.png" alt="Vietnam Travel" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="peek-play"><svg width="22" height="22" viewBox="0 0 24 24" fill="white" opacity="0.8"><polygon points="6,4 20,12 6,20"/></svg></div>
       </div>
-      <div class="peek-caption"><strong>Poster work</strong>Design</div>
+      <div class="peek-caption"><strong>Vietnam Travel Edit</strong>Video / Reel</div>
     </div>
     <div class="peek-card">
-      <div class="peek-media wide">
-        <div class="peek-placeholder">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
-          <span>Travel</span>
-        </div>
+      <div class="peek-media square" style="background:var(--rule);">
+        <img src="Images/Simple skincare print 1.jpg" alt="Simple Skincare" style="width:100%;height:100%;object-fit:cover;display:block;">
       </div>
-      <div class="peek-caption"><strong>On the road</strong>Photography</div>
+      <div class="peek-caption"><strong>Simple Skincare · FMP</strong>Print / Campaign</div>
     </div>
     <div class="peek-card">
-      <div class="peek-media portrait">
-        <div class="peek-placeholder">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="3"/><polygon points="10,8 16,12 10,16"/></svg>
-          <span>Video</span>
-        </div>
-        <div class="peek-play">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="white" opacity="0.7"><polygon points="6,4 20,12 6,20"/></svg>
-        </div>
+      <div class="peek-media portrait" style="background:var(--rule);">
+        <img src="Images/Noirgaze christmas content one.jpg" alt="Noirgaze Christmas" style="width:100%;height:100%;object-fit:cover;display:block;">
       </div>
-      <div class="peek-caption"><strong>Day in the life</strong>Social / Reel</div>
+      <div class="peek-caption"><strong>Noirgaze · Christmas</strong>Social / Content</div>
     </div>
     <div class="peek-card">
-      <div class="peek-media square" style="display:flex;align-items:center;justify-content:center;padding:20px;">
-        <div style="font-family:system-ui,sans-serif;font-size:1rem;font-weight:700;color:var(--ink);line-height:1.3;text-align:center;">"Why Yorkshire Tea's Hotel Campaign Worked"</div>
+      <div class="peek-media square" style="background:var(--rule);">
+        <img src="Images/Photography work.JPG" alt="Photography" style="width:100%;height:100%;object-fit:cover;display:block;">
       </div>
-      <div class="peek-caption"><strong>Blog</strong>Brand</div>
+      <div class="peek-caption"><strong>Photography</strong>Personal</div>
     </div>
     <div class="peek-card">
-      <div class="peek-media wide">
-        <div class="peek-placeholder">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/></svg>
-          <span>Design</span>
-        </div>
+      <div class="peek-media portrait" style="background:var(--rule);">
+        <img src="Images/15km run vlog thumbnail.PNG" alt="15km Run Vlog" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="peek-play"><svg width="22" height="22" viewBox="0 0 24 24" fill="white" opacity="0.8"><polygon points="6,4 20,12 6,20"/></svg></div>
       </div>
-      <div class="peek-caption"><strong>Brand kit</strong>Design</div>
+      <div class="peek-caption"><strong>15km Run · Vlog</strong>Video / Personal</div>
     </div>
     <div class="peek-card">
-      <div class="peek-media portrait">
-        <div class="peek-placeholder">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="3"/><polygon points="10,8 16,12 10,16"/></svg>
-          <span>Video</span>
-        </div>
-        <div class="peek-play">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="white" opacity="0.7"><polygon points="6,4 20,12 6,20"/></svg>
-        </div>
+      <div class="peek-media wide" style="background:var(--rule);">
+        <img src="Images/More than a kit campaign poster.png" alt="More Than a Kit" style="width:100%;height:100%;object-fit:cover;display:block;">
       </div>
-      <div class="peek-caption"><strong>Travel edit</strong>Social / Reel</div>
+      <div class="peek-caption"><strong>More Than a Kit</strong>Print / Campaign</div>
     </div>
     <div class="peek-card">
-      <div class="peek-media square" style="display:flex;align-items:center;justify-content:center;padding:20px;">
-        <div style="font-family:system-ui,sans-serif;font-size:1rem;font-weight:700;color:var(--ink);line-height:1.3;text-align:center;">"Training For A Half Marathon Around A Full-Time Job"</div>
+      <div class="peek-media portrait" style="background:var(--rule);">
+        <img src="Images/Intro video thumbnail.PNG" alt="Intro Video" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="peek-play"><svg width="22" height="22" viewBox="0 0 24 24" fill="white" opacity="0.8"><polygon points="6,4 20,12 6,20"/></svg></div>
       </div>
-      <div class="peek-caption"><strong>Blog</strong>Life</div>
+      <div class="peek-caption"><strong>Intro · About Me</strong>Video</div>
+    </div>
+    <div class="peek-card">
+      <div class="peek-media square" style="background:var(--rule);">
+        <img src="Images/Poster - Inspired by The Name of the Wind book.jpg" alt="Book poster" style="width:100%;height:100%;object-fit:cover;display:block;">
+      </div>
+      <div class="peek-caption"><strong>Book Poster</strong>Design / Personal</div>
+    </div>
+    <div class="peek-card">
+      <div class="peek-media wide" style="background:var(--rule);">
+        <img src="Images/Noirgaze fashion week 2.jpg" alt="Noirgaze Fashion Week" style="width:100%;height:100%;object-fit:cover;display:block;">
+      </div>
+      <div class="peek-caption"><strong>Noirgaze · LFW</strong>Social / Campaign</div>
     </div>
     <!-- SET 2 (duplicate for seamless loop) -->
     <div class="peek-card">
-      <div class="peek-media portrait">
-        <div class="peek-placeholder">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="3"/><polygon points="10,8 16,12 10,16"/></svg>
-          <span>Video</span>
-        </div>
-        <div class="peek-play">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="white" opacity="0.7"><polygon points="6,4 20,12 6,20"/></svg>
-        </div>
+      <div class="peek-media portrait" style="background:var(--rule);">
+        <img src="Images/Noirgaze fashion week 1 .jpg" alt="Noirgaze Fashion Week" style="width:100%;height:100%;object-fit:cover;display:block;">
       </div>
-      <div class="peek-caption"><strong>Behind the brief</strong>Social / TikTok</div>
+      <div class="peek-caption"><strong>Noirgaze · LFW</strong>Social / Campaign</div>
     </div>
     <div class="peek-card">
-      <div class="peek-media square">
-        <div class="peek-placeholder">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/></svg>
-          <span>Design</span>
-        </div>
+      <div class="peek-media wide" style="background:var(--rule);">
+        <img src="Images/Vietnam travel video thumbnail.png" alt="Vietnam Travel" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="peek-play"><svg width="22" height="22" viewBox="0 0 24 24" fill="white" opacity="0.8"><polygon points="6,4 20,12 6,20"/></svg></div>
       </div>
-      <div class="peek-caption"><strong>Poster work</strong>Design</div>
+      <div class="peek-caption"><strong>Vietnam Travel Edit</strong>Video / Reel</div>
     </div>
     <div class="peek-card">
-      <div class="peek-media wide">
-        <div class="peek-placeholder">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
-          <span>Travel</span>
-        </div>
+      <div class="peek-media square" style="background:var(--rule);">
+        <img src="Images/Simple skincare print 1.jpg" alt="Simple Skincare" style="width:100%;height:100%;object-fit:cover;display:block;">
       </div>
-      <div class="peek-caption"><strong>On the road</strong>Photography</div>
+      <div class="peek-caption"><strong>Simple Skincare · FMP</strong>Print / Campaign</div>
     </div>
     <div class="peek-card">
-      <div class="peek-media portrait">
-        <div class="peek-placeholder">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="3"/><polygon points="10,8 16,12 10,16"/></svg>
-          <span>Video</span>
-        </div>
-        <div class="peek-play">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="white" opacity="0.7"><polygon points="6,4 20,12 6,20"/></svg>
-        </div>
+      <div class="peek-media portrait" style="background:var(--rule);">
+        <img src="Images/Noirgaze christmas content one.jpg" alt="Noirgaze Christmas" style="width:100%;height:100%;object-fit:cover;display:block;">
       </div>
-      <div class="peek-caption"><strong>Day in the life</strong>Social / Reel</div>
+      <div class="peek-caption"><strong>Noirgaze · Christmas</strong>Social / Content</div>
     </div>
     <div class="peek-card">
-      <div class="peek-media square" style="display:flex;align-items:center;justify-content:center;padding:20px;">
-        <div style="font-family:system-ui,sans-serif;font-size:1rem;font-weight:700;color:var(--ink);line-height:1.3;text-align:center;">"Why Yorkshire Tea's Hotel Campaign Worked"</div>
+      <div class="peek-media square" style="background:var(--rule);">
+        <img src="Images/Photography work.JPG" alt="Photography" style="width:100%;height:100%;object-fit:cover;display:block;">
       </div>
-      <div class="peek-caption"><strong>Blog</strong>Brand</div>
+      <div class="peek-caption"><strong>Photography</strong>Personal</div>
     </div>
     <div class="peek-card">
-      <div class="peek-media wide">
-        <div class="peek-placeholder">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/></svg>
-          <span>Design</span>
-        </div>
+      <div class="peek-media portrait" style="background:var(--rule);">
+        <img src="Images/15km run vlog thumbnail.PNG" alt="15km Run Vlog" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="peek-play"><svg width="22" height="22" viewBox="0 0 24 24" fill="white" opacity="0.8"><polygon points="6,4 20,12 6,20"/></svg></div>
       </div>
-      <div class="peek-caption"><strong>Brand kit</strong>Design</div>
+      <div class="peek-caption"><strong>15km Run · Vlog</strong>Video / Personal</div>
     </div>
     <div class="peek-card">
-      <div class="peek-media portrait">
-        <div class="peek-placeholder">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="3"/><polygon points="10,8 16,12 10,16"/></svg>
-          <span>Video</span>
-        </div>
-        <div class="peek-play">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="white" opacity="0.7"><polygon points="6,4 20,12 6,20"/></svg>
-        </div>
+      <div class="peek-media wide" style="background:var(--rule);">
+        <img src="Images/More than a kit campaign poster.png" alt="More Than a Kit" style="width:100%;height:100%;object-fit:cover;display:block;">
       </div>
-      <div class="peek-caption"><strong>Travel edit</strong>Social / Reel</div>
+      <div class="peek-caption"><strong>More Than a Kit</strong>Print / Campaign</div>
     </div>
     <div class="peek-card">
-      <div class="peek-media square" style="display:flex;align-items:center;justify-content:center;padding:20px;">
-        <div style="font-family:system-ui,sans-serif;font-size:1rem;font-weight:700;color:var(--ink);line-height:1.3;text-align:center;">"Training For A Half Marathon Around A Full-Time Job"</div>
+      <div class="peek-media portrait" style="background:var(--rule);">
+        <img src="Images/Intro video thumbnail.PNG" alt="Intro Video" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="peek-play"><svg width="22" height="22" viewBox="0 0 24 24" fill="white" opacity="0.8"><polygon points="6,4 20,12 6,20"/></svg></div>
       </div>
-      <div class="peek-caption"><strong>Blog</strong>Life</div>
+      <div class="peek-caption"><strong>Intro · About Me</strong>Video</div>
+    </div>
+    <div class="peek-card">
+      <div class="peek-media square" style="background:var(--rule);">
+        <img src="Images/Poster - Inspired by The Name of the Wind book.jpg" alt="Book poster" style="width:100%;height:100%;object-fit:cover;display:block;">
+      </div>
+      <div class="peek-caption"><strong>Book Poster</strong>Design / Personal</div>
+    </div>
+    <div class="peek-card">
+      <div class="peek-media wide" style="background:var(--rule);">
+        <img src="Images/Noirgaze fashion week 2.jpg" alt="Noirgaze Fashion Week" style="width:100%;height:100%;object-fit:cover;display:block;">
+      </div>
+      <div class="peek-caption"><strong>Noirgaze · LFW</strong>Social / Campaign</div>
     </div>
   </div>
 </div>
@@ -948,7 +875,7 @@
       <p class="card-modal-desc" id="modalDesc"></p>
       <ul class="card-modal-bullets" id="modalBullets"></ul>
       <div class="modal-media-strip" id="modalMediaStrip"></div>
-      <button class="card-modal-more" id="modalMore">See more →</button>
+      <a class="card-modal-more" id="modalMore" href="work.html">See more →</a>
     </div>
   </div>
 </div>
@@ -962,9 +889,36 @@
 <div class="palette-label" id="paletteLabel"></div>
 
 <script>
+  // Typewriter
+  (function() {
+    const words = ['Strategy.', 'Storytelling.', 'Design.', 'Discovery.', 'Expression.'];
+    const el = document.getElementById('typeTarget');
+    let wordIdx = 0;
+    const PAUSE = 2200, TYPE = 85, DEL = 48;
+
+    function runCycle() {
+      const current = words[wordIdx];
+      let i = current.length;
+      function del() {
+        if (i > 0) { el.textContent = current.slice(0, --i); setTimeout(del, DEL); }
+        else { wordIdx = (wordIdx + 1) % words.length; type(); }
+      }
+      function type() {
+        const target = words[wordIdx];
+        if (i < target.length) { el.textContent = target.slice(0, ++i); setTimeout(type, TYPE); }
+        else { setTimeout(runCycle, PAUSE); }
+      }
+      setTimeout(del, PAUSE);
+    }
+    runCycle();
+  })();
+
   // Nav scroll
   const nav = document.getElementById('nav');
-  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 20));
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', scrollY > 20);
+    if (scrollY > 60) document.getElementById('spacePrompt').classList.add('hide');
+  });
 
   // Palette system
   const palettes = [
@@ -999,7 +953,7 @@
   }
 
   document.addEventListener('keydown', (e) => {
-    if (e.code === 'Space' && e.target === document.body) {
+    if (e.code === 'Space' && !['INPUT','TEXTAREA','SELECT'].includes(e.target.tagName)) {
       e.preventDefault();
       idx = idx >= palettes.length - 1 ? -1 : idx + 1;
       applyPalette(idx);
@@ -1017,6 +971,9 @@
     // Populate content
     document.getElementById('modalTags').textContent  = card.dataset.tags;
     document.getElementById('modalTitle').textContent = card.dataset.title;
+    const anchorMap = { 'IDGateway': 'idgateway', 'Noirgaze': 'noirgaze', 'Simple Skincare': 'lcc' };
+    const anchor = anchorMap[card.dataset.title] || '';
+    document.getElementById('modalMore').href = 'work.html' + (anchor ? '#' + anchor : '');
     document.getElementById('modalDesc').textContent  = card.dataset.desc;
 
     const bulletList = document.getElementById('modalBullets');
@@ -1045,7 +1002,7 @@
     // Snapshot card position
     originRect = card.getBoundingClientRect();
 
-    // Position modal exactly over the card — no transition yet
+    // Position modal exactly over the card, no transition yet
     modal.style.transition = 'none';
     modal.style.borderRadius = '0px';
     modal.style.left   = originRect.left + 'px';
@@ -1055,8 +1012,9 @@
     modal.style.opacity = '1';
 
     // Target size: comfortably larger than card, not full-screen
-    const tw = Math.min(originRect.width * 2, window.innerWidth  * 0.72);
-    const th = Math.min(originRect.height * 2, window.innerHeight * 0.78);
+    const isMobile = window.innerWidth < 760;
+    const tw = Math.min(originRect.width * 2, window.innerWidth  * (isMobile ? 0.92 : 0.72));
+    const th = Math.min(originRect.height * 2, window.innerHeight * (isMobile ? 0.85 : 0.78));
     const tx = window.innerWidth  / 2 - tw / 2;
     const ty = window.innerHeight / 2 - th / 2;
 
@@ -1103,7 +1061,7 @@
         revealObserver.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.12, rootMargin: '0px 0px -80px 0px' });
+  }, { threshold: 0, rootMargin: '0px 0px 40px 0px' });
   document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
   // Fade space prompt and palette label when scrolling past the hero
@@ -1124,7 +1082,4 @@
 
 
   // Loader
-  const loader = document.getElementById('loader');
-  setTimeout(() => loader.classList.add('done'), 2200);
-  setTimeout(() => loader.remove(), 3200);
 </script>
