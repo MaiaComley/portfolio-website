@@ -651,8 +651,64 @@
     footer { padding: 20px; flex-direction: column; gap: 8px; text-align: center; }
 
     /* UI overlays */
-    .space-prompt { bottom: 20px; font-size: 0.65rem; padding: 8px 16px; }
+    .space-prompt { display: none; }
     .palette-label { bottom: 20px; right: 16px; }
+
+    /* Work grid → swipeable snap scroll */
+    .work-grid {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      gap: 0;
+      margin: 0 -20px;
+      scrollbar-width: none;
+    }
+    .work-grid::-webkit-scrollbar { display: none; }
+    .work-card {
+      flex: 0 0 calc(100vw - 40px);
+      width: calc(100vw - 40px);
+      scroll-snap-align: center;
+      aspect-ratio: 4/3;
+      margin: 0 2px;
+    }
+    .work-card:first-child { margin-left: 20px; }
+    .work-card:last-child  { margin-right: 20px; }
+
+    /* Mobile theme button */
+    .mobile-theme-btn { display: flex; }
+  }
+
+  /* Mobile theme button — hidden on desktop */
+  .mobile-theme-btn {
+    display: none;
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    align-items: center;
+    gap: 10px;
+    background: var(--bg);
+    border: 1.5px solid var(--ink);
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink);
+    cursor: pointer;
+    white-space: nowrap;
+    z-index: 50;
+    transition: background 0.55s, color 0.55s, border-color 0.55s, opacity 0.2s;
+  }
+  .mobile-theme-btn:active { opacity: 0.7; }
+  .mobile-theme-swatch {
+    width: 12px; height: 12px; border-radius: 50%;
+    background: var(--accent);
+    transition: background 0.55s;
+    flex-shrink: 0;
   }
 
   /* Very narrow — hide Contact button label, keep icon */
@@ -679,6 +735,10 @@
   <h1 class="hero-headline">
     Curiosity. Creativity. <span id="typeTarget" class="hl">Strategy.</span><span class="type-cursor"></span>
   </h1>
+  <button class="mobile-theme-btn" id="mobileThemeBtn" aria-label="Change theme">
+    <span class="mobile-theme-swatch" id="mobileThemeSwatch"></span>
+    Change theme
+  </button>
 </div>
 
 <!-- INTRO REVEAL -->
@@ -1003,6 +1063,15 @@
       applyPalette(idx);
     }
   });
+
+  // Mobile theme button
+  const mobileThemeBtn = document.getElementById('mobileThemeBtn');
+  if (mobileThemeBtn) {
+    mobileThemeBtn.addEventListener('click', () => {
+      idx = idx >= palettes.length - 1 ? -1 : idx + 1;
+      applyPalette(idx);
+    });
+  }
 
   // Card expand to centre
   const backdrop  = document.getElementById('cardBackdrop');
