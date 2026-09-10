@@ -492,6 +492,41 @@
     cursor: pointer;
   }
   .peek-card:hover { transform: translateY(-6px); box-shadow: 0 18px 48px rgba(0,0,0,0.11); }
+
+  /* ── PEEK LIGHTBOX ── */
+  .peek-lb-bg {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.88);
+    z-index: 600; opacity: 0; pointer-events: none;
+    transition: opacity 0.3s;
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px;
+  }
+  .peek-lb-bg.open { opacity: 1; pointer-events: auto; }
+  .peek-lb-inner {
+    position: relative; max-width: 900px; width: 100%;
+    transform: scale(0.96); transition: transform 0.35s cubic-bezier(0.22,1,0.36,1);
+    display: flex; flex-direction: column; align-items: center;
+  }
+  .peek-lb-bg.open .peek-lb-inner { transform: scale(1); }
+  .peek-lb-inner img {
+    max-width: 100%; max-height: 82vh;
+    border-radius: 4px; display: block; object-fit: contain;
+  }
+  .peek-lb-inner video {
+    max-width: 100%; max-height: 82vh;
+    border-radius: 4px; display: block; background: #000;
+  }
+  .peek-lb-close {
+    position: absolute; top: -40px; right: 0;
+    background: none; border: none; color: #fff;
+    font-size: 1.4rem; cursor: pointer; opacity: 0.7; padding: 4px 8px;
+  }
+  .peek-lb-close:hover { opacity: 1; }
+  .peek-lb-caption {
+    color: rgba(255,255,255,0.5); font-size: 0.72rem;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    margin-top: 12px; text-align: center;
+  }
   .peek-media {
     background: var(--rule); position: relative; overflow: hidden;
   }
@@ -710,64 +745,64 @@
 <div class="peek-carousel reveal">
   <div class="peek-belt" id="peekBelt">
     <!-- SET 1 -->
-    <div class="peek-card">
+    <div class="peek-card" data-lb-type="image" data-lb-src="Images/Noirgaze fashion week 1 .jpg" data-lb-caption="Noirgaze · LFW — Social / Campaign">
       <div class="peek-media portrait" style="background:var(--rule);">
         <img src="Images/Noirgaze fashion week 1 .jpg" alt="Noirgaze Fashion Week" style="width:100%;height:100%;object-fit:cover;display:block;">
       </div>
       <div class="peek-caption"><strong>Noirgaze · LFW</strong>Social / Campaign</div>
     </div>
-    <div class="peek-card">
+    <div class="peek-card" data-lb-type="video" data-lb-src="Images/Vietnam Travel video.mp4" data-lb-caption="Vietnam Travel Edit — Video / Reel">
       <div class="peek-media wide" style="background:var(--rule);">
         <img src="Images/Vietnam travel video thumbnail.png" alt="Vietnam Travel" style="width:100%;height:100%;object-fit:cover;display:block;">
         <div class="peek-play"><svg width="22" height="22" viewBox="0 0 24 24" fill="white" opacity="0.8"><polygon points="6,4 20,12 6,20"/></svg></div>
       </div>
       <div class="peek-caption"><strong>Vietnam Travel Edit</strong>Video / Reel</div>
     </div>
-    <div class="peek-card">
+    <div class="peek-card" data-lb-type="image" data-lb-src="Images/Simple skincare print 1.jpg" data-lb-caption="Simple Skincare · FMP — Print / Campaign">
       <div class="peek-media square" style="background:var(--rule);">
         <img src="Images/Simple skincare print 1.jpg" alt="Simple Skincare" style="width:100%;height:100%;object-fit:cover;display:block;">
       </div>
       <div class="peek-caption"><strong>Simple Skincare · FMP</strong>Print / Campaign</div>
     </div>
-    <div class="peek-card">
+    <div class="peek-card" data-lb-type="image" data-lb-src="Images/Noirgaze christmas content one.jpg" data-lb-caption="Noirgaze · Christmas — Social / Content">
       <div class="peek-media portrait" style="background:var(--rule);">
         <img src="Images/Noirgaze christmas content one.jpg" alt="Noirgaze Christmas" style="width:100%;height:100%;object-fit:cover;display:block;">
       </div>
       <div class="peek-caption"><strong>Noirgaze · Christmas</strong>Social / Content</div>
     </div>
-    <div class="peek-card">
+    <div class="peek-card" data-lb-type="image" data-lb-src="Images/Photography work.JPG" data-lb-caption="Photography — Personal">
       <div class="peek-media square" style="background:var(--rule);">
         <img src="Images/Photography work.JPG" alt="Photography" style="width:100%;height:100%;object-fit:cover;display:block;">
       </div>
       <div class="peek-caption"><strong>Photography</strong>Personal</div>
     </div>
-    <div class="peek-card">
+    <div class="peek-card" data-lb-type="video" data-lb-src="Images/15km run vlog .MP4" data-lb-caption="15km Run · Vlog — Video / Personal">
       <div class="peek-media portrait" style="background:var(--rule);">
         <img src="Images/15km run vlog thumbnail.PNG" alt="15km Run Vlog" style="width:100%;height:100%;object-fit:cover;display:block;">
         <div class="peek-play"><svg width="22" height="22" viewBox="0 0 24 24" fill="white" opacity="0.8"><polygon points="6,4 20,12 6,20"/></svg></div>
       </div>
       <div class="peek-caption"><strong>15km Run · Vlog</strong>Video / Personal</div>
     </div>
-    <div class="peek-card">
+    <div class="peek-card" data-lb-type="image" data-lb-src="Images/More than a kit campaign poster.png" data-lb-caption="More Than a Kit — Print / Campaign">
       <div class="peek-media wide" style="background:var(--rule);">
         <img src="Images/More than a kit campaign poster.png" alt="More Than a Kit" style="width:100%;height:100%;object-fit:cover;display:block;">
       </div>
       <div class="peek-caption"><strong>More Than a Kit</strong>Print / Campaign</div>
     </div>
-    <div class="peek-card">
+    <div class="peek-card" data-lb-type="video" data-lb-src="Images/Intro video.MP4" data-lb-caption="Intro · About Me — Video">
       <div class="peek-media portrait" style="background:var(--rule);">
         <img src="Images/Intro video thumbnail.PNG" alt="Intro Video" style="width:100%;height:100%;object-fit:cover;display:block;">
         <div class="peek-play"><svg width="22" height="22" viewBox="0 0 24 24" fill="white" opacity="0.8"><polygon points="6,4 20,12 6,20"/></svg></div>
       </div>
       <div class="peek-caption"><strong>Intro · About Me</strong>Video</div>
     </div>
-    <div class="peek-card">
+    <div class="peek-card" data-lb-type="image" data-lb-src="Images/Poster - Inspired by The Name of the Wind book.jpg" data-lb-caption="Book Poster — Design / Personal">
       <div class="peek-media square" style="background:var(--rule);">
         <img src="Images/Poster - Inspired by The Name of the Wind book.jpg" alt="Book poster" style="width:100%;height:100%;object-fit:cover;display:block;">
       </div>
       <div class="peek-caption"><strong>Book Poster</strong>Design / Personal</div>
     </div>
-    <div class="peek-card">
+    <div class="peek-card" data-lb-type="image" data-lb-src="Images/Noirgaze fashion week 2.jpg" data-lb-caption="Noirgaze · LFW — Social / Campaign">
       <div class="peek-media wide" style="background:var(--rule);">
         <img src="Images/Noirgaze fashion week 2.jpg" alt="Noirgaze Fashion Week" style="width:100%;height:100%;object-fit:cover;display:block;">
       </div>
@@ -877,6 +912,15 @@
       <div class="modal-media-strip" id="modalMediaStrip"></div>
       <a class="card-modal-more" id="modalMore" href="work.html">See more →</a>
     </div>
+  </div>
+</div>
+
+<!-- PEEK LIGHTBOX -->
+<div class="peek-lb-bg" id="peekLbBg">
+  <div class="peek-lb-inner" id="peekLbInner">
+    <button class="peek-lb-close" id="peekLbClose">✕</button>
+    <div id="peekLbMedia"></div>
+    <div class="peek-lb-caption" id="peekLbCaption"></div>
   </div>
 </div>
 
@@ -1080,6 +1124,48 @@
     observer.observe(hero);
   }
 
+
+  // Peek carousel lightbox
+  (function() {
+    const bg = document.getElementById('peekLbBg');
+    const media = document.getElementById('peekLbMedia');
+    const caption = document.getElementById('peekLbCaption');
+    let currentVideo = null;
+
+    function openLb(card) {
+      const type = card.dataset.lbType;
+      const src  = card.dataset.lbSrc;
+      const cap  = card.dataset.lbCaption || '';
+      media.innerHTML = '';
+      if (type === 'video') {
+        const v = document.createElement('video');
+        v.src = src; v.controls = true; v.autoplay = true;
+        v.style.width = '100%'; v.setAttribute('playsinline', '');
+        media.appendChild(v); currentVideo = v;
+      } else {
+        const img = document.createElement('img');
+        img.src = src; media.appendChild(img); currentVideo = null;
+      }
+      caption.textContent = cap;
+      bg.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLb() {
+      bg.classList.remove('open');
+      if (currentVideo) { currentVideo.pause(); currentVideo = null; }
+      setTimeout(() => { media.innerHTML = ''; }, 300);
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('peekLbClose').addEventListener('click', closeLb);
+    bg.addEventListener('click', e => { if (e.target === bg) closeLb(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
+
+    // Only wire up first set (not duplicates) — duplicates share same data
+    const cards = document.querySelectorAll('.peek-card[data-lb-src]');
+    cards.forEach(card => card.addEventListener('click', () => openLb(card)));
+  })();
 
   // Loader
 </script>
