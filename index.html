@@ -1,2 +1,1171 @@
-<!DOCTYPE html>
-<html><head><meta http-equiv="refresh" content="0; url=design-template.html"></head><body></body></html>
+<title>Maia Comley</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:      #FFFFFF;
+    --ink:     #0A0A0A;
+    --muted:   #888;
+    --rule:    #E8E8E8;
+    --surface: #F2F2F0;
+    --accent:  #0A0A0A;
+    --accent2: #0A0A0A;
+  }
+
+  /* Palette transitions */
+  html {
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 16px;
+    scroll-behavior: smooth;
+    transition: background 0.6s ease;
+  }
+  body {
+    font-family: system-ui, -apple-system, sans-serif;
+    line-height: 1.5;
+    overflow-x: hidden;
+    transition: color 0.4s ease;
+  }
+
+  /* ── PALETTE DEFINITIONS ── */
+  /* Full-page colour immersion, bg, ink, and all derived variables shift per palette */
+  html.p-mono {
+    --bg: #FFFFFF; --ink: #0A0A0A; --muted: #888; --rule: #E8E8E8;
+    --surface: #F2F2F0; --accent: #0A0A0A; --accent2: #555;
+  }
+  /* 2, Complementary: Strong orange bg, white text, blue accents */
+  html.p-compl {
+    --bg: #F56200; --ink: #FFFFFF; --muted: rgba(255,255,255,0.7);
+    --rule: rgba(255,255,255,0.25); --surface: #E05800;
+    --accent: #0D46E7; --accent2: #0D46E7;
+  }
+  /* 3, Analogous: Pink bg, white text, red + orange accents */
+  html.p-analog {
+    --bg: #F5007A; --ink: #FFFFFF; --muted: rgba(255,255,255,0.7);
+    --rule: rgba(255,255,255,0.25); --surface: #D4006A;
+    --accent: #F57A00; --accent2: #F50000;
+  }
+
+  /* Global palette transitions, everything that carries colour */
+  html, body, nav, .section, .skill-group, footer,
+  .hero, .hero-headline, .hero-bio, .footer-slogan,
+  .work-card, .space-prompt, .space-key {
+    transition: background 0.55s ease, color 0.55s ease, border-color 0.55s ease;
+  }
+  .btn-accent, .skill-dot, .nav-contact,
+  .contact-link, .palette-label, .hl, .section-title,
+  .footer-copy, .nav-name, .nav-links a {
+    transition: color 0.5s ease, background 0.5s ease, border-color 0.5s ease, opacity 0.3s;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 36px 64px;
+    background: var(--bg);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s, background 0.6s;
+  }
+  nav.scrolled { border-bottom-color: var(--rule); }
+  .nav-name {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+  .nav-links { display: flex; gap: 36px; list-style: none; align-items: center; }
+  .nav-links a {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 0.68rem;
+    font-weight: 400;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-contact {
+    background: var(--accent);
+    color: var(--bg) !important;
+    padding: 7px 16px;
+    border-radius: 5px;
+    transition: background 0.5s ease, opacity 0.2s !important;
+  }
+  html.p-mono .nav-contact { background: var(--ink); color: #fff !important; }
+  html.p-compl .nav-contact { background: #0D46E7; color: #FFFFFF !important; }
+  html.p-analog .nav-contact { background: #F57A00; color: #fff !important; }
+  .nav-contact:hover { opacity: 0.82; }
+
+  /* ── HERO ── */
+  /* ── HERO (full-screen, headline only) ── */
+  .hero {
+    height: 100vh;
+    padding: 0 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .hero-headline {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-weight: 300;
+    font-size: clamp(2.8rem, 7.2vw, 9rem);
+    letter-spacing: -0.03em;
+    line-height: 1;
+    color: var(--ink);
+    text-transform: none;
+    text-align: center;
+    width: 100%;
+    opacity: 0;
+    transform: translateY(40px);
+    animation: rise 1s cubic-bezier(0.16,1,0.3,1) 0.1s forwards;
+  }
+
+  /* Accent word */
+  .hl { color: var(--accent); transition: color 0.5s ease; }
+
+  /* Typewriter */
+  .type-cursor {
+    display: inline-block; width: 2px; height: 0.78em;
+    background: var(--accent); margin-left: 3px; vertical-align: 0.05em;
+    animation: cursorBlink 0.75s step-end infinite;
+    transition: background 0.55s;
+  }
+  @keyframes cursorBlink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+  @keyframes rise { to { opacity: 1; transform: translateY(0); } }
+
+  /* ── INTRO REVEAL (bio + photo, appears on scroll) ── */
+  .hero-intro {
+    display: flex;
+    gap: 52px;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 64px 100px;
+    width: 100%;
+  }
+  .hero-bio {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.65;
+    color: var(--ink);
+    max-width: 44ch;
+    transition: color 0.55s;
+  }
+  .hero-photo {
+    width: 240px; height: 320px; flex-shrink: 0;
+    border-radius: 28px;
+    overflow: hidden;
+    background: var(--rule);
+    transition: background 0.55s;
+  }
+  .hero-photo img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+  }
+  .hero-link-btn {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 0.85rem; font-weight: 600; letter-spacing: 0.04em;
+    text-decoration: none; text-transform: uppercase;
+    padding: 10px 20px; border-radius: 5px;
+    background: var(--ink); color: var(--bg);
+    transition: opacity 0.2s ease;
+  }
+  .hero-link-btn:hover { opacity: 0.75; }
+  .hero-link-btn--outline {
+    background: transparent; color: var(--ink);
+    border: 1.5px solid var(--ink);
+  }
+
+  /* ── SPACE PROMPT ── */
+  .space-prompt {
+    position: fixed;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink);
+    background: var(--bg);
+    border: 1.5px solid var(--ink);
+    border-radius: 5px;
+    padding: 12px 24px;
+    opacity: 0;
+    animation: fadeIn 1.2s ease 1.4s forwards;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    z-index: 50;
+    white-space: nowrap;
+    animation: fadeIn 1.2s ease 1.4s forwards, bob 3s ease-in-out 2.6s infinite;
+  }
+  .space-key {
+    background: var(--ink);
+    color: var(--bg);
+    border-radius: 2px;
+    padding: 3px 12px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+  }
+  @keyframes fadeIn { to { opacity: 1; } }
+  @keyframes bob {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50%       { transform: translateX(-50%) translateY(-5px); }
+  }
+  /* scroll-fade classes applied by JS */
+  .space-prompt.scrolled-out {
+    opacity: 0 !important;
+    transition: opacity 0.4s ease;
+  }
+  .space-prompt.hide {
+    opacity: 0 !important;
+    transition: opacity 0.4s ease;
+  }
+
+  /* ── PALETTE LABEL ── */
+  .palette-label {
+    position: fixed;
+    bottom: 32px;
+    right: 48px;
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    opacity: 0;
+    z-index: 50;
+    transition: opacity 0.3s, color 0.5s;
+  }
+  .palette-label.visible { opacity: 1; }
+  .palette-label.faded  { opacity: 0; pointer-events: none; transition: opacity 0.5s ease; }
+
+  /* ── DIVIDER ── */
+  hr { display: none; }
+
+  /* ── SECTION BASE ── */
+  .section { padding: 80px 64px; max-width: 1200px; margin-left: auto; margin-right: auto; width: 100%; }
+  .section-header {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 40px;
+  }
+  .section-title {
+    font-family: system-ui, -apple-system, sans-serif; font-weight: 700;
+    font-size: 1.15rem; letter-spacing: -0.015em; text-transform: none;
+    color: var(--ink);
+  }
+  .section-link {
+    font-family: system-ui, -apple-system, sans-serif; font-size: 0.65rem;
+    font-weight: 400; letter-spacing: 0.07em; text-transform: uppercase;
+    color: var(--muted); text-decoration: none; transition: color 0.2s;
+  }
+  .section-link:hover { color: var(--ink); }
+
+  /* ── WORK ── */
+  .work-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; }
+  .work-card {
+    position: relative; overflow: hidden; cursor: pointer;
+    aspect-ratio: 3/2; background: var(--surface);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+  .work-card.dimmed { opacity: 0.3; transform: scale(0.97); pointer-events: none; }
+  .work-card-inner {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(10,10,10,0.72) 0%, transparent 55%);
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 22px 24px;
+    transition: transform 0.5s cubic-bezier(0.16,1,0.3,1);
+  }
+  .work-card:hover .work-card-inner { transform: scale(1.04); }
+  .work-card-cat {
+    font-size: 0.6rem; font-weight: 300;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: rgba(255,255,255,0.65); margin-bottom: 5px;
+    white-space: nowrap;
+  }
+  .work-card-name {
+    font-weight: 300; font-size: 1.3rem;
+    color: white; letter-spacing: -0.02em;
+    white-space: nowrap;
+  }
+  .work-card::after {
+    content: ''; position: absolute; top: 0; left: 0; right: 0;
+    height: 3px; background: var(--accent);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.35s ease, background 0.5s;
+  }
+  .work-card:hover::after { transform: scaleX(1); }
+
+  /* card images */
+  .card-1 { background-color: #0d5555; background-image: url('Images/IDgateway.png'); background-position: center; background-size: cover; background-repeat: no-repeat; }
+  .card-2 { background-color: #2a2a3a; background-image: url('Images/Noirgaze.jpg'); background-position: center; background-size: cover; background-repeat: no-repeat; }
+  .card-3 { background-color: #ffffff; background-image: url('Images/Simple skincare.avif'); background-position: center 40%; background-size: 65%; background-repeat: no-repeat; }
+
+  /* ── CARD MODAL (expands from card to centre) ── */
+  .card-backdrop {
+    position: fixed; inset: 0;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    background: rgba(0,0,0,0.2);
+    z-index: 50; opacity: 0; pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+  .card-backdrop.active { opacity: 1; pointer-events: all; }
+
+  .card-modal {
+    position: fixed; z-index: 60;
+    overflow: hidden; pointer-events: none;
+    display: flex; flex-direction: column; justify-content: flex-end;
+  }
+  .card-modal.active { pointer-events: all; }
+
+  .card-modal-inner {
+    position: relative; width: 100%; height: 100%;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 32px 36px;
+    overflow-y: auto;
+  }
+  .card-close {
+    position: absolute; top: 14px; right: 14px;
+    background: rgba(0,0,0,0.12);
+    border: none;
+    color: inherit; border-radius: 50%;
+    width: 36px; height: 36px; font-size: 0.9rem; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transition: opacity 0.3s 0.1s, background 0.2s;
+    z-index: 10;
+  }
+  .card-modal.active .card-close { opacity: 1; }
+  .card-close:hover { background: rgba(0,0,0,0.22); }
+
+  .card-modal-content { opacity: 0; transform: translateY(10px); transition: opacity 0.35s 0.2s ease, transform 0.35s 0.2s ease; }
+  .card-modal.active .card-modal-content { opacity: 1; transform: translateY(0); }
+
+  .card-modal-tags {
+    font-size: 0.58rem; font-weight: 500;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    opacity: 0.55; margin-bottom: 8px;
+  }
+  .card-modal-title {
+    font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 300;
+    letter-spacing: -0.03em; line-height: 1;
+    margin-bottom: 14px;
+  }
+  .card-modal-desc {
+    font-size: 0.85rem; line-height: 1.6;
+    opacity: 0.75; margin-bottom: 20px;
+    max-width: 48ch;
+  }
+  .card-modal-bullets {
+    list-style: none; padding: 0; margin: 0 0 22px 0;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .card-modal-bullets li {
+    font-size: 0.82rem; line-height: 1.45;
+    opacity: 0.85;
+    padding-left: 16px; position: relative;
+  }
+  .card-modal-bullets li::before {
+    content: '—';
+    position: absolute; left: 0;
+    opacity: 0.4;
+  }
+  .card-modal-more {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 0.68rem; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; cursor: pointer;
+    background: none; border: none; color: inherit;
+    border-bottom: 1px solid currentColor;
+    opacity: 0.6;
+    padding: 0 0 3px 0; width: fit-content;
+    transition: opacity 0.2s;
+  }
+  .card-modal-more:hover { opacity: 1; }
+
+  /* media strip inside card modal */
+  .modal-media-strip {
+    display: flex; gap: 12px; overflow-x: auto;
+    margin: 20px 0 4px; padding-bottom: 8px;
+    scrollbar-width: none;
+  }
+  .modal-media-strip::-webkit-scrollbar { display: none; }
+  .modal-media-strip:empty { display: none; }
+  .modal-media-item {
+    flex: 0 0 auto; border-radius: 2px; overflow: hidden;
+    background: rgba(0,0,0,0.15);
+  }
+  .modal-media-item.portrait  { width: 120px; height: 200px; }
+  .modal-media-item.landscape { width: 260px; height: 160px; }
+  .modal-media-item img,
+  .modal-media-item video { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  /* analogous palette card overrides, tint via pseudo, keep image */
+  html.p-analog .card-1 { background-color: #F50000; }
+  html.p-analog .card-1 .work-card-name { color: #F5007A; }
+  html.p-analog .card-2 { background-color: #F5007A; }
+  html.p-analog .card-2 .work-card-name { color: #F50000; }
+  html.p-analog .card-3 { background-color: #ffffff; }
+  html.p-analog .card-3 .work-card-name { color: #F5007A; }
+
+  /* analogous, skill pills: white bg, red text */
+  html.p-analog .skill-pill {
+    background: #FFFFFF;
+    color: #F50000;
+    border-color: #FFFFFF;
+  }
+  html.p-analog .skill-pill .dot { background: #F5007A; }
+  html.p-analog .skill-pill:hover { background: #F50000; color: #FFFFFF; border-color: #F50000; }
+
+
+  /* complementary palette card overrides, tint via background-color, keep image */
+  html.p-compl .card-1,
+  html.p-compl .card-2 { background-color: #0D46E7; }
+  html.p-compl .card-3 { background-color: #ffffff; }
+  html.p-compl .work-card-name { color: #E7AF0D; }
+
+  /* ── SKILLS CATEGORIES ── */
+  .skill-rows { width: 100%; }
+  .skill-row-item {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 24px;
+    align-items: baseline;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .skill-row-item:first-child { border-top: 1px solid var(--rule); }
+  .skill-cat {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding-top: 2px;
+  }
+  .skill-list {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: clamp(1rem, 1.8vw, 1.2rem);
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+  @media (max-width: 540px) {
+    .skill-row-item { grid-template-columns: 1fr; gap: 6px; }
+  }
+
+  /* ── INTERESTS PEEK CAROUSEL ── */
+  .peek-carousel {
+    overflow: hidden;
+    margin: 0 -64px; /* bleed past section padding */
+    mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  }
+  .peek-belt {
+    display: flex; gap: 14px; width: max-content;
+    padding: 16px 64px 24px;
+    animation: peek-scroll 32s linear infinite;
+  }
+  .peek-carousel:hover .peek-belt { animation-play-state: paused; }
+  @keyframes peek-scroll {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .peek-card {
+    flex-shrink: 0; border-radius: 2px;
+    background: var(--surface); overflow: hidden;
+    transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s;
+    cursor: pointer;
+  }
+  .peek-card:hover { transform: translateY(-6px); box-shadow: 0 18px 48px rgba(0,0,0,0.11); }
+
+  /* ── PEEK LIGHTBOX ── */
+  .peek-lb-bg {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.88);
+    z-index: 600; opacity: 0; pointer-events: none;
+    transition: opacity 0.3s;
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px;
+  }
+  .peek-lb-bg.open { opacity: 1; pointer-events: auto; }
+  .peek-lb-inner {
+    position: relative; max-width: 900px; width: 100%;
+    transform: scale(0.96); transition: transform 0.35s cubic-bezier(0.22,1,0.36,1);
+    display: flex; flex-direction: column; align-items: center;
+  }
+  .peek-lb-bg.open .peek-lb-inner { transform: scale(1); }
+  .peek-lb-inner img {
+    max-width: 100%; max-height: 82vh;
+    border-radius: 4px; display: block; object-fit: contain;
+  }
+  .peek-lb-inner video {
+    max-width: 100%; max-height: 82vh;
+    border-radius: 4px; display: block; background: #000;
+  }
+  .peek-lb-close {
+    position: absolute; top: -40px; right: 0;
+    background: none; border: none; color: #fff;
+    font-size: 1.4rem; cursor: pointer; opacity: 0.7; padding: 4px 8px;
+  }
+  .peek-lb-close:hover { opacity: 1; }
+  .peek-lb-caption {
+    color: rgba(255,255,255,0.5); font-size: 0.72rem;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    margin-top: 12px; text-align: center;
+  }
+  .peek-media {
+    background: var(--rule); position: relative; overflow: hidden;
+  }
+  .peek-media.portrait { width: 210px; height: 320px; }
+  .peek-media.square   { width: 280px; height: 280px; }
+  .peek-media.wide     { width: 340px; height: 220px; }
+  .peek-placeholder {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 8px; color: var(--muted);
+  }
+  .peek-placeholder svg { opacity: 0.25; }
+  .peek-placeholder span { font-size: 0.5rem; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.4; }
+  .peek-play {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(0,0,0,0.12);
+  }
+  .peek-caption { padding: 10px 12px 12px; font-size: 0.72rem; color: var(--muted); }
+  .peek-caption strong { display: block; font-size: 0.8rem; font-weight: 400; color: var(--ink); margin-bottom: 2px; }
+
+  /* ── CONTACT ── */
+  .contact-inner {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: end;
+  }
+  .contact-headline {
+    font-family: system-ui, sans-serif; font-weight: 800;
+    font-size: clamp(2.2rem, 5vw, 4rem);
+    letter-spacing: -0.035em; line-height: 1;
+    color: var(--ink);
+  }
+  .contact-headline .hl { color: var(--accent); }
+  .contact-links { display: flex; flex-direction: column; }
+  .contact-link {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 20px 0; border-bottom: 1px solid var(--rule);
+    text-decoration: none; color: var(--ink);
+    font-size: 1.2rem; font-weight: 500; letter-spacing: -0.01em;
+    transition: padding-left 0.2s, color 0.2s;
+    cursor: pointer;
+  }
+  .contact-link:first-child { border-top: 1px solid var(--rule); }
+  .contact-link:hover { padding-left: 8px; color: var(--accent); }
+
+  /* Buttons */
+  .btn-accent {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--bg);
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 0.65rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 11px 22px; border-radius: 5px;
+    text-decoration: none; transition: opacity 0.2s, background 0.5s, color 0.5s;
+    margin-top: 28px; display: inline-block;
+  }
+  html.p-mono .btn-accent { background: var(--ink); }
+  .btn-accent:hover { opacity: 0.82; }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 28px 64px; max-width: 1200px; margin: 0 auto; width: 100%;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-copy { color: var(--muted); font-family: system-ui, -apple-system, sans-serif; font-size: 0.62rem; font-weight: 400; letter-spacing: 0.06em; text-transform: uppercase; }
+  .footer-slogan { font-family: system-ui, -apple-system, sans-serif; font-size: clamp(0.9rem, 2vw, 1.3rem); font-weight: 400; letter-spacing: -0.02em; color: var(--ink); }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.5s cubic-bezier(0.16,1,0.3,1), transform 0.5s cubic-bezier(0.16,1,0.3,1);
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 760px) {
+    /* Nav */
+    nav { padding: 18px 20px; }
+    .nav-links { gap: 14px; }
+    .nav-links a { font-size: 0.62rem; letter-spacing: 0.05em; }
+    .nav-contact { padding: 6px 12px; font-size: 0.62rem; }
+
+    /* Hero */
+    .hero { padding: 0 20px; }
+    .hero-headline { font-size: clamp(2rem, 9vw, 3.5rem); }
+    .hero-intro { flex-direction: column-reverse; gap: 28px; padding: 32px 20px 72px; }
+    .hero-photo { width: 100%; height: 240px; border-radius: 18px; }
+    .hero-bio { font-size: 0.95rem; max-width: 100%; }
+
+    /* Sections */
+    .section { padding: 48px 20px; }
+    .section-header { margin-bottom: 24px; }
+
+    /* Work grid */
+    .work-grid { grid-template-columns: 1fr; gap: 3px; }
+    .work-card { aspect-ratio: 4/3; }
+    .work-card-name { font-size: 1.05rem; white-space: normal; }
+    .work-card-cat { white-space: normal; }
+
+    /* Peek carousel */
+    .peek-carousel { margin: 0 -20px; }
+    .peek-belt { padding: 12px 20px 20px; gap: 10px; }
+    .peek-media.portrait { width: 150px; height: 220px; }
+    .peek-media.square   { width: 190px; height: 190px; }
+    .peek-media.wide     { width: 230px; height: 150px; }
+
+    /* Skills */
+    .skills-grid { grid-template-columns: 1fr 1fr; }
+
+    /* Contact */
+    .contact-inner { grid-template-columns: 1fr; gap: 40px; }
+    .contact-link { font-size: 1rem; }
+    .contact-headline { font-size: 2rem; }
+
+    /* Footer */
+    footer { padding: 20px; flex-direction: column; gap: 8px; text-align: center; }
+
+    /* UI overlays */
+    .space-prompt { bottom: 20px; font-size: 0.65rem; padding: 8px 16px; }
+    .palette-label { bottom: 20px; right: 16px; }
+  }
+
+  /* Very narrow — hide Contact button label, keep icon */
+  @media (max-width: 400px) {
+    .nav-links { gap: 10px; }
+    .hero-headline { font-size: clamp(1.8rem, 8.5vw, 2.5rem); }
+  }
+
+
+</style>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-name">Maia Comley <span style="opacity:0.45; font-weight:400;">Portfolio</span></div>
+  <ul class="nav-links">
+    <li><a href="work.html">Work</a></li>
+    <li><a href="interests.html">Interests</a></li>
+    <li><a href="contact.html" class="nav-contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <h1 class="hero-headline">
+    Curiosity. Creativity. <span id="typeTarget" class="hl">Strategy.</span><span class="type-cursor"></span>
+  </h1>
+</div>
+
+<!-- INTRO REVEAL -->
+<div class="hero-intro reveal">
+  <div>
+    <p class="hero-bio">I'm a Junior Marketing Executive with a love for brands, content and the thinking behind why things connect with people. Currently at IDGateway, I work across content strategy, digital and SEO in a B2B SaaS environment, bringing creativity and data together to make marketing actually land. Outside of work, I'm drawn to branding, consumer behaviour, food culture and thoughtful design.</p>
+  </div>
+  <div class="hero-photo">
+    <img src="Images/Maia Comley.jpg" alt="Maia Comley">
+  </div>
+</div>
+
+
+<!-- WORK -->
+<div class="section reveal" style="padding-top:120px">
+  <div class="section-header">
+    <span class="section-title">Selected Work</span>
+    <a class="section-link" href="work.html">View all →</a>
+  </div>
+  <div class="work-grid">
+    <div class="work-card card-1 reveal reveal-delay-1"
+         data-color="#0d5555"
+         data-title="IDGateway"
+         data-tags="Social Media · Strategy · Content · SEO · Website"
+         data-desc="My current role at IDGateway, a B2B SaaS company in identity verification. I own the day-to-day marketing across content, LinkedIn, website and SEO — with a hand in campaign planning, AI workflows and events."
+         data-bullets="Own LinkedIn content strategy across AirportGateway and VettingGateway, 5–6 posts per week|Create blogs, case studies, thought leadership, video content and campaign assets|Manage website content, UX research and SEO, GEO and AEO initiatives|Build AI-powered marketing workflows to streamline content planning and reporting|Support event marketing for HR Technologies UK and the International Security Expo">
+      <div class="work-card-inner">
+        <div class="work-card-cat">Marketing Executive</div>
+        <div class="work-card-name">IDGateway</div>
+      </div>
+    </div>
+    <div class="work-card card-2 reveal reveal-delay-2"
+         data-color="#2a2a3a"
+         data-title="Noirgaze"
+         data-tags="Social Media · Influencer Outreach · Content Planning · Website"
+         data-desc="Five months as Social Media and Marketing Assistant for an independent fashion label. Grew their following by 3,000+ across Instagram and TikTok through content strategy, creative direction and campaign work."
+         data-bullets="Led content planning and creation for Instagram and TikTok across campaigns, Fashion Week and product launches|Acted as Creative Lead for product shoots, overseeing styling, art direction and post-production|Managed CRM and email marketing via Klaviyo, building automated flows and seasonal newsletters|Collaborated with the founder to shape brand voice, strategy and visual identity">
+      <div class="work-card-inner">
+        <div class="work-card-cat">Social Media &amp; Marketing</div>
+        <div class="work-card-name">Noirgaze</div>
+      </div>
+    </div>
+    <div class="work-card card-3 reveal reveal-delay-3"
+         data-color="#ffffff"
+         data-title="Simple Skincare"
+         data-tags="Advertising · Copywriting · Print · Radio · Film"
+         data-desc="My Final Major Project at London College of Communication: a full advertising campaign for Simple Skincare, built on the insight that some things in life are better because they're simple."
+         data-bullets="Developed the campaign strategy, consumer insight and creative direction|Wrote and art directed a series of print ads|Produced a radio advert script and concept|Created a film advert treatment and storyboard|Graduated with First Class Honours, BA (Hons) Advertising">
+      <div class="work-card-inner">
+        <div class="work-card-cat">Advertising Campaign</div>
+        <div class="work-card-name">Simple Skincare</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- INTERESTS PEEK CAROUSEL -->
+<div class="section">
+  <div class="section-header reveal">
+    <span class="section-title">Outside the Brief</span>
+    <a class="section-link" href="interests.html">Explore →</a>
+  </div>
+</div>
+<div class="peek-carousel reveal">
+  <div class="peek-belt" id="peekBelt">
+    <!-- SET 1 -->
+    <div class="peek-card" data-lb-type="image" data-lb-src="Images/Noirgaze fashion week 1 .jpg" data-lb-caption="Noirgaze · LFW — Social / Campaign">
+      <div class="peek-media portrait" style="background:var(--rule);">
+        <img src="Images/Noirgaze fashion week 1 .jpg" alt="Noirgaze Fashion Week" style="width:100%;height:100%;object-fit:cover;display:block;">
+      </div>
+      <div class="peek-caption"><strong>Noirgaze · LFW</strong>Social / Campaign</div>
+    </div>
+    <div class="peek-card" data-lb-type="video" data-lb-src="Images/Vietnam Travel video.mp4" data-lb-caption="Vietnam Travel Edit — Video / Reel">
+      <div class="peek-media wide" style="background:var(--rule);">
+        <img src="Images/Vietnam travel video thumbnail.png" alt="Vietnam Travel" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="peek-play"><svg width="22" height="22" viewBox="0 0 24 24" fill="white" opacity="0.8"><polygon points="6,4 20,12 6,20"/></svg></div>
+      </div>
+      <div class="peek-caption"><strong>Vietnam Travel Edit</strong>Video / Reel</div>
+    </div>
+    <div class="peek-card" data-lb-type="image" data-lb-src="Images/Simple skincare print 1.jpg" data-lb-caption="Simple Skincare · FMP — Print / Campaign">
+      <div class="peek-media square" style="background:var(--rule);">
+        <img src="Images/Simple skincare print 1.jpg" alt="Simple Skincare" style="width:100%;height:100%;object-fit:cover;display:block;">
+      </div>
+      <div class="peek-caption"><strong>Simple Skincare · FMP</strong>Print / Campaign</div>
+    </div>
+    <div class="peek-card" data-lb-type="image" data-lb-src="Images/Noirgaze christmas content one.jpg" data-lb-caption="Noirgaze · Christmas — Social / Content">
+      <div class="peek-media portrait" style="background:var(--rule);">
+        <img src="Images/Noirgaze christmas content one.jpg" alt="Noirgaze Christmas" style="width:100%;height:100%;object-fit:cover;display:block;">
+      </div>
+      <div class="peek-caption"><strong>Noirgaze · Christmas</strong>Social / Content</div>
+    </div>
+    <div class="peek-card" data-lb-type="image" data-lb-src="Images/Photography work.JPG" data-lb-caption="Photography — Personal">
+      <div class="peek-media square" style="background:var(--rule);">
+        <img src="Images/Photography work.JPG" alt="Photography" style="width:100%;height:100%;object-fit:cover;display:block;">
+      </div>
+      <div class="peek-caption"><strong>Photography</strong>Personal</div>
+    </div>
+    <div class="peek-card" data-lb-type="video" data-lb-src="Images/15km run vlog .MP4" data-lb-caption="15km Run · Vlog — Video / Personal">
+      <div class="peek-media portrait" style="background:var(--rule);">
+        <img src="Images/15km run vlog thumbnail.PNG" alt="15km Run Vlog" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="peek-play"><svg width="22" height="22" viewBox="0 0 24 24" fill="white" opacity="0.8"><polygon points="6,4 20,12 6,20"/></svg></div>
+      </div>
+      <div class="peek-caption"><strong>15km Run · Vlog</strong>Video / Personal</div>
+    </div>
+    <div class="peek-card" data-lb-type="image" data-lb-src="Images/More than a kit campaign poster.png" data-lb-caption="More Than a Kit — Print / Campaign">
+      <div class="peek-media wide" style="background:var(--rule);">
+        <img src="Images/More than a kit campaign poster.png" alt="More Than a Kit" style="width:100%;height:100%;object-fit:cover;display:block;">
+      </div>
+      <div class="peek-caption"><strong>More Than a Kit</strong>Print / Campaign</div>
+    </div>
+    <div class="peek-card" data-lb-type="video" data-lb-src="Images/Intro video.MP4" data-lb-caption="Intro · About Me — Video">
+      <div class="peek-media portrait" style="background:var(--rule);">
+        <img src="Images/Intro video thumbnail.PNG" alt="Intro Video" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="peek-play"><svg width="22" height="22" viewBox="0 0 24 24" fill="white" opacity="0.8"><polygon points="6,4 20,12 6,20"/></svg></div>
+      </div>
+      <div class="peek-caption"><strong>Intro · About Me</strong>Video</div>
+    </div>
+    <div class="peek-card" data-lb-type="image" data-lb-src="Images/Poster - Inspired by The Name of the Wind book.jpg" data-lb-caption="Book Poster — Design / Personal">
+      <div class="peek-media square" style="background:var(--rule);">
+        <img src="Images/Poster - Inspired by The Name of the Wind book.jpg" alt="Book poster" style="width:100%;height:100%;object-fit:cover;display:block;">
+      </div>
+      <div class="peek-caption"><strong>Book Poster</strong>Design / Personal</div>
+    </div>
+    <div class="peek-card" data-lb-type="image" data-lb-src="Images/Noirgaze fashion week 2.jpg" data-lb-caption="Noirgaze · LFW — Social / Campaign">
+      <div class="peek-media wide" style="background:var(--rule);">
+        <img src="Images/Noirgaze fashion week 2.jpg" alt="Noirgaze Fashion Week" style="width:100%;height:100%;object-fit:cover;display:block;">
+      </div>
+      <div class="peek-caption"><strong>Noirgaze · LFW</strong>Social / Campaign</div>
+    </div>
+    <!-- SET 2 (duplicate for seamless loop) -->
+    <div class="peek-card">
+      <div class="peek-media portrait" style="background:var(--rule);">
+        <img src="Images/Noirgaze fashion week 1 .jpg" alt="Noirgaze Fashion Week" style="width:100%;height:100%;object-fit:cover;display:block;">
+      </div>
+      <div class="peek-caption"><strong>Noirgaze · LFW</strong>Social / Campaign</div>
+    </div>
+    <div class="peek-card">
+      <div class="peek-media wide" style="background:var(--rule);">
+        <img src="Images/Vietnam travel video thumbnail.png" alt="Vietnam Travel" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="peek-play"><svg width="22" height="22" viewBox="0 0 24 24" fill="white" opacity="0.8"><polygon points="6,4 20,12 6,20"/></svg></div>
+      </div>
+      <div class="peek-caption"><strong>Vietnam Travel Edit</strong>Video / Reel</div>
+    </div>
+    <div class="peek-card">
+      <div class="peek-media square" style="background:var(--rule);">
+        <img src="Images/Simple skincare print 1.jpg" alt="Simple Skincare" style="width:100%;height:100%;object-fit:cover;display:block;">
+      </div>
+      <div class="peek-caption"><strong>Simple Skincare · FMP</strong>Print / Campaign</div>
+    </div>
+    <div class="peek-card">
+      <div class="peek-media portrait" style="background:var(--rule);">
+        <img src="Images/Noirgaze christmas content one.jpg" alt="Noirgaze Christmas" style="width:100%;height:100%;object-fit:cover;display:block;">
+      </div>
+      <div class="peek-caption"><strong>Noirgaze · Christmas</strong>Social / Content</div>
+    </div>
+    <div class="peek-card">
+      <div class="peek-media square" style="background:var(--rule);">
+        <img src="Images/Photography work.JPG" alt="Photography" style="width:100%;height:100%;object-fit:cover;display:block;">
+      </div>
+      <div class="peek-caption"><strong>Photography</strong>Personal</div>
+    </div>
+    <div class="peek-card">
+      <div class="peek-media portrait" style="background:var(--rule);">
+        <img src="Images/15km run vlog thumbnail.PNG" alt="15km Run Vlog" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="peek-play"><svg width="22" height="22" viewBox="0 0 24 24" fill="white" opacity="0.8"><polygon points="6,4 20,12 6,20"/></svg></div>
+      </div>
+      <div class="peek-caption"><strong>15km Run · Vlog</strong>Video / Personal</div>
+    </div>
+    <div class="peek-card">
+      <div class="peek-media wide" style="background:var(--rule);">
+        <img src="Images/More than a kit campaign poster.png" alt="More Than a Kit" style="width:100%;height:100%;object-fit:cover;display:block;">
+      </div>
+      <div class="peek-caption"><strong>More Than a Kit</strong>Print / Campaign</div>
+    </div>
+    <div class="peek-card">
+      <div class="peek-media portrait" style="background:var(--rule);">
+        <img src="Images/Intro video thumbnail.PNG" alt="Intro Video" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="peek-play"><svg width="22" height="22" viewBox="0 0 24 24" fill="white" opacity="0.8"><polygon points="6,4 20,12 6,20"/></svg></div>
+      </div>
+      <div class="peek-caption"><strong>Intro · About Me</strong>Video</div>
+    </div>
+    <div class="peek-card">
+      <div class="peek-media square" style="background:var(--rule);">
+        <img src="Images/Poster - Inspired by The Name of the Wind book.jpg" alt="Book poster" style="width:100%;height:100%;object-fit:cover;display:block;">
+      </div>
+      <div class="peek-caption"><strong>Book Poster</strong>Design / Personal</div>
+    </div>
+    <div class="peek-card">
+      <div class="peek-media wide" style="background:var(--rule);">
+        <img src="Images/Noirgaze fashion week 2.jpg" alt="Noirgaze Fashion Week" style="width:100%;height:100%;object-fit:cover;display:block;">
+      </div>
+      <div class="peek-caption"><strong>Noirgaze · LFW</strong>Social / Campaign</div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div class="section" id="contact">
+  <div class="section-header">
+    <span class="section-title">Contact me</span>
+  </div>
+  <div class="contact-links">
+    <a class="contact-link" href="mailto:comleymaia@gmail.com">
+      comleymaia@gmail.com <span>↗</span>
+    </a>
+    <a class="contact-link" href="https://www.linkedin.com/in/maiacomley/" target="_blank" rel="noopener">
+      LinkedIn <span>↗</span>
+    </a>
+    <a class="contact-link" href="/maia-comley-cv.pdf" download="Maia-Comley-CV.pdf">
+      Download CV <span>↓</span>
+    </a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-copy">Maia Comley © 2025</span>
+  <span class="footer-slogan">Curious about brands, people and what connects them.</span>
+</footer>
+
+<!-- CARD MODAL -->
+<div class="card-backdrop" id="cardBackdrop"></div>
+<div class="card-modal" id="cardModal">
+  <div class="card-modal-inner">
+    <button class="card-close" id="cardClose" aria-label="Close">✕</button>
+    <div class="card-modal-content">
+      <div class="card-modal-tags" id="modalTags"></div>
+      <div class="card-modal-title" id="modalTitle"></div>
+      <p class="card-modal-desc" id="modalDesc"></p>
+      <ul class="card-modal-bullets" id="modalBullets"></ul>
+      <div class="modal-media-strip" id="modalMediaStrip"></div>
+      <a class="card-modal-more" id="modalMore" href="work.html">See more →</a>
+    </div>
+  </div>
+</div>
+
+<!-- PEEK LIGHTBOX -->
+<div class="peek-lb-bg" id="peekLbBg">
+  <div class="peek-lb-inner" id="peekLbInner">
+    <button class="peek-lb-close" id="peekLbClose">✕</button>
+    <div id="peekLbMedia"></div>
+    <div class="peek-lb-caption" id="peekLbCaption"></div>
+  </div>
+</div>
+
+<!-- SPACE PROMPT -->
+<div class="space-prompt" id="spacePrompt">
+  press <span class="space-key">space</span> to select your theme
+</div>
+
+<!-- PALETTE LABEL -->
+<div class="palette-label" id="paletteLabel"></div>
+
+<script>
+  // Typewriter
+  (function() {
+    const words = ['Strategy.', 'Storytelling.', 'Design.', 'Discovery.', 'Expression.'];
+    const el = document.getElementById('typeTarget');
+    let wordIdx = 0;
+    const PAUSE = 2200, TYPE = 85, DEL = 48;
+
+    function runCycle() {
+      const current = words[wordIdx];
+      let i = current.length;
+      function del() {
+        if (i > 0) { el.textContent = current.slice(0, --i); setTimeout(del, DEL); }
+        else { wordIdx = (wordIdx + 1) % words.length; type(); }
+      }
+      function type() {
+        const target = words[wordIdx];
+        if (i < target.length) { el.textContent = target.slice(0, ++i); setTimeout(type, TYPE); }
+        else { setTimeout(runCycle, PAUSE); }
+      }
+      setTimeout(del, PAUSE);
+    }
+    runCycle();
+  })();
+
+  // Nav scroll
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', scrollY > 20);
+    if (scrollY > 60) document.getElementById('spacePrompt').classList.add('hide');
+  });
+
+  // Palette system
+  const palettes = [
+    { cls: 'p-compl',  label: 'Complementary' },
+    { cls: 'p-analog', label: 'Analogous'     },
+  ];
+  const htmlEl = document.documentElement;
+  const label  = document.getElementById('paletteLabel');
+  const prompt = document.getElementById('spacePrompt');
+  let idx = -1;
+
+  function applyPalette(i, save = true) {
+    ['p-mono','p-brand','p-compl','p-analog','p-contra'].forEach(c => htmlEl.classList.remove(c));
+    if (i === -1) {
+      htmlEl.classList.add('p-mono');
+      label.textContent = 'Monochrome';
+      if (save) localStorage.removeItem('palette');
+    } else {
+      htmlEl.classList.add(palettes[i].cls);
+      label.textContent = palettes[i].label;
+      if (save) localStorage.setItem('palette', palettes[i].cls);
+    }
+    label.classList.add('visible');
+    prompt.classList.add('hide');
+  }
+
+  // Restore saved palette on load
+  const saved = localStorage.getItem('palette');
+  if (saved) {
+    const si = palettes.findIndex(p => p.cls === saved);
+    if (si > -1) { idx = si; applyPalette(idx, false); }
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.code === 'Space' && !['INPUT','TEXTAREA','SELECT'].includes(e.target.tagName)) {
+      e.preventDefault();
+      idx = idx >= palettes.length - 1 ? -1 : idx + 1;
+      applyPalette(idx);
+    }
+  });
+
+  // Card expand to centre
+  const backdrop  = document.getElementById('cardBackdrop');
+  const modal     = document.getElementById('cardModal');
+  const closeBtn  = document.getElementById('cardClose');
+  const workCards = document.querySelectorAll('.work-card');
+  let originRect  = null;
+
+  function openCard(card) {
+    // Populate content
+    document.getElementById('modalTags').textContent  = card.dataset.tags;
+    document.getElementById('modalTitle').textContent = card.dataset.title;
+    const anchorMap = { 'IDGateway': 'idgateway', 'Noirgaze': 'noirgaze', 'Simple Skincare': 'lcc' };
+    const anchor = anchorMap[card.dataset.title] || '';
+    document.getElementById('modalMore').href = 'work.html' + (anchor ? '#' + anchor : '');
+    document.getElementById('modalDesc').textContent  = card.dataset.desc;
+
+    const bulletList = document.getElementById('modalBullets');
+    bulletList.innerHTML = '';
+    if (card.dataset.bullets) {
+      card.dataset.bullets.split('|').forEach(text => {
+        const li = document.createElement('li');
+        li.textContent = text.trim();
+        bulletList.appendChild(li);
+      });
+    }
+
+    // Always use the original monochrome card colour regardless of theme
+    const hex = card.dataset.color || '#1a1a1a';
+    const bigint = parseInt(hex.replace('#',''), 16);
+    const r = (bigint >> 16) & 255, g = (bigint >> 8) & 255, b = bigint & 255;
+    const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+    const ink = luminance > 0.55 ? '#0A0A0A' : '#FFFFFF';
+    modal.style.backgroundColor = `rgba(${r},${g},${b},0.88)`;
+    modal.style.backgroundImage = 'none';
+    modal.style.color = ink;
+
+    // Dim siblings
+    workCards.forEach(c => { if (c !== card) c.classList.add('dimmed'); });
+
+    // Snapshot card position
+    originRect = card.getBoundingClientRect();
+
+    // Position modal exactly over the card, no transition yet
+    modal.style.transition = 'none';
+    modal.style.borderRadius = '0px';
+    modal.style.left   = originRect.left + 'px';
+    modal.style.top    = originRect.top  + 'px';
+    modal.style.width  = originRect.width  + 'px';
+    modal.style.height = originRect.height + 'px';
+    modal.style.opacity = '1';
+
+    // Target size: comfortably larger than card, not full-screen
+    const isMobile = window.innerWidth < 760;
+    const tw = Math.min(originRect.width * 2, window.innerWidth  * (isMobile ? 0.92 : 0.72));
+    const th = Math.min(originRect.height * 2, window.innerHeight * (isMobile ? 0.85 : 0.78));
+    const tx = window.innerWidth  / 2 - tw / 2;
+    const ty = window.innerHeight / 2 - th / 2;
+
+    // Force paint at card position, then animate to centre
+    modal.getBoundingClientRect();
+    modal.style.transition = 'left 0.6s cubic-bezier(0.16,1,0.3,1), top 0.6s cubic-bezier(0.16,1,0.3,1), width 0.6s cubic-bezier(0.16,1,0.3,1), height 0.6s cubic-bezier(0.16,1,0.3,1), border-radius 0.6s ease';
+    modal.style.width        = tw + 'px';
+    modal.style.height       = th + 'px';
+    modal.style.left         = tx + 'px';
+    modal.style.top          = ty + 'px';
+    modal.style.borderRadius = '4px';
+
+    modal.classList.add('active');
+    backdrop.classList.add('active');
+  }
+
+  function closeCard() {
+    if (!originRect) return;
+    modal.classList.remove('active');
+    backdrop.classList.remove('active');
+    workCards.forEach(c => c.classList.remove('dimmed'));
+
+    modal.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+    modal.style.opacity = '0';
+    modal.style.transform = 'scale(0.97)';
+
+    setTimeout(() => {
+      modal.style.transition = 'none';
+      modal.style.transform = '';
+      modal.style.pointerEvents = 'none';
+      originRect = null;
+    }, 320);
+  }
+
+  workCards.forEach(card => card.addEventListener('click', () => openCard(card)));
+  closeBtn.addEventListener('click', (e) => { e.stopPropagation(); closeCard(); });
+  backdrop.addEventListener('click', closeCard);
+
+  // Scroll reveal
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0, rootMargin: '0px 0px 40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+  // Fade space prompt and palette label when scrolling past the hero
+  const hero = document.querySelector('.hero');
+  if (hero && 'IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        const inHero = entry.isIntersecting;
+        if (!prompt.classList.contains('hide')) {
+          prompt.classList.toggle('scrolled-out', !inHero);
+        }
+        label.classList.toggle('faded', !inHero);
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(hero);
+  }
+
+
+  // Peek carousel lightbox
+  (function() {
+    const bg = document.getElementById('peekLbBg');
+    const media = document.getElementById('peekLbMedia');
+    const caption = document.getElementById('peekLbCaption');
+    let currentVideo = null;
+
+    function openLb(card) {
+      const type = card.dataset.lbType;
+      const src  = card.dataset.lbSrc;
+      const cap  = card.dataset.lbCaption || '';
+      media.innerHTML = '';
+      if (type === 'video') {
+        const v = document.createElement('video');
+        v.src = src; v.controls = true; v.autoplay = true;
+        v.style.width = '100%'; v.setAttribute('playsinline', '');
+        media.appendChild(v); currentVideo = v;
+      } else {
+        const img = document.createElement('img');
+        img.src = src; media.appendChild(img); currentVideo = null;
+      }
+      caption.textContent = cap;
+      bg.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLb() {
+      bg.classList.remove('open');
+      if (currentVideo) { currentVideo.pause(); currentVideo = null; }
+      setTimeout(() => { media.innerHTML = ''; }, 300);
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('peekLbClose').addEventListener('click', closeLb);
+    bg.addEventListener('click', e => { if (e.target === bg) closeLb(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
+
+    // Only wire up first set (not duplicates) — duplicates share same data
+    const cards = document.querySelectorAll('.peek-card[data-lb-src]');
+    cards.forEach(card => card.addEventListener('click', () => openLb(card)));
+  })();
+
+  // Loader
+</script>
