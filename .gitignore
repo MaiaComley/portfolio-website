@@ -40,7 +40,4 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-Images/*.mp4
-Images/*.MP4
-Images/*.mov
-Images/*.MOV
+# large originals excluded; compressed versions are tracked
