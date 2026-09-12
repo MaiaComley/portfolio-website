@@ -616,6 +616,10 @@
   .reveal-delay-3 { transition-delay: 0.3s; }
 
   /* ── RESPONSIVE ── */
+  /* ── hero two-line: inline on desktop ── */
+  .hero-line1 { display: inline; }
+  .hero-line2 { display: inline; }
+
   @media (max-width: 760px) {
     /* Nav */
     nav { padding: 18px 20px; }
@@ -623,44 +627,26 @@
     .nav-links a { font-size: 0.62rem; letter-spacing: 0.05em; }
     .nav-contact { padding: 6px 12px; font-size: 0.62rem; }
 
-    /* Hero */
-    .hero { padding: 0 20px; }
-    .hero-headline { font-size: clamp(2rem, 9vw, 3.5rem); }
-    .hero-intro { flex-direction: column-reverse; gap: 28px; padding: 32px 20px 72px; }
-    .hero-photo { width: 100%; height: 300px; border-radius: 18px; }
-    .hero-bio { font-size: 0.95rem; max-width: 100%; }
+    /* Hero — two-line layout on mobile */
+    .hero { padding: 0 24px; align-items: center; }
+    .hero-headline {
+      font-size: clamp(2.2rem, 10vw, 3.8rem);
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .hero-line1 { display: block; }
+    .hero-line2 { display: block; }
+
+    /* Intro: photo above, bio below */
+    .hero-intro { flex-direction: column; gap: 24px; padding: 36px 24px 72px; }
+    .hero-photo { width: 100%; height: 340px; border-radius: 18px; }
+    .hero-bio { font-size: 0.97rem; max-width: 100%; }
 
     /* Sections */
-    .section { padding: 48px 20px; }
+    .section { padding: 48px 24px; }
     .section-header { margin-bottom: 24px; }
-
-    /* Work grid */
-    .work-grid { grid-template-columns: 1fr; gap: 3px; }
-    .work-card { aspect-ratio: 4/3; }
-    .work-card-name { font-size: 1.05rem; white-space: normal; }
-    .work-card-cat { white-space: normal; }
-
-    /* Peek carousel */
-    .peek-carousel { margin: 0 -20px; }
-    .peek-belt { padding: 12px 20px 20px; gap: 10px; }
-    .peek-media.portrait { width: 150px; height: 220px; }
-    .peek-media.square   { width: 190px; height: 190px; }
-    .peek-media.wide     { width: 230px; height: 150px; }
-
-    /* Skills */
-    .skills-grid { grid-template-columns: 1fr 1fr; }
-
-    /* Contact */
-    .contact-inner { grid-template-columns: 1fr; gap: 40px; }
-    .contact-link { font-size: 1rem; }
-    .contact-headline { font-size: 2rem; }
-
-    /* Footer */
-    footer { padding: 20px; flex-direction: column; gap: 8px; text-align: center; }
-
-    /* UI overlays */
-    .space-prompt { display: none; }
-    .palette-label { bottom: 20px; right: 16px; }
 
     /* Work grid → swipeable snap scroll */
     .work-grid {
@@ -669,22 +655,46 @@
       scroll-snap-type: x mandatory;
       -webkit-overflow-scrolling: touch;
       gap: 0;
-      margin: 0 -20px;
+      margin: 0 -24px;
       scrollbar-width: none;
     }
     .work-grid::-webkit-scrollbar { display: none; }
     .work-card {
-      flex: 0 0 calc(100vw - 40px);
-      width: calc(100vw - 40px);
+      flex: 0 0 calc(100vw - 48px);
+      width: calc(100vw - 48px);
       scroll-snap-align: center;
-      aspect-ratio: 4/3;
-      margin: 0 2px;
+      aspect-ratio: 3/2;
+      margin: 0 3px;
     }
-    .work-card:first-child { margin-left: 20px; }
-    .work-card:last-child  { margin-right: 20px; }
+    .work-card:first-child { margin-left: 24px; }
+    .work-card:last-child  { margin-right: 24px; }
+    .work-card-name { font-size: 1.05rem; white-space: normal; }
+    .work-card-cat { white-space: normal; }
+
+    /* Peek carousel */
+    .peek-carousel { margin: 0 -24px; }
+    .peek-belt { padding: 12px 24px 20px; gap: 10px; }
+    .peek-media.portrait { width: 150px; height: 220px; }
+    .peek-media.square   { width: 190px; height: 190px; }
+    .peek-media.wide     { width: 230px; height: 150px; }
+
+    /* Skills */
+    .skills-grid { grid-template-columns: 1fr 1fr; }
+
+    /* Footer */
+    footer { padding: 20px 24px; flex-direction: column; gap: 8px; text-align: center; }
+
+    /* UI overlays */
+    .space-prompt { display: none; }
+    .palette-label { bottom: 20px; right: 16px; }
 
     /* Mobile theme button */
     .mobile-theme-btn { display: flex; }
+  }
+
+  @media (max-width: 400px) {
+    .nav-links { gap: 10px; }
+    .hero-headline { font-size: clamp(1.9rem, 9vw, 2.8rem); }
   }
 
   /* Mobile theme button — hidden on desktop */
@@ -719,12 +729,6 @@
     flex-shrink: 0;
   }
 
-  /* Very narrow — hide Contact button label, keep icon */
-  @media (max-width: 400px) {
-    .nav-links { gap: 10px; }
-    .hero-headline { font-size: clamp(1.8rem, 8.5vw, 2.5rem); }
-  }
-
 
 </style>
 
@@ -741,7 +745,8 @@
 <!-- HERO -->
 <div class="hero">
   <h1 class="hero-headline">
-    Curiosity. Creativity. <span id="typeTarget" class="hl">Strategy.</span><span class="type-cursor"></span>
+    <span class="hero-line1">Curiosity. Creativity.</span>
+    <span class="hero-line2"><span id="typeTarget" class="hl">Strategy.</span><span class="type-cursor"></span></span>
   </h1>
   <button class="mobile-theme-btn" id="mobileThemeBtn" aria-label="Change theme">
     <span class="mobile-theme-swatch" id="mobileThemeSwatch"></span>

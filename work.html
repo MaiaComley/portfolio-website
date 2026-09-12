@@ -409,20 +409,21 @@
     .hscroll-track { flex-direction: column; transform: none !important; }
 
     /* Panels */
-    .h-panel { width: 100%; height: auto; padding: 80px 24px 56px; min-height: 0; }
+    .h-panel { width: 100%; height: auto; padding: 80px 24px 64px; min-height: 0; }
     .h-panel:first-child { padding-top: 100px; min-height: 100vh; }
-    .panel-inner { grid-template-columns: 1fr; gap: 32px; }
+    .panel-inner { grid-template-columns: 1fr; gap: 36px; }
     .panel-right { justify-content: flex-start; }
     .panel-bg-num { font-size: clamp(4rem, 18vw, 7rem); }
-    .img-stack-wrap { display: none; }
+    .img-stack-wrap { display: block; margin-top: 8px; }
     .panel-company { font-size: clamp(2rem, 8vw, 3rem); }
     .intro-title { font-size: clamp(3rem, 12vw, 5rem); }
     .lcc-proj-grid { max-width: 100%; grid-template-columns: 1fr 1fr; }
 
-    /* Skills belt: keep relative so it doesn't position: absolute incorrectly */
+    /* Skills */
     .skills-belt { position: relative; }
     .panel-bullets--grid { grid-template-columns: 1fr; }
-    .panel-skill-pills { display: none; }
+    .panel-skill-pills { display: flex; max-width: 100%; }
+    .panel-pills-row { display: flex; max-width: 100%; }
     .scroll-cue { display: none; }
 
     /* Space prompt */
