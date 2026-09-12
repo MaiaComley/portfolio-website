@@ -179,7 +179,7 @@
   }
   .panel-see-btn:hover { opacity: 0.5; }
 
-  /* Right side: decorative */
+  /* Right side */
   .panel-right {
     display: flex; align-items: center; justify-content: center;
     height: 100%; position: relative;
@@ -190,6 +190,26 @@
     color: var(--rule); user-select: none;
     transition: color 0.55s;
     opacity: 0.7;
+  }
+
+  /* Skill pills in panel-right */
+  .panel-skill-pills {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    max-width: 400px; align-content: center;
+  }
+  .ps-pill {
+    font-size: 0.65rem; font-weight: 500; letter-spacing: 0.07em;
+    text-transform: uppercase; color: var(--muted);
+    border: 1px solid var(--rule); border-radius: 5px;
+    padding: 7px 14px; white-space: nowrap;
+    transition: color 0.2s, border-color 0.55s, background 0.2s;
+    cursor: default;
+  }
+  .ps-pill:hover { color: var(--ink); background: var(--surface); }
+
+  /* Two-column bullets */
+  .panel-bullets--grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8px 28px;
   }
 
   /* Image stack (Noirgaze) */
@@ -396,6 +416,8 @@
 
     /* Skills belt: keep relative so it doesn't position: absolute incorrectly */
     .skills-belt { position: relative; }
+    .panel-bullets--grid { grid-template-columns: 1fr; }
+    .panel-skill-pills { display: none; }
     .scroll-cue { display: none; }
 
     /* Space prompt */
@@ -555,14 +577,31 @@
             </div>
             <h2 class="panel-company">IDGateway</h2>
             <p class="panel-desc">Full-mix marketing at a B2B SaaS company in identity verification, owning content, digital and strategy while working closely with sales, operations and leadership.</p>
-            <ul class="panel-bullets">
-              <li>Own the LinkedIn content strategy and content calendar across AirportGateway and VettingGateway, delivering 5–6 posts per week</li>
+            <ul class="panel-bullets panel-bullets--grid">
+              <li>Own the LinkedIn content strategy and content calendar across different products</li>
               <li>Create marketing content including blogs, case studies, thought leadership, social media, video and campaign assets</li>
-              <li>Manage website content and optimisation, conducting UX research, competitor analysis and supporting SEO, GEO and AEO</li>
+              <li>Manage website content and optimisation, conducting UX research, competitor analysis and supporting SEO and GEO</li>
+              <li>Led keyword research and content planning for the IDGateway website rebuild, building an SEO tracker and reporting findings to leadership</li>
               <li>Build AI-powered marketing workflows using Claude to streamline content planning, briefing, reporting and creative production</li>
+              <li>Organised and hosted the office's Macmillan Coffee Morning fundraiser</li>
             </ul>
           </div>
-          <div class="panel-right"></div>
+          <div class="panel-right">
+            <div class="panel-skill-pills">
+              <span class="ps-pill">Content Strategy</span>
+              <span class="ps-pill">LinkedIn</span>
+              <span class="ps-pill">SEO / GEO</span>
+              <span class="ps-pill">Website Management</span>
+              <span class="ps-pill">HubSpot</span>
+              <span class="ps-pill">Campaign Planning</span>
+              <span class="ps-pill">AI Workflows</span>
+              <span class="ps-pill">Copywriting</span>
+              <span class="ps-pill">Canva</span>
+              <span class="ps-pill">Analytics</span>
+              <span class="ps-pill">Event Marketing</span>
+              <span class="ps-pill">Video Content</span>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -576,15 +615,27 @@
               <span>Sept – Oct 2025</span>
             </div>
             <h2 class="panel-company">Indera Tamara</h2>
-            <p class="panel-desc">PR and content support for an independent PR agency across London Fashion Week SS26, from event logistics and runway content to brand kits and post-event reporting.</p>
-            <ul class="panel-bullets">
+            <p class="panel-desc">PR and content support for an independent PR agency across London Fashion Week SS26, running end-to-end delivery from event logistics and runway content to brand kits and post-event reporting.</p>
+            <ul class="panel-bullets panel-bullets--grid">
               <li>Facilitated end-to-end event logistics for LFW, managing VIP stakeholder relations and high-priority seating plans for press and talent</li>
-              <li>Planned, storyboarded, filmed and edited runway content for Kyle Ho's SS26 show</li>
-              <li>Designed brand kits and social media style guides in Canva for multiple brands</li>
-              <li>Delivered post-event analytics and press coverage reports to measure campaign ROI</li>
+              <li>Planned, storyboarded, filmed and edited runway content for Kyle Ho's SS26 show, turning raw footage into publish-ready social content</li>
+              <li>Designed brand kits and social media style guides in Canva, giving multiple brands a consistent look across their channels</li>
+              <li>Delivered post-event analytics and press coverage reports, translating results into ROI for clients and the agency</li>
             </ul>
           </div>
-          <div class="panel-right"></div>
+          <div class="panel-right">
+            <div class="panel-skill-pills">
+              <span class="ps-pill">Event Management</span>
+              <span class="ps-pill">PR</span>
+              <span class="ps-pill">Content Creation</span>
+              <span class="ps-pill">Video Editing</span>
+              <span class="ps-pill">Canva</span>
+              <span class="ps-pill">Social Media</span>
+              <span class="ps-pill">Brand Kits</span>
+              <span class="ps-pill">Analytics</span>
+              <span class="ps-pill">Stakeholder Management</span>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -599,11 +650,11 @@
             </div>
             <h2 class="panel-company">Noirgaze</h2>
             <p class="panel-desc">Social media and marketing for an independent luxury bag company, growing the brand's following by 3,000+ in five months through content, creative direction and campaign work.</p>
-            <ul class="panel-bullets">
+            <ul class="panel-bullets panel-bullets--grid">
               <li>Led content planning and creation for Instagram and TikTok, supporting Fashion Week, Black Friday and Christmas campaigns</li>
-              <li>Acted as Creative Lead for product-focused shoots, overseeing styling, art direction and post-production</li>
+              <li>Acted as Creative Lead for product-focused shoots, overseeing styling, art direction and post-production from concept to final edit</li>
               <li>Managed CRM and email marketing via Klaviyo, designing automated flows and newsletters aligned with seasonal launches</li>
-              <li>Collaborated with the founder to shape brand voice, develop strategy and maintain a consistent visual identity</li>
+              <li>Collaborated with the founder to shape brand voice, develop strategy and maintain a consistent visual identity across every touchpoint</li>
             </ul>
             <button class="panel-see-btn" data-role="noirgaze">See work →</button>
           </div>
@@ -638,8 +689,8 @@
             <div class="honours-badge">★ First Class Honours</div>
             <ul class="panel-bullets">
               <li>Explored creative strategy, branding, digital campaign planning and consumer behaviour through industry-led modules</li>
-              <li>Produced full advertising campaigns across Final Major Projects, including print, radio and TV, pitching to tutors with industry backgrounds and receiving professional feedback</li>
-              <li>Completed a dissertation and multiple cross-discipline projects across print, digital and film</li>
+              <li>Produced full advertising campaigns for Final Major Projects across print, radio and TV, pitching to tutors with industry backgrounds and receiving professional feedback</li>
+              <li>Completed a dissertation and multiple cross-discipline projects spanning print, digital and film</li>
             </ul>
             <div class="edu-tags">
               <span class="edu-tag">Brand Strategy</span>
