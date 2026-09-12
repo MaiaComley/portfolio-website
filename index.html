@@ -163,7 +163,7 @@
     transition: color 0.55s;
   }
   .hero-photo {
-    width: 240px; height: 320px; flex-shrink: 0;
+    width: 300px; height: 420px; flex-shrink: 0;
     border-radius: 28px;
     overflow: hidden;
     background: var(--rule);
@@ -380,9 +380,9 @@
     padding-left: 16px; position: relative;
   }
   .card-modal-bullets li::before {
-    content: '—';
+    content: '·';
     position: absolute; left: 0;
-    opacity: 0.4;
+    opacity: 0.5;
   }
   .card-modal-more {
     display: inline-flex; align-items: center; gap: 8px;
@@ -619,7 +619,7 @@
     .hero { padding: 0 20px; }
     .hero-headline { font-size: clamp(2rem, 9vw, 3.5rem); }
     .hero-intro { flex-direction: column-reverse; gap: 28px; padding: 32px 20px 72px; }
-    .hero-photo { width: 100%; height: 240px; border-radius: 18px; }
+    .hero-photo { width: 100%; height: 300px; border-radius: 18px; }
     .hero-bio { font-size: 0.95rem; max-width: 100%; }
 
     /* Sections */
@@ -744,7 +744,7 @@
 <!-- INTRO REVEAL -->
 <div class="hero-intro reveal">
   <div>
-    <p class="hero-bio">I'm a Junior Marketing Executive with a love for brands, content and the thinking behind why things connect with people. Currently at IDGateway, I work across content strategy, digital and SEO in a B2B SaaS environment, bringing creativity and data together to make marketing actually land. Outside of work, I'm drawn to branding, consumer behaviour, food culture and thoughtful design.</p>
+    <p class="hero-bio">I'm a curious creative who loves exploring the ideas, stories and strategy behind great marketing. I've worked across different corners of the industry, from fashion to B2B, which has given me a broad perspective on the different ways brands can communicate and connect with people. I'm currently at IDGateway, working across content, digital, SEO and strategy, and always looking for the balance between creative ideas and what makes them work. Outside of work, I'm drawn to branding, food, wellness and design, and pretty much anything that sparks a new idea.</p>
   </div>
   <div class="hero-photo">
     <img src="Images/Maia Comley.jpg" alt="Maia Comley">
@@ -759,7 +759,7 @@
     <a class="section-link" href="work.html">View all →</a>
   </div>
   <div class="work-grid">
-    <div class="work-card card-1 reveal reveal-delay-1"
+    <div class="work-card card-1"
          data-color="#0d5555"
          data-title="IDGateway"
          data-tags="Social Media · Strategy · Content · SEO · Website"
@@ -770,7 +770,7 @@
         <div class="work-card-name">IDGateway</div>
       </div>
     </div>
-    <div class="work-card card-2 reveal reveal-delay-2"
+    <div class="work-card card-2"
          data-color="#2a2a3a"
          data-title="Noirgaze"
          data-tags="Social Media · Influencer Outreach · Content Planning · Website"
@@ -781,12 +781,13 @@
         <div class="work-card-name">Noirgaze</div>
       </div>
     </div>
-    <div class="work-card card-3 reveal reveal-delay-3"
+    <div class="work-card card-3"
          data-color="#ffffff"
          data-title="Simple Skincare"
          data-tags="Advertising · Copywriting · Print · Radio · Film"
          data-desc="My Final Major Project at London College of Communication: a full advertising campaign for Simple Skincare, built on the insight that some things in life are better because they're simple."
-         data-bullets="Developed the campaign strategy, consumer insight and creative direction|Wrote and art directed a series of print ads|Produced a radio advert script and concept|Created a film advert treatment and storyboard|Graduated with First Class Honours, BA (Hons) Advertising">
+         data-bullets="Developed the campaign strategy, consumer insight and creative direction|Wrote and art directed a series of print ads|Produced a radio advert script and concept|Created a film advert treatment and storyboard|Graduated with First Class Honours, BA (Hons) Advertising"
+         data-link="work.html#lcc">
       <div class="work-card-inner">
         <div class="work-card-cat">Advertising Campaign</div>
         <div class="work-card-name">Simple Skincare</div>
@@ -1162,7 +1163,10 @@
     }, 320);
   }
 
-  workCards.forEach(card => card.addEventListener('click', () => openCard(card)));
+  workCards.forEach(card => card.addEventListener('click', () => {
+    if (card.dataset.link) { window.location.href = card.dataset.link; return; }
+    openCard(card);
+  }));
   closeBtn.addEventListener('click', (e) => { e.stopPropagation(); closeCard(); });
   backdrop.addEventListener('click', closeCard);
 
