@@ -786,8 +786,7 @@
          data-title="Simple Skincare"
          data-tags="Advertising · Copywriting · Print · Radio · Film"
          data-desc="My Final Major Project at London College of Communication: a full advertising campaign for Simple Skincare, built on the insight that some things in life are better because they're simple."
-         data-bullets="Developed the campaign strategy, consumer insight and creative direction|Wrote and art directed a series of print ads|Produced a radio advert script and concept|Created a film advert treatment and storyboard|Graduated with First Class Honours, BA (Hons) Advertising"
-         data-link="work.html#lcc">
+         data-bullets="Developed the campaign strategy, consumer insight and creative direction|Wrote and art directed a series of print ads|Produced a radio advert script and concept|Created a film advert treatment and storyboard|Graduated with First Class Honours, BA (Hons) Advertising">
       <div class="work-card-inner">
         <div class="work-card-cat">Advertising Campaign</div>
         <div class="work-card-name">Simple Skincare</div>
@@ -1163,10 +1162,7 @@
     }, 320);
   }
 
-  workCards.forEach(card => card.addEventListener('click', () => {
-    if (card.dataset.link) { window.location.href = card.dataset.link; return; }
-    openCard(card);
-  }));
+  workCards.forEach(card => card.addEventListener('click', () => openCard(card)));
   closeBtn.addEventListener('click', (e) => { e.stopPropagation(); closeCard(); });
   backdrop.addEventListener('click', closeCard);
 
