@@ -313,14 +313,10 @@
   }
   .wsh-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--rule); flex-shrink: 0; transition: background 0.55s; }
   .wsh-progress {
-    height: 2px; background: var(--rule); position: relative;
+    height: 1px; background: var(--rule);
     transition: background 0.55s;
   }
-  .wsh-fill {
-    position: absolute; left: 0; top: 0; bottom: 0;
-    background: var(--ink); width: 0%;
-    transition: width 0.4s cubic-bezier(0.22,1,0.36,1), background 0.55s;
-  }
+  .wsh-fill { display: none; }
 
   /* ── GALLERY MODAL ── */
   .gallery-modal-bg {
