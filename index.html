@@ -617,7 +617,7 @@
   .reveal-delay-3 { transition-delay: 0.3s; }
 
   /* ── RESPONSIVE ── */
-  /* ── hero two-line: inline on desktop ── */
+  /* ── hero lines: inline on desktop so all on one line ── */
   .hero-line1 { display: inline; }
   .hero-line2 { display: inline; }
 
@@ -628,24 +628,31 @@
     .nav-links a { font-size: 0.62rem; letter-spacing: 0.05em; }
     .nav-contact { padding: 6px 12px; font-size: 0.62rem; }
 
-    /* Hero — large two-line layout on mobile */
-    .hero { padding: 0 28px; align-items: flex-end; padding-bottom: 80px; }
+    /* Hero — each word stacked, fills screen */
+    .hero {
+      height: auto;
+      min-height: 100vh;
+      padding: 100px 28px 100px;
+      align-items: flex-start;
+      justify-content: flex-end;
+      flex-direction: column;
+    }
     .hero-headline {
-      font-size: clamp(3.2rem, 14vw, 5.5rem);
+      font-size: clamp(3.8rem, 17vw, 6rem);
       text-align: left;
       display: flex;
       flex-direction: column;
       gap: 0;
-      line-height: 1.05;
+      line-height: 1.0;
       width: 100%;
     }
     .hero-line1 { display: block; }
     .hero-line2 { display: block; }
 
-    /* Intro: photo above, bio below */
-    .hero-intro { flex-direction: column; gap: 20px; padding: 32px 28px 64px; }
-    .hero-photo { width: 100%; height: 320px; border-radius: 16px; }
-    .hero-bio { font-size: 1rem; max-width: 100%; }
+    /* Intro: photo first, then bio */
+    .hero-intro { flex-direction: column; gap: 20px; padding: 28px 28px 56px; }
+    .hero-photo { width: 100%; height: 380px; border-radius: 16px; }
+    .hero-bio { font-size: 1.05rem; max-width: 100%; }
 
     /* Sections */
     .section { padding: 48px 24px; }
@@ -750,7 +757,8 @@
 <!-- HERO -->
 <div class="hero">
   <h1 class="hero-headline">
-    <span class="hero-line1">Curiosity. Creativity.</span>
+    <span class="hero-line1">Curiosity.</span>
+    <span class="hero-line1">Creativity.</span>
     <span class="hero-line2"><span id="typeTarget" class="hl">Strategy.</span><span class="type-cursor"></span></span>
   </h1>
   <button class="mobile-theme-btn" id="mobileThemeBtn" aria-label="Change theme">
