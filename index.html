@@ -713,13 +713,9 @@
   /* Mobile theme button — hidden on desktop */
   .mobile-theme-btn {
     display: none;
-    position: absolute;
-    bottom: 36px;
-    left: 50%;
-    transform: translateX(-50%);
     align-items: center;
     gap: 10px;
-    background: var(--bg);
+    background: transparent;
     border: 1.5px solid var(--ink);
     border-radius: 5px;
     padding: 12px 22px;
@@ -731,9 +727,7 @@
     color: var(--ink);
     cursor: pointer;
     white-space: nowrap;
-    z-index: 50;
-    opacity: 0;
-    animation: fadeIn 0.9s ease 0.8s forwards, bob 3s ease-in-out 1.8s infinite;
+    margin-top: 28px;
     transition: background 0.55s, color 0.55s, border-color 0.55s;
   }
   .mobile-theme-btn:active { opacity: 0.7; }
@@ -764,9 +758,9 @@
     <span class="hero-line1">Creativity.</span>
     <span class="hero-line2"><span id="typeTarget" class="hl">Strategy.</span><span class="type-cursor"></span></span>
   </h1>
-  <button class="mobile-theme-btn" id="mobileThemeBtn" aria-label="Change theme">
+  <button class="mobile-theme-btn" id="mobileThemeBtn" aria-label="Choose colour theme">
     <span class="mobile-theme-swatch" id="mobileThemeSwatch"></span>
-    Change theme
+    Choose colour theme
   </button>
 </div>
 
