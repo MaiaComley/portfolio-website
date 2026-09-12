@@ -278,9 +278,8 @@
   /* ── WORK STICKY HEADER ── */
   .work-sticky-header {
     position: fixed; top: 72px; left: 0; right: 0; z-index: 150;
-    background: var(--bg);
     transform: translateY(-110%);
-    transition: transform 0.55s cubic-bezier(0.22,1,0.36,1), background 0.55s, border-color 0.55s;
+    transition: transform 0.55s cubic-bezier(0.22,1,0.36,1);
   }
   .work-sticky-header.visible { transform: translateY(0); }
   .wsh-inner {
@@ -446,53 +445,6 @@
 
 <!-- ── WORK STICKY HEADER ── -->
 <div class="work-sticky-header" id="workStickyHeader">
-  <div class="wsh-inner">
-    <span class="wsh-title">Work</span>
-    <div class="wsh-divider"></div>
-    <div class="wsh-belt">
-      <div class="wsh-track">
-        <span class="wsh-chip"><span class="wsh-dot"></span>Content Creation</span>
-        <span class="wsh-chip"><span class="wsh-dot"></span>Brand Strategy</span>
-        <span class="wsh-chip"><span class="wsh-dot"></span>Canva</span>
-        <span class="wsh-chip"><span class="wsh-dot"></span>SEO / GEO</span>
-        <span class="wsh-chip"><span class="wsh-dot"></span>Adobe Photoshop</span>
-        <span class="wsh-chip"><span class="wsh-dot"></span>Campaign Planning</span>
-        <span class="wsh-chip"><span class="wsh-dot"></span>Premiere Pro</span>
-        <span class="wsh-chip"><span class="wsh-dot"></span>Analytics</span>
-        <span class="wsh-chip"><span class="wsh-dot"></span>Copywriting</span>
-        <span class="wsh-chip"><span class="wsh-dot"></span>HubSpot</span>
-        <span class="wsh-chip"><span class="wsh-dot"></span>CapCut</span>
-        <span class="wsh-chip"><span class="wsh-dot"></span>Social Media</span>
-        <span class="wsh-chip"><span class="wsh-dot"></span>Lightroom</span>
-        <span class="wsh-chip"><span class="wsh-dot"></span>Claude</span>
-        <span class="wsh-chip"><span class="wsh-dot"></span>OpenAI</span>
-        <span class="wsh-chip"><span class="wsh-dot"></span>AI Solutions</span>
-        <span class="wsh-chip"><span class="wsh-dot"></span>Advertising</span>
-        <span class="wsh-chip"><span class="wsh-dot"></span>Figma</span>
-        <span class="wsh-chip"><span class="wsh-dot"></span>InDesign</span>
-        <!-- duplicate -->
-        <span class="wsh-chip"><span class="wsh-dot"></span>Content Creation</span>
-        <span class="wsh-chip"><span class="wsh-dot"></span>Brand Strategy</span>
-        <span class="wsh-chip"><span class="wsh-dot"></span>Canva</span>
-        <span class="wsh-chip"><span class="wsh-dot"></span>SEO / GEO</span>
-        <span class="wsh-chip"><span class="wsh-dot"></span>Adobe Photoshop</span>
-        <span class="wsh-chip"><span class="wsh-dot"></span>Campaign Planning</span>
-        <span class="wsh-chip"><span class="wsh-dot"></span>Premiere Pro</span>
-        <span class="wsh-chip"><span class="wsh-dot"></span>Analytics</span>
-        <span class="wsh-chip"><span class="wsh-dot"></span>Copywriting</span>
-        <span class="wsh-chip"><span class="wsh-dot"></span>HubSpot</span>
-        <span class="wsh-chip"><span class="wsh-dot"></span>CapCut</span>
-        <span class="wsh-chip"><span class="wsh-dot"></span>Social Media</span>
-        <span class="wsh-chip"><span class="wsh-dot"></span>Lightroom</span>
-        <span class="wsh-chip"><span class="wsh-dot"></span>Claude</span>
-        <span class="wsh-chip"><span class="wsh-dot"></span>OpenAI</span>
-        <span class="wsh-chip"><span class="wsh-dot"></span>AI Solutions</span>
-        <span class="wsh-chip"><span class="wsh-dot"></span>Advertising</span>
-        <span class="wsh-chip"><span class="wsh-dot"></span>Figma</span>
-        <span class="wsh-chip"><span class="wsh-dot"></span>InDesign</span>
-      </div>
-    </div>
-  </div>
   <div class="wsh-progress"><div class="wsh-fill" id="wshFill"></div></div>
 </div>
 
@@ -728,11 +680,7 @@
                 </div>
               </div>
               <div class="proj-card" data-role="slow-walkers">
-                <div class="proj-thumb">
-                  <div class="proj-thumb-ph">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="2" y="2" width="20" height="20" rx="3"/><polygon points="10,8 16,12 10,16"/></svg>
-                  </div>
-                </div>
+                <div class="proj-thumb"><img src="Images/Slow Walkers thumbail.png" alt="Slow Walkers"></div>
                 <div class="proj-info">
                   <div class="proj-name">Slow Walkers</div>
                   <div class="proj-type">Film · Campaign</div>
