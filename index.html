@@ -628,13 +628,16 @@
     .nav-links a { font-size: 0.62rem; letter-spacing: 0.05em; }
     .nav-contact { padding: 6px 12px; font-size: 0.62rem; }
 
-    /* Hero — each word stacked, fills screen */
+    /* Nav: hide Portfolio word to prevent overlap */
+    .nav-portfolio-word { display: none; }
+
+    /* Hero — centred on screen */
     .hero {
       height: auto;
       min-height: 100vh;
-      padding: 100px 28px 100px;
+      padding: 80px 28px 100px;
       align-items: flex-start;
-      justify-content: flex-end;
+      justify-content: center;
       flex-direction: column;
     }
     .hero-headline {
@@ -746,7 +749,7 @@
 
 <!-- NAV -->
 <nav id="nav">
-  <div class="nav-name">Maia Comley <span style="opacity:0.45; font-weight:400;">Portfolio</span></div>
+  <div class="nav-name">Maia Comley <span class="nav-portfolio-word" style="opacity:0.45; font-weight:400;">Portfolio</span></div>
   <ul class="nav-links">
     <li><a href="work.html">Work</a></li>
     <li><a href="interests.html">Interests</a></li>
