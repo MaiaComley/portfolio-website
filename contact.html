@@ -126,16 +126,24 @@
 
   /* ── SPACE PROMPT ── */
   .space-prompt {
-    position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%);
-    display: flex; align-items: center; gap: 10px;
-    background: var(--bg); border: 1px solid var(--rule);
-    border-radius: 5px; padding: 10px 20px;
-    font-size: 0.62rem; font-weight: 400; letter-spacing: 0.1em;
-    text-transform: uppercase; color: var(--muted); white-space: nowrap;
+    position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%);
+    display: flex; align-items: center; gap: 12px;
+    background: var(--bg); border: 1.5px solid var(--ink);
+    border-radius: 5px; padding: 12px 24px;
+    font-size: 0.78rem; font-weight: 600; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--ink); white-space: nowrap;
     z-index: 200;
-    transition: opacity 0.4s, background 0.55s, border-color 0.55s;
+    opacity: 0; pointer-events: none;
+    animation: fadeIn 0.9s ease 0.8s forwards, bob 3s ease-in-out 1.8s infinite;
+    transition: background 0.55s, border-color 0.55s, color 0.55s;
   }
-  .space-prompt.hidden { opacity: 0; pointer-events: none; }
+  @keyframes fadeIn { to { opacity: 1; } }
+  @keyframes bob {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50%       { transform: translateX(-50%) translateY(-5px); }
+  }
+  .space-prompt.hidden { opacity: 0 !important; pointer-events: none; transition: opacity 0.4s ease; animation: none; }
+  .space-key { background: var(--ink); color: var(--bg); border-radius: 2px; padding: 3px 12px; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; transition: background 0.55s, color 0.55s; }
   .space-key {
     background: var(--ink); color: var(--bg);
     border-radius: 3px; padding: 2px 10px;
@@ -181,7 +189,7 @@
     footer { padding: 20px 24px; flex-direction: column; gap: 8px; text-align: center; }
 
     /* Space prompt */
-    .space-prompt { font-size: 0.6rem; padding: 8px 14px; bottom: 16px; }
+    .space-prompt { display: none !important; }
   }
 </style>
 </head>
@@ -240,6 +248,10 @@
   </div>
 </div>
 
+<div class="space-prompt" id="spacePrompt">
+  press <span class="space-key">space</span> to select your theme
+</div>
+
 <footer>
   <span class="footer-copy">Maia Comley © 2025</span>
   <a class="footer-tiktok" href="https://www.tiktok.com/@maiacomleyy?_r=1&_t=ZN-99fJjDnfhQs" target="_blank" rel="noopener" aria-label="TikTok">
@@ -267,6 +279,15 @@
       applyPalette(idx);
     }
   });
+
+  // Space prompt scroll-fade
+  const spacePrompt = document.getElementById('spacePrompt');
+  if (spacePrompt) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) spacePrompt.classList.add('hidden');
+    }, { passive: true });
+    if (localStorage.getItem('palette')) spacePrompt.classList.add('hidden');
+  }
 
   // Scroll reveal
   const revealObserver = new IntersectionObserver((entries) => {

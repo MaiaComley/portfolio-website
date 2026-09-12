@@ -378,15 +378,23 @@
 
   /* ── SPACE PROMPT ── */
   .space-prompt {
-    position: fixed; bottom: 28px; right: 40px;
-    display: flex; align-items: center; gap: 10px;
-    background: var(--bg); border: 1px solid var(--rule);
-    border-radius: 5px; padding: 10px 20px;
-    font-size: 0.62rem; font-weight: 400; letter-spacing: 0.1em;
-    text-transform: uppercase; color: var(--muted); white-space: nowrap;
-    z-index: 200; transition: opacity 0.4s, background 0.55s, border-color 0.55s;
+    position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%);
+    display: flex; align-items: center; gap: 12px;
+    background: var(--bg); border: 1.5px solid var(--ink);
+    border-radius: 5px; padding: 12px 24px;
+    font-size: 0.78rem; font-weight: 600; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--ink); white-space: nowrap;
+    z-index: 200;
+    opacity: 0; pointer-events: none;
+    animation: fadeIn 0.9s ease 0.8s forwards, bob 3s ease-in-out 1.8s infinite;
+    transition: background 0.55s, border-color 0.55s, color 0.55s;
   }
-  .space-prompt.hidden { opacity: 0; pointer-events: none; }
+  @keyframes fadeIn { to { opacity: 1; } }
+  @keyframes bob {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50%       { transform: translateX(-50%) translateY(-5px); }
+  }
+  .space-prompt.hidden { opacity: 0 !important; pointer-events: none; transition: opacity 0.4s ease; animation: none; }
   .space-key {
     background: var(--ink); color: var(--bg);
     border-radius: 3px; padding: 2px 10px;
@@ -778,7 +786,7 @@
     wshFill.style.width = (workPct * 100) + '%';
 
     // Hide space prompt on scroll
-    if (window.scrollY > 60) sp.classList.add('hidden');
+    if (window.scrollY > 300) sp.classList.add('hidden');
 
     // Nav border
     nav.classList.toggle('scrolled', window.scrollY > 20);
