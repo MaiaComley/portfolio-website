@@ -249,22 +249,17 @@
   <span class="footer-slogan">Curious about brands, people and what connects them.</span>
 </footer>
 
-<div class="space-prompt" id="spacePrompt">
-  Press <span class="space-key">SPACE</span> to select your theme
-</div>
-
 <script>
   // Palette
   const palettes = ['p-compl', 'p-analog'];
   let idx = -1;
-  const sp = document.getElementById('spacePrompt');
   function applyPalette(i) {
     document.documentElement.classList.remove('p-compl', 'p-analog');
     if (i >= 0) { document.documentElement.classList.add(palettes[i]); localStorage.setItem('palette', palettes[i]); }
     else { localStorage.removeItem('palette'); }
   }
   const saved = localStorage.getItem('palette');
-  if (saved) { idx = palettes.indexOf(saved); if (idx > -1) { applyPalette(idx); sp.classList.add('hidden'); } }
+  if (saved) { idx = palettes.indexOf(saved); if (idx > -1) applyPalette(idx); }
   window.addEventListener('keydown', e => {
     if (e.code === 'Space' && e.target === document.body) {
       e.preventDefault();
