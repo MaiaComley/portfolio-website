@@ -702,8 +702,11 @@
     .space-prompt { display: none !important; }
     .palette-label { bottom: 20px; right: 16px; }
 
-    /* Mobile theme button */
-    .mobile-theme-btn { display: flex; }
+    /* Mobile theme button (inline hero) — hide, use floating pill instead */
+    .mobile-theme-btn { display: none; }
+
+    /* Floating theme pill */
+    .mobile-theme-pill { display: flex; }
   }
 
   @media (max-width: 400px) {
@@ -732,6 +735,40 @@
     transition: background 0.55s, color 0.55s, border-color 0.55s;
   }
   .mobile-theme-btn:active { opacity: 0.7; }
+
+  /* ── FLOATING MOBILE THEME PILL ── */
+  .mobile-theme-pill {
+    display: none;
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    align-items: center;
+    gap: 10px;
+    background: var(--bg);
+    border: 1.5px solid var(--ink);
+    border-radius: 100px;
+    padding: 13px 24px;
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink);
+    cursor: pointer;
+    white-space: nowrap;
+    z-index: 200;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+    transition: background 0.55s, color 0.55s, border-color 0.55s, opacity 0.2s;
+    animation: fadeIn 0.9s ease 0.8s both;
+  }
+  .mobile-theme-pill:active { opacity: 0.7; }
+  .mobile-theme-pill-swatch {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+    transition: background 0.55s;
+  }
   .mobile-theme-swatch {
     width: 12px; height: 12px; border-radius: 50%;
     background: var(--accent);
@@ -977,6 +1014,11 @@
 </div>
 
 <!-- SPACE PROMPT -->
+<button class="mobile-theme-pill" id="mobileThemePill" aria-label="Choose colour theme">
+  <span class="mobile-theme-pill-swatch" id="mobileThemePillSwatch"></span>
+  Choose colour theme
+</button>
+
 <div class="space-prompt" id="spacePrompt">
   press <span class="space-key">space</span> to select your theme
 </div>
@@ -1056,10 +1098,19 @@
     }
   });
 
-  // Mobile theme button
+  // Mobile theme button (inline)
   const mobileThemeBtn = document.getElementById('mobileThemeBtn');
   if (mobileThemeBtn) {
     mobileThemeBtn.addEventListener('click', () => {
+      idx = idx >= palettes.length - 1 ? -1 : idx + 1;
+      applyPalette(idx);
+    });
+  }
+
+  // Mobile floating pill
+  const mobileThemePill = document.getElementById('mobileThemePill');
+  if (mobileThemePill) {
+    mobileThemePill.addEventListener('click', () => {
       idx = idx >= palettes.length - 1 ? -1 : idx + 1;
       applyPalette(idx);
     });
