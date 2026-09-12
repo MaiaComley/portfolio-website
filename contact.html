@@ -109,6 +109,14 @@
   }
   .contact-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
 
+  /* ── SCROLL REVEAL ── */
+  .reveal-item {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.55s cubic-bezier(0.16,1,0.3,1), transform 0.55s cubic-bezier(0.16,1,0.3,1);
+  }
+  .reveal-item.visible { opacity: 1; transform: translateY(0); }
+
   /* ── SPACE PROMPT ── */
   .space-prompt {
     position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%);
@@ -182,7 +190,7 @@
   <div class="content">
 
     <!-- LEFT -->
-    <div class="left">
+    <div class="left reveal-item">
       <div class="left-rule"></div>
       <div class="contact-links">
         <a class="contact-link" href="mailto:comleymaia@gmail.com" title="comleymaia@gmail.com">
@@ -213,7 +221,7 @@
     </div>
 
     <!-- RIGHT -->
-    <div class="right">
+    <div class="right reveal-item" style="transition-delay:0.15s">
       <div class="contact-photo">
         <img src="Images/Maia Comley.jpg" alt="Maia Comley">
       </div>
@@ -246,7 +254,13 @@
     }
   });
 
-
+  // Scroll reveal
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) { entry.target.classList.add('visible'); revealObserver.unobserve(entry.target); }
+    });
+  }, { threshold: 0, rootMargin: '0px 0px 40px 0px' });
+  document.querySelectorAll('.reveal-item').forEach(el => revealObserver.observe(el));
 </script>
 </body>
 </html>
