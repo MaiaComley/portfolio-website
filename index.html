@@ -1084,9 +1084,7 @@
     // Populate content
     document.getElementById('modalTags').textContent  = card.dataset.tags;
     document.getElementById('modalTitle').textContent = card.dataset.title;
-    const anchorMap = { 'IDGateway': 'idgateway', 'Noirgaze': 'noirgaze', 'Simple Skincare': 'lcc' };
-    const anchor = anchorMap[card.dataset.title] || '';
-    document.getElementById('modalMore').href = 'work.html' + (anchor ? '#' + anchor : '');
+    document.getElementById('modalMore').href = 'work.html';
     document.getElementById('modalDesc').textContent  = card.dataset.desc;
 
     const bulletList = document.getElementById('modalBullets');
