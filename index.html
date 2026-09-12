@@ -1113,6 +1113,9 @@
     // Snapshot card position
     originRect = card.getBoundingClientRect();
 
+    // Reset any inline pointer-events left over from a previous close
+    modal.style.pointerEvents = '';
+
     // Position modal exactly over the card, no transition yet
     modal.style.transition = 'none';
     modal.style.borderRadius = '0px';
