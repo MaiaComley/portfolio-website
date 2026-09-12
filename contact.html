@@ -109,6 +109,17 @@
   }
   .contact-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
 
+  /* ── TAGLINE ── */
+  .page-tagline {
+    text-align: center;
+    font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    padding: 40px 24px 56px;
+    transition: color 0.55s;
+  }
+
   /* ── SCROLL REVEAL ── */
   .reveal-item {
     opacity: 0;
@@ -229,6 +240,8 @@
 
   </div>
 </div>
+
+<div class="page-tagline reveal-item">Curious about brands, people and what connects them.</div>
 
 <div class="space-prompt" id="spacePrompt">
   Press <span class="space-key">SPACE</span> to select your theme

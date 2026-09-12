@@ -299,6 +299,15 @@
   footer { border-top: 1px solid var(--rule); }
   .footer-wrap { padding: 32px 64px; max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
   .footer-copy { font-size: 0.62rem; font-weight: 400; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+  .page-tagline {
+    text-align: center;
+    font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    padding: 48px 24px 40px;
+    transition: color 0.55s;
+  }
 
   /* ── RESPONSIVE ── */
   @media (max-width: 768px) {
@@ -534,6 +543,8 @@
   </div>
 
 </div>
+
+<div class="page-tagline reveal-item">Curious about brands, people and what connects them.</div>
 
 <footer>
   <div class="footer-wrap">
