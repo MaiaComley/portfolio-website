@@ -203,14 +203,13 @@
     border-radius: 5px;
     padding: 12px 24px;
     opacity: 0;
-    animation: fadeIn 1.2s ease 1.4s forwards;
     pointer-events: none;
     display: flex;
     align-items: center;
     gap: 12px;
     z-index: 50;
     white-space: nowrap;
-    animation: fadeIn 1.2s ease 1.4s forwards, bob 3s ease-in-out 2.6s infinite;
+    animation: fadeIn 0.9s ease 0.8s forwards, bob 3s ease-in-out 1.8s infinite;
   }
   .space-key {
     background: var(--ink);
@@ -701,7 +700,7 @@
   .mobile-theme-btn {
     display: none;
     position: absolute;
-    bottom: 32px;
+    bottom: 36px;
     left: 50%;
     transform: translateX(-50%);
     align-items: center;
@@ -709,9 +708,9 @@
     background: var(--bg);
     border: 1.5px solid var(--ink);
     border-radius: 5px;
-    padding: 10px 20px;
+    padding: 12px 22px;
     font-family: system-ui, -apple-system, sans-serif;
-    font-size: 0.7rem;
+    font-size: 0.72rem;
     font-weight: 600;
     letter-spacing: 0.12em;
     text-transform: uppercase;
@@ -719,7 +718,9 @@
     cursor: pointer;
     white-space: nowrap;
     z-index: 50;
-    transition: background 0.55s, color 0.55s, border-color 0.55s, opacity 0.2s;
+    opacity: 0;
+    animation: fadeIn 0.9s ease 0.8s forwards, bob 3s ease-in-out 1.8s infinite;
+    transition: background 0.55s, color 0.55s, border-color 0.55s;
   }
   .mobile-theme-btn:active { opacity: 0.7; }
   .mobile-theme-swatch {
@@ -1002,7 +1003,7 @@
   const nav = document.getElementById('nav');
   window.addEventListener('scroll', () => {
     nav.classList.toggle('scrolled', scrollY > 20);
-    if (scrollY > 60) document.getElementById('spacePrompt').classList.add('hide');
+    if (scrollY > 300) document.getElementById('spacePrompt').classList.add('hide');
   });
 
   // Palette system
