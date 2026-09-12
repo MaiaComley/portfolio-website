@@ -195,7 +195,7 @@
 
   /* Skill pills in panel-right */
   .panel-skill-pills {
-    display: flex; flex-wrap: wrap; gap: 10px;
+    display: flex; flex-wrap: wrap; gap: 8px;
     max-width: 400px; align-content: center;
   }
   .ps-pill {
@@ -207,6 +207,15 @@
     cursor: default;
   }
   .ps-pill:hover { color: var(--ink); background: var(--surface); }
+
+  /* Pills spread in a single row across panel-left */
+  .panel-pills-row {
+    display: flex; flex-wrap: wrap; gap: 7px;
+    margin-top: 16px;
+  }
+  .panel-pills-row .ps-pill {
+    font-size: 0.6rem; padding: 5px 11px;
+  }
 
   /* Two-column bullets — removed, keep single column */
   .panel-bullets--grid {
@@ -601,7 +610,7 @@
               <li>Managed CRM and email marketing via Klaviyo, designing automated flows and newsletters aligned with seasonal launches</li>
               <li>Collaborated with the founder to shape brand voice, develop strategy and maintain a consistent visual identity across every touchpoint</li>
             </ul>
-            <div class="panel-skill-pills" style="margin-top:4px;">
+            <div class="panel-pills-row">
               <span class="ps-pill">Social Media</span>
               <span class="ps-pill">Content Creation</span>
               <span class="ps-pill">TikTok</span>
@@ -647,12 +656,12 @@
               <li>Produced full advertising campaigns for Final Major Projects across print, radio and TV, pitching to tutors with industry backgrounds and receiving professional feedback</li>
               <li>Completed a dissertation and multiple cross-discipline projects spanning print, digital and film</li>
             </ul>
-            <div class="edu-tags">
-              <span class="edu-tag">Brand Strategy</span>
-              <span class="edu-tag">Campaign Planning</span>
-              <span class="edu-tag">Copywriting</span>
-              <span class="edu-tag">Consumer Behaviour</span>
-              <span class="edu-tag">Creative Direction</span>
+            <div class="panel-pills-row">
+              <span class="ps-pill">Brand Strategy</span>
+              <span class="ps-pill">Campaign Planning</span>
+              <span class="ps-pill">Copywriting</span>
+              <span class="ps-pill">Consumer Behaviour</span>
+              <span class="ps-pill">Creative Direction</span>
             </div>
           </div>
           <div class="panel-right">
