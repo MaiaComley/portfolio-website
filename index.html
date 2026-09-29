@@ -1274,7 +1274,7 @@
   (function() {
     const belt = document.getElementById('peekBelt');
     if (!belt) return;
-    let startX = 0, startOffset = 0, dragging = false, offset = 0;
+    let startX = 0, startOffset = 0, dragging = false, offset = 0, wasDragging = false;
 
     function getCurrentOffset() {
       const t = window.getComputedStyle(belt).transform;
@@ -1282,22 +1282,37 @@
       return parseFloat(t.split(',')[4]) || 0;
     }
 
-    belt.addEventListener('touchstart', e => {
-      startX = e.touches[0].clientX;
+    function startDrag(x) {
+      startX = x;
       startOffset = getCurrentOffset();
       belt.style.animation = 'none';
       belt.style.transform = `translateX(${startOffset}px)`;
+      belt.style.cursor = 'grabbing';
       dragging = true;
-    }, { passive: true });
-
-    belt.addEventListener('touchmove', e => {
+    }
+    function moveDrag(x) {
       if (!dragging) return;
-      const dx = e.touches[0].clientX - startX;
+      const dx = x - startX;
+      if (Math.abs(dx) > 5) wasDragging = true;
       offset = startOffset + dx;
       belt.style.transform = `translateX(${offset}px)`;
-    }, { passive: true });
+    }
+    function endDrag() {
+      dragging = false;
+      belt.style.cursor = 'grab';
+      setTimeout(() => { wasDragging = false; }, 0);
+    }
 
-    belt.addEventListener('touchend', () => { dragging = false; });
+    // Touch
+    belt.addEventListener('touchstart', e => startDrag(e.touches[0].clientX), { passive: true });
+    belt.addEventListener('touchmove',  e => moveDrag(e.touches[0].clientX),  { passive: true });
+    belt.addEventListener('touchend',   endDrag);
+
+    // Mouse
+    belt.style.cursor = 'grab';
+    belt.addEventListener('mousedown',  e => { e.preventDefault(); startDrag(e.clientX); });
+    window.addEventListener('mousemove', e => moveDrag(e.clientX));
+    window.addEventListener('mouseup',   endDrag);
   })();
 
   // Peek carousel lightbox
@@ -1339,7 +1354,10 @@
 
     // Only wire up first set (not duplicates) — duplicates share same data
     const cards = document.querySelectorAll('.peek-card[data-lb-src]');
-    cards.forEach(card => card.addEventListener('click', () => openLb(card)));
+    cards.forEach(card => card.addEventListener('click', () => {
+      if (wasDragging) return;
+      openLb(card);
+    }));
   })();
 
   // Loader
