@@ -1270,6 +1270,36 @@
   }
 
 
+  // Peek carousel touch swipe
+  (function() {
+    const belt = document.getElementById('peekBelt');
+    if (!belt) return;
+    let startX = 0, startOffset = 0, dragging = false, offset = 0;
+
+    function getCurrentOffset() {
+      const t = window.getComputedStyle(belt).transform;
+      if (!t || t === 'none') return 0;
+      return parseFloat(t.split(',')[4]) || 0;
+    }
+
+    belt.addEventListener('touchstart', e => {
+      startX = e.touches[0].clientX;
+      startOffset = getCurrentOffset();
+      belt.style.animation = 'none';
+      belt.style.transform = `translateX(${startOffset}px)`;
+      dragging = true;
+    }, { passive: true });
+
+    belt.addEventListener('touchmove', e => {
+      if (!dragging) return;
+      const dx = e.touches[0].clientX - startX;
+      offset = startOffset + dx;
+      belt.style.transform = `translateX(${offset}px)`;
+    }, { passive: true });
+
+    belt.addEventListener('touchend', () => { dragging = false; });
+  })();
+
   // Peek carousel lightbox
   (function() {
     const bg = document.getElementById('peekLbBg');
