@@ -46,7 +46,7 @@
   .tiktok-link:hover { opacity: 1; }
 
   /* ── CONTENT SECTIONS ── */
-  .content-wrap { max-width: 1200px; margin: 0 auto; padding: 0 40px 120px; display: flex; flex-direction: column; gap: 80px; }
+  .content-wrap { max-width: 1200px; margin: 0 auto; padding: 0 40px 120px; display: flex; flex-direction: column; gap: 80px; overflow-x: clip; }
 
   /* Section label */
   .section-label {
@@ -69,8 +69,24 @@
     position: relative;
   }
   .slider-viewport {
-    overflow: hidden;
+    overflow: visible;
     border-radius: 5px;
+  }
+  .slider-wrap {
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 6%, black 82%, transparent 100%);
+    mask-image:         linear-gradient(to right, transparent 0%, black 6%, black 82%, transparent 100%);
+  }
+  .slider-wrap.at-start {
+    -webkit-mask-image: linear-gradient(to right, black 0%, black 82%, transparent 100%);
+    mask-image:         linear-gradient(to right, black 0%, black 82%, transparent 100%);
+  }
+  .slider-wrap.at-end {
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 6%, black 100%);
+    mask-image:         linear-gradient(to right, transparent 0%, black 6%, black 100%);
+  }
+  .slider-wrap.at-start.at-end {
+    -webkit-mask-image: none;
+    mask-image:         none;
   }
   .slider-track {
     display: flex;
@@ -644,6 +660,7 @@
     const total = items.length;
     const pages = Math.ceil(total / perPage);
     let current = 0;
+    const wrap = track.closest('.slider-wrap');
 
     // build dots
     for (let i = 0; i < pages; i++) {
@@ -662,6 +679,10 @@
         if (btn.classList.contains('prev')) btn.disabled = current === 0;
         if (btn.classList.contains('next')) btn.disabled = current === pages - 1;
       });
+      if (wrap) {
+        wrap.classList.toggle('at-start', current === 0);
+        wrap.classList.toggle('at-end',   current === pages - 1);
+      }
     }
 
     document.querySelectorAll(`.slider-btn[data-slider="${btnAttr}"]`).forEach(btn => {
