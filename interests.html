@@ -46,7 +46,7 @@
   .tiktok-link:hover { opacity: 1; }
 
   /* ── CONTENT SECTIONS ── */
-  .content-wrap { max-width: 1200px; margin: 0 auto; padding: 0 40px 120px; display: flex; flex-direction: column; gap: 80px; overflow-x: clip; }
+  .content-wrap { max-width: 1200px; margin: 0 auto; padding: 0 40px 120px; display: flex; flex-direction: column; gap: 80px; }
 
   /* Section label */
   .section-label {
@@ -69,7 +69,7 @@
     position: relative;
   }
   .slider-viewport {
-    overflow: visible;
+    overflow: hidden;
     border-radius: 5px;
   }
   .slider-track {
@@ -78,7 +78,7 @@
     transition: transform 0.45s cubic-bezier(0.22,1,0.36,1);
   }
   .slider-item {
-    flex: 0 0 calc(44% - 6px);
+    flex: 0 0 calc(33.333% - 8px);
     min-width: 0;
     border-radius: 5px;
     overflow: hidden;
@@ -131,7 +131,7 @@
   .vc-caption { padding: 12px 14px 16px; font-size: 0.82rem; color: var(--muted); }
 
   /* design card innards, smaller, 4-up */
-  .design-slider .slider-item { flex: 0 0 calc(22% - 9px); }
+  .design-slider .slider-item { flex: 0 0 calc(25% - 9px); }
   .dc-media { width: 100%; background: var(--rule); position: relative; overflow: hidden; }
   .dc-media.sq  { aspect-ratio: 1/1; }
   .dc-media.landscape { aspect-ratio: 4/3; }
@@ -687,7 +687,7 @@
   }
 
   const isMobile = window.innerWidth <= 768;
-  initSlider('videoTrack', 'videoDots', 'video', isMobile ? 1 : 2);
+  initSlider('videoTrack', 'videoDots', 'video', isMobile ? 1 : 3);
   initSlider('designTrack', 'designDots', 'design', isMobile ? 2 : 4);
 
   // Nav scroll
