@@ -360,6 +360,7 @@
   .gm-stage img { max-width: 100%; max-height: 100%; width: auto; height: auto; display: block; object-fit: contain; }
   .gm-stage video { max-width: 100%; max-height: 100%; width: auto; height: auto; display: block; background: #000; }
   .gm-stage-ph { display: flex; flex-direction: column; align-items: center; gap: 12px; color: var(--muted); opacity: 0.4; }
+  .gm-text-slide { max-width: 560px; font-size: 1.05rem; line-height: 1.7; color: var(--ink); text-align: center; padding: 0 24px; }
   .gm-stage-ph span { font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; }
   .gm-footer { display: flex; align-items: center; justify-content: space-between; padding: 14px 28px 20px; flex-shrink: 0; gap: 16px; }
   .gm-caption { font-size: 0.78rem; color: var(--muted); transition: color 0.55s; flex: 1; }
@@ -839,6 +840,7 @@
       meta: 'Final Major Project · BA Advertising',
       title: 'Simple Skincare: Keep It Simple',
       items: [
+        { text: 'Simple was the first skincare brand to go colour-free and perfume-free, so we built the campaign around one insight: some things in life are better because they\'re simple. Everyday objects are overloaded with pointless features, like a kettle with a satellite dish and a toothbrush crammed with tools, to show why skincare shouldn\'t be complicated.', caption: 'Campaign overview' },
         { type: 'port', caption: 'Print ad 1', src: 'Images/Simple skincare print 1.jpg' },
         { type: 'port', caption: 'Print ad 2', src: 'Images/Simple skincare print 2.jpg' },
         { type: 'port', caption: 'Print ad 3', src: 'Images/Simple skincare print 3.jpg' },
@@ -849,6 +851,7 @@
       meta: 'University Project · BA Advertising',
       title: 'Nature Valley',
       items: [
+        { text: 'Nature Valley bars are known for big flavour and an even bigger mess. Instead of hiding the crumbs, we made them the hero. The campaign shows hedgehogs, foxes and geese drawn in by the crumbs, under one line: "Caution: our crumbs attract unwanted attention."', caption: 'Campaign overview' },
         { type: 'port', caption: 'Print ad 1', src: 'Images/Nature Valley print one.jpg' },
         { type: 'port', caption: 'Print ad 3', src: 'Images/Nature Valley print three.jpg' },
         { type: 'land', caption: 'TV advert',    video: 'Images/Nature Valley TV Advert.mp4',          wide: true },
@@ -859,6 +862,7 @@
       meta: 'University Project · BA Advertising',
       title: 'More Than a Kit',
       items: [
+        { text: 'For the Creative Conscience Awards\' Health and Wellbeing brief, we looked at why so many girls drop out of PE. 77% of girls aged 14 to 15 don\'t feel confident in their PE kit, and many fake period pains or sick notes to avoid it. The campaign builds to a Sports Day Takeover, where teachers wear the kit, girls lead the games, and everyone gets a lesson in confidence.', caption: 'Campaign overview' },
         { type: 'port', caption: 'Campaign poster 1', src: 'Images/More than a kit campaign poster.png' },
         { type: 'port', caption: 'Campaign poster 2', src: 'Images/More than a kit campaign poster two .jpg' },
         { type: 'land', caption: 'Campaign video',    video: 'Images/More than a PE kit camapign.mp4', wide: true },
@@ -868,6 +872,7 @@
       meta: 'University Project · BA Advertising',
       title: 'Slow Walkers',
       items: [
+        { text: 'London\'s pavements are packed, and nothing slows a commute like getting stuck behind a slow walker. This tongue-in-cheek social campaign calls for fast and slow walking lanes in busy areas, built on one insight: speed lanes would make London a happier city.', caption: 'Campaign overview' },
         { type: 'land', caption: 'Campaign film', video: 'Images/Slow walkers campaign.mp4', wide: true },
       ]
     },
@@ -892,7 +897,9 @@
     const item = slideItems[i];
     const stage = document.getElementById('gmStage');
     stage.querySelectorAll('video').forEach(v => v.pause());
-    if (item.src) {
+    if (item.text) {
+      stage.innerHTML = `<div class="gm-text-slide">${item.text}</div>`;
+    } else if (item.src) {
       stage.innerHTML = `<img src="${item.src}" alt="${item.caption}">`;
     } else if (item.video) {
       stage.innerHTML = `<video src="${item.video}" controls preload="metadata"></video>`;
