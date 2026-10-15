@@ -268,14 +268,14 @@
   .proj-type { font-size: 0.56rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); transition: color 0.55s; }
 
   /* LCC left extras */
-  .volunteer-badge {
-    display: inline-flex; align-items: center; gap: 6px;
-    font-size: 0.62rem; font-weight: 700; letter-spacing: 0.14em;
-    text-transform: uppercase; color: var(--accent);
-    border: 1.5px solid var(--accent); border-radius: 40px;
-    padding: 4px 12px; margin-bottom: 20px;
+  .volunteer-tag {
+    display: inline-block; font-size: 0.62rem; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: #1400FF; margin-bottom: 16px;
   }
-  .mind-logo { height: 28px; width: auto; display: block; margin-bottom: 20px; opacity: 0.85; }
+  .mind-logo { max-height: 36px; width: auto; display: block; margin-bottom: 16px; }
+  #mind .panel-company { color: #1400FF; }
+  #mind .panel-meta span:first-child { color: #1400FF; font-weight: 600; }
   .honours-badge {
     display: inline-flex; align-items: center; gap: 5px;
     font-size: 0.7rem; font-weight: 700; letter-spacing: 0.04em;
@@ -538,42 +538,7 @@
         </div>
       </section>
 
-      <!-- ── 01 Buckinghamshire Mind ── -->
-      <section class="h-panel" id="mind">
-        <div class="panel-inner">
-          <div class="panel-left">
-            <div class="panel-meta">
-              <span>Volunteer Social Media Strategist</span>
-              <span>·</span>
-              <span>Oct 2026 – Present</span>
-            </div>
-            <img src="Images/mind-logo.png" alt="Buckinghamshire Mind" class="mind-logo">
-            <h2 class="panel-company">Buckinghamshire Mind</h2>
-            <div class="volunteer-badge">♥ Volunteer</div>
-            <p class="panel-desc">Volunteering my time and skills with a charity close to home, supporting the marketing team with their social media.</p>
-            <ul class="panel-bullets">
-              <li>Audited Facebook, Instagram and LinkedIn using 90 days of analytics, identifying the trends and patterns behind the best-performing content: real people, local partners and community moments.</li>
-              <li>Benchmarked the channels against other mental health charities, including national Mind, Samaritans and CALM.</li>
-              <li>Built an analytics dashboard to share the findings clearly with the team.</li>
-              <li>Developed a proposed strategy, content calendar and campaign ideas that are realistic and achievable for a small team, so they can share more stories without adding to their workload.</li>
-              <li>Reviewing performance in December to measure results and shape the next steps with the team.</li>
-            </ul>
-          </div>
-          <div class="panel-right">
-            <div class="panel-skill-pills">
-              <span class="ps-pill">Social Media Strategy</span>
-              <span class="ps-pill">Analytics</span>
-              <span class="ps-pill">Content Planning</span>
-              <span class="ps-pill">Benchmarking</span>
-              <span class="ps-pill">Campaign Ideas</span>
-              <span class="ps-pill">Dashboard</span>
-              <span class="ps-pill">Charity Marketing</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ── 02 IDGateway ── -->
+      <!-- ── 00 IDGateway ── -->
       <section class="h-panel" id="idgateway">
         <div class="panel-inner">
           <div class="panel-left">
@@ -612,7 +577,42 @@
         </div>
       </section>
 
-      <!-- ── 02 Indera Tamara ── -->
+      <!-- ── 02 Buckinghamshire Mind ── -->
+      <section class="h-panel" id="mind">
+        <div class="panel-inner">
+          <div class="panel-left">
+            <div class="panel-meta">
+              <span>Volunteer Social Media Strategist</span>
+              <span>·</span>
+              <span>Oct 2026 – Present</span>
+            </div>
+            <img src="Images/mind-logo.png" alt="Buckinghamshire Mind" class="mind-logo">
+            <h2 class="panel-company">Buckinghamshire Mind</h2>
+            <span class="volunteer-tag">Volunteer</span>
+            <p class="panel-desc">Volunteering my time and skills with a charity close to home, supporting the marketing team with their social media.</p>
+            <ul class="panel-bullets">
+              <li>Audited Facebook, Instagram and LinkedIn using 90 days of analytics, identifying the trends and patterns behind the best-performing content: real people, local partners and community moments.</li>
+              <li>Benchmarked the channels against other mental health charities, including national Mind, Samaritans and CALM.</li>
+              <li>Built an analytics dashboard to share the findings clearly with the team.</li>
+              <li>Developed a proposed strategy, content calendar and campaign ideas that are realistic and achievable for a small team, so they can share more stories without adding to their workload.</li>
+              <li>Reviewing performance in December to measure results and shape the next steps with the team.</li>
+            </ul>
+          </div>
+          <div class="panel-right">
+            <div class="panel-skill-pills">
+              <span class="ps-pill">Social Media Strategy</span>
+              <span class="ps-pill">Analytics</span>
+              <span class="ps-pill">Content Planning</span>
+              <span class="ps-pill">Benchmarking</span>
+              <span class="ps-pill">Campaign Ideas</span>
+              <span class="ps-pill">Dashboard</span>
+              <span class="ps-pill">Charity Marketing</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── 03 Indera Tamara ── -->
       <section class="h-panel" id="indera">
         <div class="panel-inner">
           <div class="panel-left">
@@ -836,7 +836,7 @@
   window.addEventListener('scroll', onScroll, { passive: true });
 
   // Handle anchor links from homepage (#idgateway etc.)
-  const anchorPanelMap = { 'mind': 1, 'idgateway': 2, 'indera': 3, 'noirgaze': 4, 'lcc': 5 };
+  const anchorPanelMap = { 'idgateway': 1, 'mind': 2, 'indera': 3, 'noirgaze': 4, 'lcc': 5 };
   window.addEventListener('load', () => {
     const hash = window.location.hash.slice(1);
     if (hash && anchorPanelMap[hash] !== undefined) {
