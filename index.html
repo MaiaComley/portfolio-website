@@ -1271,24 +1271,23 @@
   }
 
 
-  // Peek carousel touch swipe
+  // Peek carousel — drag + lightbox
   (function() {
     const belt = document.getElementById('peekBelt');
-    if (!belt) return;
-    let startX = 0, startOffset = 0, dragging = false, offset = 0, wasDragging = false;
+    const bg   = document.getElementById('peekLbBg');
+    const media = document.getElementById('peekLbMedia');
+    const caption = document.getElementById('peekLbCaption');
+    if (!belt || !bg) return;
+
+    // ── Drag ──
+    let startX = 0, startOffset = 0, pendingDrag = false, dragging = false, wasDragging = false;
 
     function getCurrentOffset() {
       const t = window.getComputedStyle(belt).transform;
       if (!t || t === 'none') return 0;
       return parseFloat(t.split(',')[4]) || 0;
     }
-
-    let pendingDrag = false;
-    function startDrag(x) {
-      startX = x;
-      startOffset = getCurrentOffset();
-      pendingDrag = true;
-    }
+    function startDrag(x) { startX = x; startOffset = getCurrentOffset(); pendingDrag = true; }
     function moveDrag(x) {
       if (!pendingDrag && !dragging) return;
       const dx = x - startX;
@@ -1300,34 +1299,21 @@
           dragging = true;
         }
         wasDragging = true;
-        offset = startOffset + dx;
-        belt.style.transform = `translateX(${offset}px)`;
+        belt.style.transform = `translateX(${startOffset + dx}px)`;
       }
     }
-    function endDrag() {
-      pendingDrag = false;
-      dragging = false;
-      belt.style.cursor = 'grab';
-      setTimeout(() => { wasDragging = false; }, 0);
-    }
+    function endDrag() { pendingDrag = false; dragging = false; belt.style.cursor = 'grab'; setTimeout(() => { wasDragging = false; }, 0); }
 
-    // Touch
+    belt.style.cursor = 'grab';
+    belt.style.userSelect = 'none';
     belt.addEventListener('touchstart', e => startDrag(e.touches[0].clientX), { passive: true });
     belt.addEventListener('touchmove',  e => moveDrag(e.touches[0].clientX),  { passive: true });
     belt.addEventListener('touchend',   endDrag);
-
-    // Mouse
-    belt.style.cursor = 'grab';
-    belt.addEventListener('mousedown',  e => { e.preventDefault(); startDrag(e.clientX); });
+    belt.addEventListener('mousedown',  e => startDrag(e.clientX));
     window.addEventListener('mousemove', e => moveDrag(e.clientX));
     window.addEventListener('mouseup',   endDrag);
-  })();
 
-  // Peek carousel lightbox
-  (function() {
-    const bg = document.getElementById('peekLbBg');
-    const media = document.getElementById('peekLbMedia');
-    const caption = document.getElementById('peekLbCaption');
+    // ── Lightbox ──
     let currentVideo = null;
 
     function openLb(card) {
@@ -1338,11 +1324,13 @@
       if (type === 'video') {
         const v = document.createElement('video');
         v.src = src; v.controls = true; v.autoplay = true;
-        v.style.width = '100%'; v.setAttribute('playsinline', '');
+        v.style.cssText = 'width:100%;max-height:80vh;display:block;';
+        v.setAttribute('playsinline', '');
         media.appendChild(v); currentVideo = v;
       } else {
         const img = document.createElement('img');
-        img.src = src; media.appendChild(img); currentVideo = null;
+        img.src = src; img.style.cssText = 'max-width:100%;max-height:80vh;display:block;margin:auto;';
+        media.appendChild(img); currentVideo = null;
       }
       caption.textContent = cap;
       bg.classList.add('open');
@@ -1360,12 +1348,12 @@
     bg.addEventListener('click', e => { if (e.target === bg) closeLb(); });
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
 
-    // Only wire up first set (not duplicates) — duplicates share same data
-    const cards = document.querySelectorAll('.peek-card[data-lb-src]');
-    cards.forEach(card => card.addEventListener('click', () => {
+    // Event delegation on belt so both original + duplicate cards work
+    belt.addEventListener('click', e => {
       if (wasDragging) return;
-      openLb(card);
-    }));
+      const card = e.target.closest('.peek-card[data-lb-src]');
+      if (card) openLb(card);
+    });
   })();
 
   // Loader
