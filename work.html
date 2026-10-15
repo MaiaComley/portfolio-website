@@ -360,7 +360,9 @@
   .gm-stage img { max-width: 100%; max-height: 100%; width: auto; height: auto; display: block; object-fit: contain; }
   .gm-stage video { max-width: 100%; max-height: 100%; width: auto; height: auto; display: block; background: #000; }
   .gm-stage-ph { display: flex; flex-direction: column; align-items: center; gap: 12px; color: var(--muted); opacity: 0.4; }
-  .gm-text-slide { max-width: 560px; font-size: 1.05rem; line-height: 1.7; color: var(--ink); text-align: center; padding: 0 24px; }
+  .gm-text-slide { max-width: 560px; font-size: 1.05rem; line-height: 1.7; color: var(--ink); text-align: center; padding: 0 24px; display: flex; flex-direction: column; align-items: center; gap: 28px; }
+  .gm-read-btn { display: inline-block; margin-top: 4px; padding: 10px 24px; border: 1.5px solid var(--ink); border-radius: 40px; font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); text-decoration: none; transition: background 0.2s, color 0.2s; }
+  .gm-read-btn:hover { background: var(--ink); color: var(--bg); }
   .gm-stage-ph span { font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; }
   .gm-footer { display: flex; align-items: center; justify-content: space-between; padding: 14px 28px 20px; flex-shrink: 0; gap: 16px; }
   .gm-caption { font-size: 0.78rem; color: var(--muted); transition: color 0.55s; flex: 1; }
@@ -703,11 +705,7 @@
                 </div>
               </div>
               <div class="proj-card" data-role="dissertation">
-                <div class="proj-thumb">
-                  <div class="proj-thumb-ph">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-                  </div>
-                </div>
+                <div class="proj-thumb"><img src="Images/dissertation-thumbnail.jpg" alt="Dissertation"></div>
                 <div class="proj-info">
                   <div class="proj-name">Dissertation</div>
                   <div class="proj-type">Research · Writing</div>
@@ -880,6 +878,7 @@
       meta: 'Dissertation · BA Advertising',
       title: 'Dissertation',
       items: [
+        { text: "Using ethnographic observation and semiotic analysis, I examined how women's fitness content and TikTok's algorithm shape ideas of empowerment and body image. I found that while TikTok gives room to diverse bodies and body neutrality, its algorithm still tends to push traditional beauty standards to the top.", pdf: 'Images/Maia Comley Dissertation.pdf', caption: 'Overview' },
         { type: 'doc', caption: 'Full dissertation', pdf: 'Images/Maia Comley Dissertation.pdf' },
       ]
     }
@@ -898,7 +897,8 @@
     const stage = document.getElementById('gmStage');
     stage.querySelectorAll('video').forEach(v => v.pause());
     if (item.text) {
-      stage.innerHTML = `<div class="gm-text-slide">${item.text}</div>`;
+      const btn = item.pdf ? `<a href="${item.pdf}" target="_blank" rel="noopener" class="gm-read-btn">Read more here</a>` : '';
+      stage.innerHTML = `<div class="gm-text-slide">${item.text}${btn}</div>`;
     } else if (item.src) {
       stage.innerHTML = `<img src="${item.src}" alt="${item.caption}">`;
     } else if (item.video) {
