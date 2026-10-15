@@ -1281,22 +1281,29 @@
       return parseFloat(t.split(',')[4]) || 0;
     }
 
+    let pendingDrag = false;
     function startDrag(x) {
       startX = x;
       startOffset = getCurrentOffset();
-      belt.style.animation = 'none';
-      belt.style.transform = `translateX(${startOffset}px)`;
-      belt.style.cursor = 'grabbing';
-      dragging = true;
+      pendingDrag = true;
     }
     function moveDrag(x) {
-      if (!dragging) return;
+      if (!pendingDrag && !dragging) return;
       const dx = x - startX;
-      if (Math.abs(dx) > 5) wasDragging = true;
-      offset = startOffset + dx;
-      belt.style.transform = `translateX(${offset}px)`;
+      if (Math.abs(dx) > 5) {
+        if (!dragging) {
+          belt.style.animation = 'none';
+          belt.style.transform = `translateX(${startOffset}px)`;
+          belt.style.cursor = 'grabbing';
+          dragging = true;
+        }
+        wasDragging = true;
+        offset = startOffset + dx;
+        belt.style.transform = `translateX(${offset}px)`;
+      }
     }
     function endDrag() {
+      pendingDrag = false;
       dragging = false;
       belt.style.cursor = 'grab';
       setTimeout(() => { wasDragging = false; }, 0);
