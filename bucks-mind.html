@@ -62,28 +62,6 @@
     padding: 0 32px;
   }
 
-  /* ── SCROLL REVEAL ── */
-  .reveal {
-    opacity: 0;
-    transform: translateY(36px);
-    transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1),
-                transform 0.7s cubic-bezier(0.22,1,0.36,1);
-  }
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  /* staggered children */
-  .reveal-stagger > * {
-    opacity: 0;
-    transform: translateY(28px);
-    transition: opacity 0.6s cubic-bezier(0.22,1,0.36,1),
-                transform 0.6s cubic-bezier(0.22,1,0.36,1);
-  }
-  .reveal-stagger.visible > *:nth-child(1) { opacity:1; transform:none; transition-delay: 0s; }
-  .reveal-stagger.visible > *:nth-child(2) { opacity:1; transform:none; transition-delay: 0.08s; }
-  .reveal-stagger.visible > *:nth-child(3) { opacity:1; transform:none; transition-delay: 0.16s; }
-  .reveal-stagger.visible > *:nth-child(4) { opacity:1; transform:none; transition-delay: 0.24s; }
 
   /* ── HERO ── */
   .cs-hero {
@@ -421,17 +399,17 @@
 
 <!-- ── HERO ── -->
 <div class="wrap">
-  <a class="cs-back reveal" href="work.html">
+  <a class="cs-back" href="work.html">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
     Back to Work
   </a>
 
   <div class="cs-hero">
-    <span class="cs-eyebrow reveal">Volunteer project · October 2026 to present</span>
-    <h1 class="cs-headline reveal">Better posts,<br>not more posts</h1>
-    <p class="cs-intro reveal">I volunteer with Buckinghamshire Mind, a local mental health charity, to help its small team get more from social media. I audited their channels, turned the data into a clear plan and created their winter fundraising campaign.</p>
+    <span class="cs-eyebrow">Volunteer project · October 2026 to present</span>
+    <h1 class="cs-headline">Better posts,<br>not more posts</h1>
+    <p class="cs-intro">I volunteer with Buckinghamshire Mind, a local mental health charity, to help its small team get more from social media. I audited their channels, turned the data into a clear plan and created their winter fundraising campaign.</p>
 
-    <div class="cs-meta reveal-stagger">
+    <div class="cs-meta">
       <div class="cs-meta-item">
         <span class="cs-meta-label">Role</span>
         <span class="cs-meta-value">Volunteer Social Media Strategist</span>
@@ -446,21 +424,21 @@
       </div>
     </div>
 
-    <div class="cs-tags reveal-stagger">
+    <div class="cs-tags">
       <span class="mind-tag">Social media strategy</span>
       <span class="mind-tag">Analytics</span>
       <span class="mind-tag">Content</span>
       <span class="mind-tag">Charity</span>
     </div>
 
-    <div class="cs-hero-img reveal">
+    <div class="cs-hero-img">
       <img src="Images/bucks-mind-hero.jpg" alt="A selection of Buckinghamshire Mind Winter Appeal social posts in Mind blue.">
     </div>
   </div>
 
   <!-- ── THE CHALLENGE ── -->
   <div class="cs-divider"></div>
-  <div id="s-challenge" class="cs-section reveal">
+  <div id="s-challenge" class="cs-section">
     <span class="cs-section-label">The challenge</span>
     <p>Like most small charities, Bucks Mind runs its social media alongside everything else — a huge amount done with limited time and resource. The content was genuine and community-rooted, but without clear data it was hard to know what was landing and what to prioritise next.</p>
   </div>
@@ -468,8 +446,8 @@
   <!-- ── WHAT I DID ── -->
   <div class="cs-divider"></div>
   <div id="s-did" class="cs-section">
-    <span class="cs-section-label reveal">What I did</span>
-    <div class="cs-did-grid reveal-stagger">
+    <span class="cs-section-label">What I did</span>
+    <div class="cs-did-grid">
       <div class="cs-did-item">
         <span class="cs-did-label">Audit</span>
         <p>Analysed 90 days of Facebook, Instagram and LinkedIn data to find what drives reach and engagement.</p>
@@ -487,7 +465,7 @@
         <p>Researched what works for other charities' winter appeals, then created the full social campaign for this year's appeal.</p>
       </div>
     </div>
-    <div class="cs-img reveal">
+    <div class="cs-img">
       <img src="Images/bucks-mind-dashboard.jpg" alt="The social media dashboard showing performance across Facebook, Instagram and LinkedIn.">
     </div>
   </div>
@@ -496,11 +474,11 @@
 <!-- ── WHAT THE DATA SHOWED — full-bleed Mind blue ── -->
 <div id="s-data" class="cs-bleed">
   <div class="cs-bleed-inner">
-    <span class="cs-section-label reveal">What the data showed</span>
-    <h2 class="reveal" style="font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:300;letter-spacing:-0.03em;line-height:1.15;margin-bottom:12px;">Three types of content broke through on every platform.</h2>
-    <p class="reveal" style="color:rgba(255,255,255,0.75);font-size:1rem;line-height:1.75;max-width:560px;">Real people, awareness days, and local partners and events.</p>
+    <span class="cs-section-label">What the data showed</span>
+    <h2 style="font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:300;letter-spacing:-0.03em;line-height:1.15;margin-bottom:12px;">Three types of content broke through on every platform.</h2>
+    <p style="color:rgba(255,255,255,0.75);font-size:1rem;line-height:1.75;max-width:560px;">Real people, awareness days, and local partners and events.</p>
 
-    <div class="cs-stats-row reveal-stagger">
+    <div class="cs-stats-row">
       <div class="cs-stat">
         <div class="cs-stat-rule"></div>
         <div class="cs-stat-num" data-count="1.7" data-suffix="x">1.7x</div>
@@ -518,26 +496,26 @@
       </div>
     </div>
 
-    <p class="reveal" style="color:rgba(255,255,255,0.75);font-size:1rem;line-height:1.75;max-width:560px;margin-top:48px;">So the recommendation wasn't to post more. It was to keep the same rhythm and change what goes into it.</p>
+    <p style="color:rgba(255,255,255,0.75);font-size:1rem;line-height:1.75;max-width:560px;margin-top:48px;">So the recommendation wasn't to post more. It was to keep the same rhythm and change what goes into it.</p>
   </div>
 </div>
 
 <div class="wrap">
   <!-- Formulas image -->
-  <div class="cs-img reveal" style="margin-top:64px;">
+  <div class="cs-img" style="margin-top:64px;">
     <img src="Images/bucks-mind-formulas.jpg" alt="Page from the audit showing the three content formulas that worked best.">
   </div>
 
   <!-- ── THE STRATEGY ── -->
   <div class="cs-divider"></div>
   <div id="s-strategy" class="cs-section">
-    <span class="cs-section-label reveal">The strategy</span>
-    <ul class="cs-list reveal-stagger">
+    <span class="cs-section-label">The strategy</span>
+    <ul class="cs-list">
       <li><strong>One voice a week:</strong> a quote, story or supporter in every week's content.</li>
       <li><strong>One in, three out:</strong> each story becomes a post for Facebook, Instagram and LinkedIn, each with its own angle.</li>
       <li><strong>Easy to share:</strong> ready-to-copy posts for staff, trustees and partners, so every post reaches further.</li>
     </ul>
-    <div class="cs-img reveal">
+    <div class="cs-img">
       <img src="Images/bucks-mind-plan.jpg" alt="Page from the strategy showing the weekly posting plan and content mix.">
     </div>
   </div>
@@ -545,21 +523,21 @@
   <!-- ── THE WINTER APPEAL ── -->
   <div class="cs-divider"></div>
   <div id="s-appeal" class="cs-section">
-    <span class="cs-section-label reveal">The Winter Appeal</span>
-    <h2 class="reveal">Raising £20,000 for Peer Support Bucks.</h2>
-    <p class="reveal">The charity's winter appeal aimed to raise £20,000 for Peer Support Bucks, its community groups for people living with mental ill health.</p>
-    <p class="reveal">My research showed that most winter appeal money comes in offline, so the campaign focused on awareness and making giving easy:</p>
-    <ul class="cs-list reveal-stagger">
+    <span class="cs-section-label">The Winter Appeal</span>
+    <h2>Raising £20,000 for Peer Support Bucks.</h2>
+    <p>The charity's winter appeal aimed to raise £20,000 for Peer Support Bucks, its community groups for people living with mental ill health.</p>
+    <p>My research showed that most winter appeal money comes in offline, so the campaign focused on awareness and making giving easy:</p>
+    <ul class="cs-list">
       <li>One person's story running through the whole appeal</li>
       <li>"£X could pay for..." cards that show exactly what a gift does</li>
       <li>Progress updates and two giving peaks: Giving Tuesday and the week before Christmas</li>
       <li>A share pack so staff and trustees could spread the word</li>
     </ul>
-    <p class="reveal" style="margin-top:20px;">I created 18 feed posts and 6 Stories in the Mind brand, plus captions for each platform, a posting plan and emails for staff and trustees.</p>
-    <div class="cs-img reveal">
+    <p style="margin-top:20px;">I created 18 feed posts and 6 Stories in the Mind brand, plus captions for each platform, a posting plan and emails for staff and trustees.</p>
+    <div class="cs-img">
       <img src="Images/bucks-mind-campaign-grid.jpg" alt="Grid of Winter Appeal posts, including the launch post, gift cards and progress updates.">
     </div>
-    <div class="cs-img reveal">
+    <div class="cs-img">
       <img src="Images/bucks-mind-carousel.jpg" alt="Carousel of cards showing what £15, £25, £40, £100 and £250 could pay for.">
     </div>
   </div>
@@ -569,7 +547,7 @@
 
   <div class="cs-divider"></div>
   <div class="cs-section">
-    <span class="cs-section-label reveal">Results</span>
+    <span class="cs-section-label">Results</span>
     <div class="cs-stats-row" style="margin-top:32px;grid-template-columns:repeat(3,1fr);">
       <div class="cs-stat" style="color:var(--ink);">
         <div class="cs-stat-rule" style="background:var(--rule);"></div>
@@ -593,8 +571,8 @@
   <!-- ── WHAT I LEARNED ── -->
   <div class="cs-divider"></div>
   <div id="s-learned" class="cs-section" style="padding-bottom:0;">
-    <span class="cs-section-label reveal">What I learned</span>
-    <div class="cs-learned reveal">
+    <span class="cs-section-label">What I learned</span>
+    <div class="cs-learned">
       <p>Small teams don't need more content. They need a clear picture of what works and a simple way to make more of it. Building the plan around the time the team actually had made it something they could use, not just read.</p>
     </div>
   </div>
@@ -620,26 +598,6 @@
     document.documentElement.classList.add(saved);
   }
 
-  // ── SCROLL REVEAL ──
-  const revealEls = document.querySelectorAll('.reveal, .reveal-stagger');
-  const revealObs = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        revealObs.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
-
-  // Immediately show anything already in the viewport on load
-  revealEls.forEach(el => {
-    const r = el.getBoundingClientRect();
-    if (r.top < window.innerHeight && r.bottom > 0) {
-      el.classList.add('visible');
-    } else {
-      revealObs.observe(el);
-    }
-  });
 
   // ── SECTION NAV SCROLL-SPY ──
   (function() {
