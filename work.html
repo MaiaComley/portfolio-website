@@ -394,6 +394,18 @@
     transition: background 0.55s, border-color 0.55s, color 0.55s;
   }
   @keyframes fadeIn { to { opacity: 1; } }
+
+  /* ── CASE STUDY LINK ── */
+  .panel-cs-link {
+    display: inline-flex; align-items: center; gap: 8px;
+    margin-top: 24px;
+    font-size: 0.68rem; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--ink); text-decoration: none;
+    border-bottom: 1px solid var(--rule); padding-bottom: 2px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .panel-cs-link:hover { border-color: var(--ink); }
+  .panel-cs-link svg { width: 12px; height: 12px; }
   @keyframes bob {
     0%, 100% { transform: translateX(-50%) translateY(0); }
     50%       { transform: translateX(-50%) translateY(-5px); }
@@ -593,6 +605,10 @@
               <li>Developed a proposed strategy, content calendar and campaign ideas that are realistic and achievable for a small team, so they can share more stories without adding to their workload.</li>
               <li>Reviewing performance in December to measure results and shape the next steps with the team.</li>
             </ul>
+            <a class="panel-cs-link" href="bucks-mind.html">
+              View case study
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 6 15 12 9 18"/></svg>
+            </a>
           </div>
           <div class="panel-right">
             <div class="panel-skill-pills">
