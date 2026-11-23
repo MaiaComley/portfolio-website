@@ -296,6 +296,52 @@
     font-style: italic;
   }
 
+  /* ── SECTION NAV ── */
+  .cs-sidenav {
+    position: fixed; left: 32px; top: 50%; transform: translateY(-50%);
+    z-index: 100;
+    display: flex; flex-direction: column; align-items: flex-start; gap: 0;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+  .cs-sidenav.visible { opacity: 1; pointer-events: auto; }
+  .cs-sidenav-track {
+    position: absolute; left: 3px; top: 0; bottom: 0;
+    width: 1px; background: var(--rule);
+    transition: background 0.55s;
+  }
+  .cs-sidenav-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 7px 0; cursor: pointer;
+    text-decoration: none;
+  }
+  .cs-sidenav-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--rule); flex-shrink: 0;
+    transition: background 0.3s, transform 0.3s;
+    position: relative; z-index: 1;
+  }
+  .cs-sidenav-label {
+    font-size: 0.58rem; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--muted);
+    white-space: nowrap;
+    opacity: 0; transform: translateX(-4px);
+    transition: opacity 0.2s, transform 0.2s, color 0.3s;
+    pointer-events: none;
+  }
+  .cs-sidenav-item:hover .cs-sidenav-label,
+  .cs-sidenav-item.active .cs-sidenav-label {
+    opacity: 1; transform: translateX(0);
+  }
+  .cs-sidenav-item.active .cs-sidenav-dot {
+    background: var(--mind); transform: scale(1.35);
+  }
+  .cs-sidenav-item.active .cs-sidenav-label { color: var(--ink); }
+  html.p-compl .cs-sidenav-item.active .cs-sidenav-dot,
+  html.p-analog .cs-sidenav-item.active .cs-sidenav-dot { background: var(--ink); }
+
+  @media (max-width: 900px) { .cs-sidenav { display: none; } }
+
   /* ── BACK LINK ── */
   .cs-back {
     display: inline-flex; align-items: center; gap: 8px;
@@ -334,6 +380,35 @@
 </style>
 </head>
 <body>
+
+<!-- ── SECTION NAV ── -->
+<nav class="cs-sidenav" id="csNav" aria-label="Page sections">
+  <div class="cs-sidenav-track"></div>
+  <a class="cs-sidenav-item" href="#s-challenge">
+    <span class="cs-sidenav-dot"></span>
+    <span class="cs-sidenav-label">Challenge</span>
+  </a>
+  <a class="cs-sidenav-item" href="#s-did">
+    <span class="cs-sidenav-dot"></span>
+    <span class="cs-sidenav-label">What I did</span>
+  </a>
+  <a class="cs-sidenav-item" href="#s-data">
+    <span class="cs-sidenav-dot"></span>
+    <span class="cs-sidenav-label">The data</span>
+  </a>
+  <a class="cs-sidenav-item" href="#s-strategy">
+    <span class="cs-sidenav-dot"></span>
+    <span class="cs-sidenav-label">Strategy</span>
+  </a>
+  <a class="cs-sidenav-item" href="#s-appeal">
+    <span class="cs-sidenav-dot"></span>
+    <span class="cs-sidenav-label">Winter Appeal</span>
+  </a>
+  <a class="cs-sidenav-item" href="#s-learned">
+    <span class="cs-sidenav-dot"></span>
+    <span class="cs-sidenav-label">What I learned</span>
+  </a>
+</nav>
 
 <nav id="nav">
   <a class="nav-name" href="index.html">Maia Comley Portfolio</a>
@@ -385,14 +460,14 @@
 
   <!-- ── THE CHALLENGE ── -->
   <div class="cs-divider"></div>
-  <div class="cs-section reveal">
+  <div id="s-challenge" class="cs-section reveal">
     <span class="cs-section-label">The challenge</span>
     <p>Like most small charities, Bucks Mind runs its social media alongside everything else — a huge amount done with limited time and resource. The content was genuine and community-rooted, but without clear data it was hard to know what was landing and what to prioritise next.</p>
   </div>
 
   <!-- ── WHAT I DID ── -->
   <div class="cs-divider"></div>
-  <div class="cs-section">
+  <div id="s-did" class="cs-section">
     <span class="cs-section-label reveal">What I did</span>
     <div class="cs-did-grid reveal-stagger">
       <div class="cs-did-item">
@@ -419,7 +494,7 @@
 </div>
 
 <!-- ── WHAT THE DATA SHOWED — full-bleed Mind blue ── -->
-<div class="cs-bleed">
+<div id="s-data" class="cs-bleed">
   <div class="cs-bleed-inner">
     <span class="cs-section-label reveal">What the data showed</span>
     <h2 class="reveal" style="font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:300;letter-spacing:-0.03em;line-height:1.15;margin-bottom:12px;">Three types of content broke through on every platform.</h2>
@@ -455,7 +530,7 @@
 
   <!-- ── THE STRATEGY ── -->
   <div class="cs-divider"></div>
-  <div class="cs-section">
+  <div id="s-strategy" class="cs-section">
     <span class="cs-section-label reveal">The strategy</span>
     <ul class="cs-list reveal-stagger">
       <li><strong>One voice a week:</strong> a quote, story or supporter in every week's content.</li>
@@ -469,7 +544,7 @@
 
   <!-- ── THE WINTER APPEAL ── -->
   <div class="cs-divider"></div>
-  <div class="cs-section">
+  <div id="s-appeal" class="cs-section">
     <span class="cs-section-label reveal">The Winter Appeal</span>
     <h2 class="reveal">Raising £20,000 for Peer Support Bucks.</h2>
     <p class="reveal">The charity's winter appeal aimed to raise £20,000 for Peer Support Bucks, its community groups for people living with mental ill health.</p>
@@ -517,7 +592,7 @@
 
   <!-- ── WHAT I LEARNED ── -->
   <div class="cs-divider"></div>
-  <div class="cs-section" style="padding-bottom:0;">
+  <div id="s-learned" class="cs-section" style="padding-bottom:0;">
     <span class="cs-section-label reveal">What I learned</span>
     <div class="cs-learned reveal">
       <p>Small teams don't need more content. They need a clear picture of what works and a simple way to make more of it. Building the plan around the time the team actually had made it something they could use, not just read.</p>
@@ -556,6 +631,46 @@
     });
   }, { threshold: 0.12 });
   revealEls.forEach(el => revealObs.observe(el));
+
+  // ── SECTION NAV SCROLL-SPY ──
+  (function() {
+    const sidenav = document.getElementById('csNav');
+    const sectionIds = ['s-challenge','s-did','s-data','s-strategy','s-appeal','s-learned'];
+    const navItems = sidenav.querySelectorAll('.cs-sidenav-item');
+
+    // Show nav once user scrolls past hero
+    const heroHeight = document.querySelector('.cs-hero').offsetTop + 300;
+    function updateNavVisibility() {
+      sidenav.classList.toggle('visible', window.scrollY > heroHeight);
+    }
+    window.addEventListener('scroll', updateNavVisibility, { passive: true });
+
+    // Smooth scroll on click
+    navItems.forEach((item, i) => {
+      item.addEventListener('click', e => {
+        e.preventDefault();
+        const target = document.getElementById(sectionIds[i]);
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    // Active section tracking
+    const sections = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
+    function getActiveIndex() {
+      const mid = window.scrollY + window.innerHeight * 0.4;
+      let active = 0;
+      sections.forEach((s, i) => {
+        if (s && s.getBoundingClientRect().top + window.scrollY - 120 <= mid) active = i;
+      });
+      return active;
+    }
+    function updateActive() {
+      const idx = getActiveIndex();
+      navItems.forEach((item, i) => item.classList.toggle('active', i === idx));
+    }
+    window.addEventListener('scroll', updateActive, { passive: true });
+    updateActive();
+  })();
 
   // ── COUNT-UP ANIMATION ──
   function countUp(el, target, suffix, duration) {
