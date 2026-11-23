@@ -274,51 +274,23 @@
     font-style: italic;
   }
 
-  /* ── SECTION NAV ── */
-  .cs-sidenav {
-    position: fixed; left: 32px; top: 50%; transform: translateY(-50%);
-    z-index: 100;
-    display: flex; flex-direction: column; align-items: flex-start; gap: 0;
-    opacity: 0; pointer-events: none;
-    transition: opacity 0.4s ease;
+  /* ── SCROLL REVEAL ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1),
+                transform 0.7s cubic-bezier(0.22,1,0.36,1);
   }
-  .cs-sidenav.visible { opacity: 1; pointer-events: auto; }
-  .cs-sidenav-track {
-    position: absolute; left: 3px; top: 0; bottom: 0;
-    width: 1px; background: var(--rule);
-    transition: background 0.55s;
+  .reveal.visible { opacity: 1; transform: none; }
+  .reveal-stagger > * {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.6s cubic-bezier(0.22,1,0.36,1),
+                transform 0.6s cubic-bezier(0.22,1,0.36,1);
   }
-  .cs-sidenav-item {
-    display: flex; align-items: center; gap: 10px;
-    padding: 7px 0; cursor: pointer;
-    text-decoration: none;
-  }
-  .cs-sidenav-dot {
-    width: 7px; height: 7px; border-radius: 50%;
-    background: var(--rule); flex-shrink: 0;
-    transition: background 0.3s, transform 0.3s;
-    position: relative; z-index: 1;
-  }
-  .cs-sidenav-label {
-    font-size: 0.58rem; font-weight: 500; letter-spacing: 0.1em;
-    text-transform: uppercase; color: var(--muted);
-    white-space: nowrap;
-    opacity: 0; transform: translateX(-4px);
-    transition: opacity 0.2s, transform 0.2s, color 0.3s;
-    pointer-events: none;
-  }
-  .cs-sidenav-item:hover .cs-sidenav-label,
-  .cs-sidenav-item.active .cs-sidenav-label {
-    opacity: 1; transform: translateX(0);
-  }
-  .cs-sidenav-item.active .cs-sidenav-dot {
-    background: var(--mind); transform: scale(1.35);
-  }
-  .cs-sidenav-item.active .cs-sidenav-label { color: var(--ink); }
-  html.p-compl .cs-sidenav-item.active .cs-sidenav-dot,
-  html.p-analog .cs-sidenav-item.active .cs-sidenav-dot { background: var(--ink); }
-
-  @media (max-width: 900px) { .cs-sidenav { display: none; } }
+  .reveal-stagger.visible > *:nth-child(1) { opacity:1; transform:none; transition-delay:0s; }
+  .reveal-stagger.visible > *:nth-child(2) { opacity:1; transform:none; transition-delay:0.08s; }
+  .reveal-stagger.visible > *:nth-child(3) { opacity:1; transform:none; transition-delay:0.16s; }
+  .reveal-stagger.visible > *:nth-child(4) { opacity:1; transform:none; transition-delay:0.24s; }
 
   /* ── BACK LINK ── */
   .cs-back {
@@ -359,34 +331,6 @@
 </head>
 <body>
 
-<!-- ── SECTION NAV ── -->
-<nav class="cs-sidenav" id="csNav" aria-label="Page sections">
-  <div class="cs-sidenav-track"></div>
-  <a class="cs-sidenav-item" href="#s-challenge">
-    <span class="cs-sidenav-dot"></span>
-    <span class="cs-sidenav-label">Challenge</span>
-  </a>
-  <a class="cs-sidenav-item" href="#s-did">
-    <span class="cs-sidenav-dot"></span>
-    <span class="cs-sidenav-label">What I did</span>
-  </a>
-  <a class="cs-sidenav-item" href="#s-data">
-    <span class="cs-sidenav-dot"></span>
-    <span class="cs-sidenav-label">The data</span>
-  </a>
-  <a class="cs-sidenav-item" href="#s-strategy">
-    <span class="cs-sidenav-dot"></span>
-    <span class="cs-sidenav-label">Strategy</span>
-  </a>
-  <a class="cs-sidenav-item" href="#s-appeal">
-    <span class="cs-sidenav-dot"></span>
-    <span class="cs-sidenav-label">Winter Appeal</span>
-  </a>
-  <a class="cs-sidenav-item" href="#s-learned">
-    <span class="cs-sidenav-dot"></span>
-    <span class="cs-sidenav-label">What I learned</span>
-  </a>
-</nav>
 
 <nav id="nav">
   <a class="nav-name" href="index.html">Maia Comley Portfolio</a>
@@ -431,14 +375,14 @@
       <span class="mind-tag">Charity</span>
     </div>
 
-    <div class="cs-hero-img">
+    <div class="cs-hero-img reveal">
       <img src="Images/bucks-mind-hero.jpg" alt="A selection of Buckinghamshire Mind Winter Appeal social posts in Mind blue.">
     </div>
   </div>
 
   <!-- ── THE CHALLENGE ── -->
   <div class="cs-divider"></div>
-  <div id="s-challenge" class="cs-section">
+  <div id="s-challenge" class="cs-section reveal">
     <span class="cs-section-label">The challenge</span>
     <p>Like most small charities, Bucks Mind runs its social media alongside everything else — a huge amount done with limited time and resource. The content was genuine and community-rooted, but without clear data it was hard to know what was landing and what to prioritise next.</p>
   </div>
@@ -447,7 +391,7 @@
   <div class="cs-divider"></div>
   <div id="s-did" class="cs-section">
     <span class="cs-section-label">What I did</span>
-    <div class="cs-did-grid">
+    <div class="cs-did-grid reveal-stagger">
       <div class="cs-did-item">
         <span class="cs-did-label">Audit</span>
         <p>Analysed 90 days of Facebook, Instagram and LinkedIn data to find what drives reach and engagement.</p>
@@ -465,7 +409,7 @@
         <p>Researched what works for other charities' winter appeals, then created the full social campaign for this year's appeal.</p>
       </div>
     </div>
-    <div class="cs-img">
+    <div class="cs-img reveal">
       <img src="Images/bucks-mind-dashboard.jpg" alt="The social media dashboard showing performance across Facebook, Instagram and LinkedIn.">
     </div>
   </div>
@@ -478,7 +422,7 @@
     <h2 style="font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:300;letter-spacing:-0.03em;line-height:1.15;margin-bottom:12px;">Three types of content broke through on every platform.</h2>
     <p style="color:rgba(255,255,255,0.75);font-size:1rem;line-height:1.75;max-width:560px;">Real people, awareness days, and local partners and events.</p>
 
-    <div class="cs-stats-row">
+    <div class="cs-stats-row reveal-stagger">
       <div class="cs-stat">
         <div class="cs-stat-rule"></div>
         <div class="cs-stat-num" data-count="1.7" data-suffix="x">1.7x</div>
@@ -502,13 +446,13 @@
 
 <div class="wrap">
   <!-- Formulas image -->
-  <div class="cs-img" style="margin-top:64px;">
+  <div class="cs-img reveal" style="margin-top:64px;">
     <img src="Images/bucks-mind-formulas.jpg" alt="Page from the audit showing the three content formulas that worked best.">
   </div>
 
   <!-- ── THE STRATEGY ── -->
   <div class="cs-divider"></div>
-  <div id="s-strategy" class="cs-section">
+  <div id="s-strategy" class="cs-section reveal">
     <span class="cs-section-label">The strategy</span>
     <ul class="cs-list">
       <li><strong>One voice a week:</strong> a quote, story or supporter in every week's content.</li>
@@ -522,7 +466,7 @@
 
   <!-- ── THE WINTER APPEAL ── -->
   <div class="cs-divider"></div>
-  <div id="s-appeal" class="cs-section">
+  <div id="s-appeal" class="cs-section reveal">
     <span class="cs-section-label">The Winter Appeal</span>
     <h2>Raising £20,000 for Peer Support Bucks.</h2>
     <p>The charity's winter appeal aimed to raise £20,000 for Peer Support Bucks, its community groups for people living with mental ill health.</p>
@@ -572,7 +516,7 @@
   <div class="cs-divider"></div>
   <div id="s-learned" class="cs-section" style="padding-bottom:0;">
     <span class="cs-section-label">What I learned</span>
-    <div class="cs-learned">
+    <div class="cs-learned reveal">
       <p>Small teams don't need more content. They need a clear picture of what works and a simple way to make more of it. Building the plan around the time the team actually had made it something they could use, not just read.</p>
     </div>
   </div>
@@ -599,48 +543,21 @@
   }
 
 
-  // ── SECTION NAV SCROLL-SPY ──
-  (function() {
-    const sidenav = document.getElementById('csNav');
-    const sectionIds = ['s-challenge','s-did','s-data','s-strategy','s-appeal','s-learned'];
-    const navItems = sidenav.querySelectorAll('.cs-sidenav-item');
-
-    // Show nav once user scrolls past hero
-    const heroHeight = document.querySelector('.cs-hero').offsetTop + 300;
-    function updateNavVisibility() {
-      sidenav.classList.toggle('visible', window.scrollY > heroHeight);
-    }
-    window.addEventListener('scroll', updateNavVisibility, { passive: true });
-
-    // Smooth scroll on click
-    navItems.forEach((item, i) => {
-      item.addEventListener('click', e => {
-        e.preventDefault();
-        const target = document.getElementById(sectionIds[i]);
-        if (target) {
-          const offset = target.getBoundingClientRect().top + window.scrollY - 100;
-          window.scrollTo({ top: offset, behavior: 'smooth' });
-        }
-      });
+  // ── SCROLL REVEAL ──
+  const revealEls = document.querySelectorAll('.reveal, .reveal-stagger');
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); }
     });
-
-    // Active section tracking
-    const sections = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
-    function getActiveIndex() {
-      const mid = window.scrollY + window.innerHeight * 0.4;
-      let active = 0;
-      sections.forEach((s, i) => {
-        if (s && s.getBoundingClientRect().top + window.scrollY - 120 <= mid) active = i;
-      });
-      return active;
+  }, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
+  revealEls.forEach(el => {
+    const r = el.getBoundingClientRect();
+    if (r.top < window.innerHeight && r.bottom > 0) {
+      el.classList.add('visible');
+    } else {
+      revealObs.observe(el);
     }
-    function updateActive() {
-      const idx = getActiveIndex();
-      navItems.forEach((item, i) => item.classList.toggle('active', i === idx));
-    }
-    window.addEventListener('scroll', updateActive, { passive: true });
-    updateActive();
-  })();
+  });
 
   // ── COUNT-UP ANIMATION ──
   function countUp(el, target, suffix, duration) {
