@@ -629,8 +629,17 @@
         revealObs.unobserve(e.target);
       }
     });
-  }, { threshold: 0, rootMargin: '0px 0px -60px 0px' });
-  revealEls.forEach(el => revealObs.observe(el));
+  }, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
+
+  // Immediately show anything already in the viewport on load
+  revealEls.forEach(el => {
+    const r = el.getBoundingClientRect();
+    if (r.top < window.innerHeight && r.bottom > 0) {
+      el.classList.add('visible');
+    } else {
+      revealObs.observe(el);
+    }
+  });
 
   // ── SECTION NAV SCROLL-SPY ──
   (function() {
