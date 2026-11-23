@@ -55,49 +55,75 @@
   }
   .nav-contact:hover { opacity: 0.82; }
 
-  /* ── PAGE BODY ── */
-  .page-body {
+  /* ── CONTENT CONTAINER ── */
+  .wrap {
     max-width: 760px;
     margin: 0 auto;
-    padding: 140px 32px 120px;
+    padding: 0 32px;
   }
 
+  /* ── SCROLL REVEAL ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(36px);
+    transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1),
+                transform 0.7s cubic-bezier(0.22,1,0.36,1);
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  /* staggered children */
+  .reveal-stagger > * {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.6s cubic-bezier(0.22,1,0.36,1),
+                transform 0.6s cubic-bezier(0.22,1,0.36,1);
+  }
+  .reveal-stagger.visible > *:nth-child(1) { opacity:1; transform:none; transition-delay: 0s; }
+  .reveal-stagger.visible > *:nth-child(2) { opacity:1; transform:none; transition-delay: 0.08s; }
+  .reveal-stagger.visible > *:nth-child(3) { opacity:1; transform:none; transition-delay: 0.16s; }
+  .reveal-stagger.visible > *:nth-child(4) { opacity:1; transform:none; transition-delay: 0.24s; }
+
   /* ── HERO ── */
+  .cs-hero {
+    padding: 140px 0 0;
+  }
   .cs-eyebrow {
     font-size: 0.68rem; font-weight: 500; letter-spacing: 0.12em;
     text-transform: uppercase; color: var(--mind);
-    margin-bottom: 20px;
-    display: block;
+    margin-bottom: 20px; display: block;
+    transition: color 0.55s;
   }
   html.p-compl .cs-eyebrow,
   html.p-analog .cs-eyebrow { color: var(--ink); opacity: 0.7; }
 
   .cs-headline {
-    font-size: clamp(2.4rem, 6vw, 4rem);
-    font-weight: 300; letter-spacing: -0.03em; line-height: 1.08;
-    color: var(--ink); margin-bottom: 28px;
+    font-size: clamp(2.8rem, 7vw, 5rem);
+    font-weight: 300; letter-spacing: -0.04em; line-height: 1.0;
+    color: var(--ink); margin-bottom: 32px;
     transition: color 0.55s;
   }
 
   .cs-intro {
-    font-size: 1.1rem; line-height: 1.7; color: var(--muted);
-    max-width: 600px; margin-bottom: 40px;
+    font-size: 1.1rem; line-height: 1.75; color: var(--muted);
+    max-width: 580px; margin-bottom: 48px;
     transition: color 0.55s;
   }
 
   /* ── META PILLS ── */
   .cs-meta {
     display: flex; flex-wrap: wrap; gap: 10px;
-    margin-bottom: 56px;
+    margin-bottom: 48px;
   }
   .cs-meta-item {
-    display: flex; flex-direction: column; gap: 2px;
+    display: flex; flex-direction: column; gap: 3px;
     background: var(--surface); border-radius: 8px;
     padding: 12px 18px;
     transition: background 0.55s;
   }
   .cs-meta-label {
-    font-size: 0.6rem; font-weight: 600; letter-spacing: 0.1em;
+    font-size: 0.58rem; font-weight: 600; letter-spacing: 0.12em;
     text-transform: uppercase; color: var(--muted);
     transition: color 0.55s;
   }
@@ -118,74 +144,131 @@
     border-radius: 4px; padding: 5px 10px;
     transition: background 0.55s, color 0.55s;
   }
+  html.p-compl .mind-tag, html.p-analog .mind-tag { background: rgba(255,255,255,0.18); color: var(--ink); }
 
-  /* ── IMAGE PLACEHOLDER ── */
-  .cs-img {
-    width: 100%; border-radius: 10px; overflow: hidden;
-    margin: 40px 0;
-    background: var(--surface);
-    transition: background 0.55s;
+  /* ── HERO IMAGE ── */
+  .cs-hero-img {
+    width: 100%; margin-top: 56px;
   }
-  .cs-img img {
-    width: 100%; height: auto; display: block; border-radius: 10px;
-  }
-  .cs-img-placeholder {
-    width: 100%; aspect-ratio: 16/9;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    gap: 10px;
-    background: var(--surface); border-radius: 10px;
-    transition: background 0.55s;
-  }
-  .cs-img-placeholder .ph-name {
-    font-size: 0.72rem; font-weight: 500; letter-spacing: 0.06em;
-    color: var(--muted); font-family: monospace;
-    transition: color 0.55s;
-  }
-  .cs-img-placeholder .ph-icon {
-    width: 32px; height: 32px; opacity: 0.3;
+  .cs-hero-img img {
+    width: 100%; height: auto; display: block;
+    border-radius: 12px;
   }
 
   /* ── SECTION ── */
   .cs-section {
-    padding: 56px 0;
-    border-top: 1px solid var(--rule);
-    transition: border-color 0.55s;
+    padding: 72px 0 0;
   }
-  .cs-section:first-of-type { border-top: none; }
-
   .cs-section-label {
     font-size: 0.62rem; font-weight: 600; letter-spacing: 0.14em;
     text-transform: uppercase; color: var(--muted);
     margin-bottom: 20px; display: block;
     transition: color 0.55s;
   }
-
   .cs-section h2 {
-    font-size: clamp(1.5rem, 3vw, 2rem);
-    font-weight: 400; letter-spacing: -0.02em; line-height: 1.2;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 400; letter-spacing: -0.02em; line-height: 1.15;
     color: var(--ink); margin-bottom: 20px;
     transition: color 0.55s;
   }
-
   .cs-section p {
-    font-size: 1rem; line-height: 1.75; color: var(--muted);
+    font-size: 1rem; line-height: 1.8; color: var(--muted);
     margin-bottom: 16px; max-width: 640px;
     transition: color 0.55s;
   }
   .cs-section p:last-child { margin-bottom: 0; }
 
-  .cs-section ul {
-    list-style: none; margin: 20px 0; max-width: 640px;
+  .cs-divider {
+    height: 1px; background: var(--rule);
+    margin: 72px 0 0;
+    transition: background 0.55s;
   }
-  .cs-section ul li {
-    font-size: 1rem; line-height: 1.7; color: var(--muted);
-    padding: 10px 0 10px 20px; border-bottom: 1px solid var(--rule);
+
+  /* ── WHAT I DID GRID ── */
+  .cs-did-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1px; background: var(--rule);
+    border: 1px solid var(--rule); border-radius: 12px; overflow: hidden;
+    margin-top: 28px;
+    transition: background 0.55s, border-color 0.55s;
+  }
+  .cs-did-item {
+    background: var(--surface); padding: 28px;
+    transition: background 0.55s;
+  }
+  .cs-did-label {
+    font-size: 0.62rem; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--mind);
+    margin-bottom: 10px; display: block;
+    transition: color 0.55s;
+  }
+  html.p-compl .cs-did-label,
+  html.p-analog .cs-did-label { color: var(--ink); opacity: 0.7; }
+  .cs-did-item p {
+    font-size: 0.9rem; line-height: 1.65; margin-bottom: 0;
+    color: var(--muted); max-width: 100%;
+  }
+
+  /* ── INLINE IMAGE ── */
+  .cs-img {
+    margin: 48px 0 0;
+  }
+  .cs-img img {
+    width: 100%; height: auto; display: block;
+    border-radius: 10px;
+  }
+
+  /* ── FULL-BLEED STATS BAND ── */
+  .cs-bleed {
+    width: 100%; margin-top: 72px;
+    padding: 80px 32px;
+    background: var(--mind);
+    transition: background 0.55s;
+  }
+  html.p-compl .cs-bleed { background: var(--accent); }
+  html.p-analog .cs-bleed { background: var(--accent); }
+
+  .cs-bleed .cs-section-label { color: rgba(255,255,255,0.6); }
+  .cs-bleed h2 { color: #fff; margin-bottom: 12px; }
+  .cs-bleed p  { color: rgba(255,255,255,0.75); }
+
+  .cs-bleed-inner {
+    max-width: 760px; margin: 0 auto;
+  }
+
+  /* Stats row */
+  .cs-stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 48px;
+    margin-top: 56px;
+  }
+  .cs-stat-num {
+    font-size: clamp(2.8rem, 5vw, 4rem);
+    font-weight: 300; letter-spacing: -0.04em; line-height: 1;
+    color: #fff; margin-bottom: 10px;
+  }
+  .cs-stat-label {
+    font-size: 0.85rem; line-height: 1.5;
+    color: rgba(255,255,255,0.7);
+  }
+  .cs-stat-rule {
+    height: 2px; background: rgba(255,255,255,0.2);
+    margin-bottom: 24px;
+  }
+
+  /* ── LIST ── */
+  .cs-list {
+    list-style: none; margin-top: 24px; max-width: 640px;
+  }
+  .cs-list li {
+    font-size: 1rem; line-height: 1.75; color: var(--muted);
+    padding: 12px 0 12px 22px; border-bottom: 1px solid var(--rule);
     position: relative;
     transition: color 0.55s, border-color 0.55s;
   }
-  .cs-section ul li:first-child { border-top: 1px solid var(--rule); }
-  .cs-section ul li::before {
+  .cs-list li:first-child { border-top: 1px solid var(--rule); }
+  .cs-list li::before {
     content: '';
     position: absolute; left: 0; top: 50%;
     transform: translateY(-50%);
@@ -193,74 +276,24 @@
     background: var(--mind);
     transition: background 0.55s;
   }
-  html.p-compl .cs-section ul li::before,
-  html.p-analog .cs-section ul li::before { background: var(--ink); }
-
-  .cs-section ul li strong {
-    color: var(--ink); font-weight: 600;
-    transition: color 0.55s;
-  }
-
-  /* ── STAT CALLOUTS ── */
-  .cs-stats {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1px; background: var(--rule);
-    border: 1px solid var(--rule); border-radius: 10px; overflow: hidden;
-    margin: 32px 0;
-    transition: background 0.55s, border-color 0.55s;
-  }
-  .cs-stat {
-    background: var(--surface); padding: 24px 20px;
-    transition: background 0.55s;
-  }
-  .cs-stat-num {
-    font-size: 1.8rem; font-weight: 300; letter-spacing: -0.03em;
-    color: var(--mind); line-height: 1; margin-bottom: 6px;
-    transition: color 0.55s;
-  }
-  html.p-compl .cs-stat-num,
-  html.p-analog .cs-stat-num { color: var(--ink); }
-  .cs-stat-label {
-    font-size: 0.8rem; line-height: 1.4; color: var(--muted);
-    transition: color 0.55s;
-  }
-
-  /* ── WHAT I DID GRID ── */
-  .cs-did-grid {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 1px; background: var(--rule);
-    border: 1px solid var(--rule); border-radius: 10px; overflow: hidden;
-    margin: 24px 0;
-    transition: background 0.55s, border-color 0.55s;
-  }
-  .cs-did-item {
-    background: var(--surface); padding: 24px;
-    transition: background 0.55s;
-  }
-  .cs-did-label {
-    font-size: 0.62rem; font-weight: 600; letter-spacing: 0.1em;
-    text-transform: uppercase; color: var(--mind);
-    margin-bottom: 8px; display: block;
-    transition: color 0.55s;
-  }
-  html.p-compl .cs-did-label,
-  html.p-analog .cs-did-label { color: var(--ink); opacity: 0.7; }
-  .cs-did-item p {
-    font-size: 0.9rem; line-height: 1.6; margin-bottom: 0;
-    color: var(--muted);
-  }
+  html.p-compl .cs-list li::before,
+  html.p-analog .cs-list li::before { background: var(--ink); }
+  .cs-list li strong { color: var(--ink); font-weight: 600; transition: color 0.55s; }
 
   /* ── WHAT I LEARNED ── */
   .cs-learned {
-    background: var(--surface); border-radius: 10px;
-    padding: 32px 36px; margin-top: 8px;
+    background: var(--mind);
+    border-radius: 12px; padding: 40px 44px;
+    margin-top: 28px;
     transition: background 0.55s;
   }
+  html.p-compl .cs-learned { background: var(--accent); }
+  html.p-analog .cs-learned { background: var(--accent); }
   .cs-learned p {
-    font-size: 1.05rem; line-height: 1.75; color: var(--ink);
+    font-size: 1.15rem; line-height: 1.75;
+    color: rgba(255,255,255,0.92);
     margin-bottom: 0; max-width: 100%;
     font-style: italic;
-    transition: color 0.55s;
   }
 
   /* ── BACK LINK ── */
@@ -268,7 +301,7 @@
     display: inline-flex; align-items: center; gap: 8px;
     font-size: 0.68rem; font-weight: 500; letter-spacing: 0.1em;
     text-transform: uppercase; color: var(--muted); text-decoration: none;
-    margin-bottom: 48px;
+    padding-top: 120px; padding-bottom: 48px; display: flex;
     transition: color 0.2s;
   }
   .cs-back:hover { color: var(--ink); }
@@ -277,39 +310,26 @@
   /* ── FOOTER ── */
   footer {
     border-top: 1px solid var(--rule); padding: 32px 64px;
-    display: flex; align-items: center; justify-content: space-between;
+    margin-top: 96px;
     transition: border-color 0.55s;
   }
   .footer-copy {
     font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase;
     color: var(--muted); transition: color 0.55s;
   }
-  .palette-btn {
-    background: none; border: 1px solid var(--rule); border-radius: 6px;
-    padding: 7px 14px; cursor: pointer; font-size: 0.65rem;
-    letter-spacing: 0.08em; text-transform: uppercase;
-    color: var(--muted); display: flex; gap: 8px;
-    transition: border-color 0.3s, color 0.3s;
-  }
-  .palette-btn:hover { color: var(--ink); border-color: var(--ink); }
-  .palette-swatch {
-    width: 10px; height: 10px; border-radius: 50%;
-    display: inline-block; margin-top: 1px;
-    transition: background 0.3s;
-  }
-  .s-compl  { background: #F56200; }
-  .s-analog { background: #F5007A; }
-  .s-mono   { background: #0A0A0A; }
 
   /* ── RESPONSIVE ── */
   @media (max-width: 768px) {
     nav { padding: 20px 24px; }
-    .page-body { padding: 100px 20px 80px; }
-    footer { padding: 24px 20px; flex-direction: column; gap: 16px; align-items: flex-start; }
+    .wrap { padding: 0 20px; }
+    .cs-bleed { padding: 56px 20px; }
+    footer { padding: 24px 20px; }
     .cs-did-grid { grid-template-columns: 1fr; }
-    .cs-stats { grid-template-columns: 1fr; }
+    .cs-stats-row { grid-template-columns: 1fr; gap: 32px; }
     .cs-meta { flex-direction: column; }
     .nav-links { gap: 18px; }
+    .cs-learned { padding: 28px 24px; }
+    .cs-back { padding-top: 96px; }
   }
 </style>
 </head>
@@ -324,55 +344,57 @@
   </ul>
 </nav>
 
-<div class="page-body">
-
-  <a class="cs-back" href="work.html">
+<!-- ── HERO ── -->
+<div class="wrap">
+  <a class="cs-back reveal" href="work.html">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
     Back to Work
   </a>
 
-  <!-- ── HERO ── -->
-  <span class="cs-eyebrow">Volunteer project · October 2026 to present</span>
-  <h1 class="cs-headline">Better posts,<br>not more posts</h1>
-  <p class="cs-intro">I volunteer with Buckinghamshire Mind, a local mental health charity, to help its small team get more from social media. I audited their channels, turned the data into a clear plan and created their winter fundraising campaign.</p>
+  <div class="cs-hero">
+    <span class="cs-eyebrow reveal">Volunteer project · October 2026 to present</span>
+    <h1 class="cs-headline reveal">Better posts,<br>not more posts</h1>
+    <p class="cs-intro reveal">I volunteer with Buckinghamshire Mind, a local mental health charity, to help its small team get more from social media. I audited their channels, turned the data into a clear plan and created their winter fundraising campaign.</p>
 
-  <div class="cs-meta">
-    <div class="cs-meta-item">
-      <span class="cs-meta-label">Role</span>
-      <span class="cs-meta-value">Volunteer Social Media Strategist</span>
+    <div class="cs-meta reveal-stagger">
+      <div class="cs-meta-item">
+        <span class="cs-meta-label">Role</span>
+        <span class="cs-meta-value">Volunteer Social Media Strategist</span>
+      </div>
+      <div class="cs-meta-item">
+        <span class="cs-meta-label">Channels</span>
+        <span class="cs-meta-value">Facebook, Instagram, LinkedIn</span>
+      </div>
+      <div class="cs-meta-item">
+        <span class="cs-meta-label">Tools</span>
+        <span class="cs-meta-value">Meta Business Suite, LinkedIn Analytics, Canva, Claude</span>
+      </div>
     </div>
-    <div class="cs-meta-item">
-      <span class="cs-meta-label">Channels</span>
-      <span class="cs-meta-value">Facebook, Instagram, LinkedIn</span>
-    </div>
-    <div class="cs-meta-item">
-      <span class="cs-meta-label">Tools</span>
-      <span class="cs-meta-value">Meta Business Suite, LinkedIn Analytics, Canva, Claude</span>
-    </div>
-  </div>
 
-  <div class="cs-tags">
-    <span class="mind-tag">Social media strategy</span>
-    <span class="mind-tag">Analytics</span>
-    <span class="mind-tag">Content</span>
-    <span class="mind-tag">Charity</span>
-  </div>
+    <div class="cs-tags reveal-stagger">
+      <span class="mind-tag">Social media strategy</span>
+      <span class="mind-tag">Analytics</span>
+      <span class="mind-tag">Content</span>
+      <span class="mind-tag">Charity</span>
+    </div>
 
-  <!-- Hero image -->
-  <div class="cs-img">
-    <img src="Images/bucks-mind-hero.jpg" alt="A selection of Buckinghamshire Mind Winter Appeal social posts in Mind blue.">
+    <div class="cs-hero-img reveal">
+      <img src="Images/bucks-mind-hero.jpg" alt="A selection of Buckinghamshire Mind Winter Appeal social posts in Mind blue.">
+    </div>
   </div>
 
   <!-- ── THE CHALLENGE ── -->
-  <div class="cs-section">
+  <div class="cs-divider"></div>
+  <div class="cs-section reveal">
     <span class="cs-section-label">The challenge</span>
     <p>Like most small charities, Bucks Mind runs its social media alongside everything else — a huge amount done with limited time and resource. The content was genuine and community-rooted, but without clear data it was hard to know what was landing and what to prioritise next.</p>
   </div>
 
   <!-- ── WHAT I DID ── -->
+  <div class="cs-divider"></div>
   <div class="cs-section">
-    <span class="cs-section-label">What I did</span>
-    <div class="cs-did-grid">
+    <span class="cs-section-label reveal">What I did</span>
+    <div class="cs-did-grid reveal-stagger">
       <div class="cs-did-item">
         <span class="cs-did-label">Audit</span>
         <p>Analysed 90 days of Facebook, Instagram and LinkedIn data to find what drives reach and engagement.</p>
@@ -390,115 +412,119 @@
         <p>Researched what works for other charities' winter appeals, then created the full social campaign for this year's appeal.</p>
       </div>
     </div>
-
-    <!-- Dashboard image -->
-    <div class="cs-img">
-    <img src="Images/bucks-mind-dashboard.jpg" alt="The social media dashboard showing performance across Facebook, Instagram and LinkedIn.">
+    <div class="cs-img reveal">
+      <img src="Images/bucks-mind-dashboard.jpg" alt="The social media dashboard showing performance across Facebook, Instagram and LinkedIn.">
+    </div>
   </div>
-  </div>
+</div>
 
-  <!-- ── WHAT THE DATA SHOWED ── -->
-  <div class="cs-section">
-    <span class="cs-section-label">What the data showed</span>
-    <h2>Three types of content broke through on every platform.</h2>
-    <p>Real people, awareness days, and local partners and events.</p>
+<!-- ── WHAT THE DATA SHOWED — full-bleed Mind blue ── -->
+<div class="cs-bleed">
+  <div class="cs-bleed-inner">
+    <span class="cs-section-label reveal">What the data showed</span>
+    <h2 class="reveal" style="font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:300;letter-spacing:-0.03em;line-height:1.15;margin-bottom:12px;">Three types of content broke through on every platform.</h2>
+    <p class="reveal" style="color:rgba(255,255,255,0.75);font-size:1rem;line-height:1.75;max-width:560px;">Real people, awareness days, and local partners and events.</p>
 
-    <div class="cs-stats">
+    <div class="cs-stats-row reveal-stagger">
       <div class="cs-stat">
-        <div class="cs-stat-num">1.7x</div>
+        <div class="cs-stat-rule"></div>
+        <div class="cs-stat-num" data-count="1.7" data-suffix="x">1.7x</div>
         <div class="cs-stat-label">more reach for posts about people vs service notices on LinkedIn</div>
       </div>
       <div class="cs-stat">
-        <div class="cs-stat-num">35x</div>
+        <div class="cs-stat-rule"></div>
+        <div class="cs-stat-num" data-count="35" data-suffix="x">35x</div>
         <div class="cs-stat-label">the typical reach for a post about a partner event</div>
       </div>
       <div class="cs-stat">
-        <div class="cs-stat-num">Instagram</div>
-        <div class="cs-stat-label">fastest-growing channel, gaining more new followers than Facebook and LinkedIn combined</div>
+        <div class="cs-stat-rule"></div>
+        <div class="cs-stat-num">#1</div>
+        <div class="cs-stat-label">Instagram was the fastest-growing channel, gaining more new followers than Facebook and LinkedIn combined</div>
       </div>
     </div>
 
-    <p>So the recommendation wasn't to post more. It was to keep the same rhythm and change what goes into it.</p>
-
-    <!-- Formulas image -->
-    <div class="cs-img">
-    <img src="Images/bucks-mind-formulas.jpg" alt="Page from the audit showing the three content formulas that worked best.">
+    <p class="reveal" style="color:rgba(255,255,255,0.75);font-size:1rem;line-height:1.75;max-width:560px;margin-top:48px;">So the recommendation wasn't to post more. It was to keep the same rhythm and change what goes into it.</p>
   </div>
+</div>
+
+<div class="wrap">
+  <!-- Formulas image -->
+  <div class="cs-img reveal" style="margin-top:64px;">
+    <img src="Images/bucks-mind-formulas.jpg" alt="Page from the audit showing the three content formulas that worked best.">
   </div>
 
   <!-- ── THE STRATEGY ── -->
+  <div class="cs-divider"></div>
   <div class="cs-section">
-    <span class="cs-section-label">The strategy</span>
-    <ul>
+    <span class="cs-section-label reveal">The strategy</span>
+    <ul class="cs-list reveal-stagger">
       <li><strong>One voice a week:</strong> a quote, story or supporter in every week's content.</li>
       <li><strong>One in, three out:</strong> each story becomes a post for Facebook, Instagram and LinkedIn, each with its own angle.</li>
       <li><strong>Easy to share:</strong> ready-to-copy posts for staff, trustees and partners, so every post reaches further.</li>
     </ul>
-
-    <!-- Plan image -->
-    <div class="cs-img">
-    <img src="Images/bucks-mind-plan.jpg" alt="Page from the strategy showing the weekly posting plan and content mix.">
-  </div>
+    <div class="cs-img reveal">
+      <img src="Images/bucks-mind-plan.jpg" alt="Page from the strategy showing the weekly posting plan and content mix.">
+    </div>
   </div>
 
   <!-- ── THE WINTER APPEAL ── -->
+  <div class="cs-divider"></div>
   <div class="cs-section">
-    <span class="cs-section-label">The Winter Appeal</span>
-    <h2>Raising £20,000 for Peer Support Bucks.</h2>
-    <p>The charity's winter appeal aimed to raise £20,000 for Peer Support Bucks, its community groups for people living with mental ill health.</p>
-    <p>My research showed that most winter appeal money comes in offline, so the campaign focused on awareness and making giving easy:</p>
-
-    <ul>
+    <span class="cs-section-label reveal">The Winter Appeal</span>
+    <h2 class="reveal">Raising £20,000 for Peer Support Bucks.</h2>
+    <p class="reveal">The charity's winter appeal aimed to raise £20,000 for Peer Support Bucks, its community groups for people living with mental ill health.</p>
+    <p class="reveal">My research showed that most winter appeal money comes in offline, so the campaign focused on awareness and making giving easy:</p>
+    <ul class="cs-list reveal-stagger">
       <li>One person's story running through the whole appeal</li>
       <li>"£X could pay for..." cards that show exactly what a gift does</li>
       <li>Progress updates and two giving peaks: Giving Tuesday and the week before Christmas</li>
       <li>A share pack so staff and trustees could spread the word</li>
     </ul>
-
-    <p>I created 18 feed posts and 6 Stories in the Mind brand, plus captions for each platform, a posting plan and emails for staff and trustees.</p>
-
-    <!-- Campaign grid image -->
-    <div class="cs-img">
-    <img src="Images/bucks-mind-campaign-grid.jpg" alt="Grid of Winter Appeal posts, including the launch post, gift cards and progress updates.">
-  </div>
-
-    <!-- Carousel image -->
-    <div class="cs-img">
-    <img src="Images/bucks-mind-carousel.jpg" alt="Carousel of cards showing what £15, £25, £40, £100 and £250 could pay for.">
-  </div>
+    <p class="reveal" style="margin-top:20px;">I created 18 feed posts and 6 Stories in the Mind brand, plus captions for each platform, a posting plan and emails for staff and trustees.</p>
+    <div class="cs-img reveal">
+      <img src="Images/bucks-mind-campaign-grid.jpg" alt="Grid of Winter Appeal posts, including the launch post, gift cards and progress updates.">
+    </div>
+    <div class="cs-img reveal">
+      <img src="Images/bucks-mind-carousel.jpg" alt="Carousel of cards showing what £15, £25, £40, £100 and £250 could pay for.">
+    </div>
   </div>
 
   <!--
   RESULTS — hidden until campaign ends. Uncomment and fill in figures when ready.
 
+  <div class="cs-divider"></div>
   <div class="cs-section">
-    <span class="cs-section-label">Results</span>
-    <div class="cs-stats">
-      <div class="cs-stat">
-        <div class="cs-stat-num">[X]%</div>
-        <div class="cs-stat-label">more reach than the usual post for appeal content</div>
+    <span class="cs-section-label reveal">Results</span>
+    <div class="cs-stats-row" style="margin-top:32px;grid-template-columns:repeat(3,1fr);">
+      <div class="cs-stat" style="color:var(--ink);">
+        <div class="cs-stat-rule" style="background:var(--rule);"></div>
+        <div class="cs-stat-num" style="color:var(--mind);">[X]%</div>
+        <div class="cs-stat-label" style="color:var(--muted);">more reach than the usual post for appeal content</div>
       </div>
-      <div class="cs-stat">
-        <div class="cs-stat-num">[X]</div>
-        <div class="cs-stat-label">shares and new followers during the appeal</div>
+      <div class="cs-stat" style="color:var(--ink);">
+        <div class="cs-stat-rule" style="background:var(--rule);"></div>
+        <div class="cs-stat-num" style="color:var(--mind);">[X]</div>
+        <div class="cs-stat-label" style="color:var(--muted);">shares and new followers during the appeal</div>
       </div>
-      <div class="cs-stat">
-        <div class="cs-stat-num">£[X]</div>
-        <div class="cs-stat-label">raised towards the £20,000 target</div>
+      <div class="cs-stat" style="color:var(--ink);">
+        <div class="cs-stat-rule" style="background:var(--rule);"></div>
+        <div class="cs-stat-num" style="color:var(--mind);">£[X]</div>
+        <div class="cs-stat-label" style="color:var(--muted);">raised towards the £20,000 target</div>
       </div>
     </div>
   </div>
   -->
 
   <!-- ── WHAT I LEARNED ── -->
-  <div class="cs-section">
-    <span class="cs-section-label">What I learned</span>
-    <div class="cs-learned">
+  <div class="cs-divider"></div>
+  <div class="cs-section" style="padding-bottom:0;">
+    <span class="cs-section-label reveal">What I learned</span>
+    <div class="cs-learned reveal">
       <p>Small teams don't need more content. They need a clear picture of what works and a simple way to make more of it. Building the plan around the time the team actually had made it something they could use, not just read.</p>
     </div>
   </div>
 
-</div><!-- /page-body -->
+</div><!-- /wrap -->
 
 <!-- ── FOOTER ── -->
 <footer>
@@ -512,28 +538,55 @@
     nav.classList.toggle('scrolled', window.scrollY > 20);
   }, { passive: true });
 
-  // Palette
+  // Palette (persist from other pages)
   const palettes = ['p-compl', 'p-analog'];
-  let idx = -1;
-  function applyPalette(i) {
-    document.documentElement.classList.remove('p-compl', 'p-analog');
-    if (i >= 0) { document.documentElement.classList.add(palettes[i]); localStorage.setItem('palette', palettes[i]); }
-    else { localStorage.removeItem('palette'); }
-  }
   const saved = localStorage.getItem('palette');
-  if (saved) { idx = palettes.indexOf(saved); if (idx >= 0) applyPalette(idx); }
-  document.getElementById('paletteBtn').addEventListener('click', () => {
-    idx = (idx + 1) % (palettes.length + 1) - 1;
-    if (idx < -1) idx = palettes.length - 1;
-    idx = idx < palettes.length ? idx : -1;
-    idx = (palettes.indexOf(saved || '') === idx) ? idx : idx;
-    // Simple cycle: default -> compl -> analog -> default
-    const current = [...document.documentElement.classList].find(c => palettes.includes(c));
-    const ci = current ? palettes.indexOf(current) : -1;
-    const next = (ci + 1) % (palettes.length + 1);
-    applyPalette(next < palettes.length ? next : -1);
-    idx = next < palettes.length ? next : -1;
-  });
+  if (saved && palettes.includes(saved)) {
+    document.documentElement.classList.add(saved);
+  }
+
+  // ── SCROLL REVEAL ──
+  const revealEls = document.querySelectorAll('.reveal, .reveal-stagger');
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        revealObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => revealObs.observe(el));
+
+  // ── COUNT-UP ANIMATION ──
+  function countUp(el, target, suffix, duration) {
+    const isDecimal = target % 1 !== 0;
+    const start = performance.now();
+    function step(now) {
+      const progress = Math.min((now - start) / duration, 1);
+      // ease out cubic
+      const ease = 1 - Math.pow(1 - progress, 3);
+      const value = isDecimal
+        ? (ease * target).toFixed(1)
+        : Math.round(ease * target);
+      el.textContent = value + suffix;
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  const countEls = document.querySelectorAll('[data-count]');
+  const countObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const el = e.target;
+        const target = parseFloat(el.dataset.count);
+        const suffix = el.dataset.suffix || '';
+        countUp(el, target, suffix, 1200);
+        countObs.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+  countEls.forEach(el => countObs.observe(el));
 </script>
 </body>
 </html>
