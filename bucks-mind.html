@@ -629,7 +629,7 @@
         revealObs.unobserve(e.target);
       }
     });
-  }, { threshold: 0.12 });
+  }, { threshold: 0, rootMargin: '0px 0px -60px 0px' });
   revealEls.forEach(el => revealObs.observe(el));
 
   // ── SECTION NAV SCROLL-SPY ──
@@ -650,7 +650,10 @@
       item.addEventListener('click', e => {
         e.preventDefault();
         const target = document.getElementById(sectionIds[i]);
-        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if (target) {
+          const offset = target.getBoundingClientRect().top + window.scrollY - 100;
+          window.scrollTo({ top: offset, behavior: 'smooth' });
+        }
       });
     });
 
