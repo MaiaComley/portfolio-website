@@ -294,6 +294,22 @@
     max-width: 44ch;
     transition: color 0.55s;
   }
+  .hero-photo-wrap {
+    position: relative;
+    flex-shrink: 0;
+  }
+  .santa-hat-overlay {
+    position: absolute;
+    top: -55px;
+    left: 10px;
+    width: 180px;
+    z-index: 2;
+    pointer-events: none;
+    opacity: 0;
+    transform: rotate(-6deg);
+    transition: opacity 0.5s ease;
+  }
+  html.p-xmas .santa-hat-overlay { opacity: 1; }
   .hero-photo {
     width: 300px; height: 420px; flex-shrink: 0;
     border-radius: 28px;
@@ -964,8 +980,11 @@
   <div>
     <p class="hero-bio">I'm a curious creative who loves exploring the ideas, stories and strategy behind great marketing. I've worked across different corners of the industry, from fashion to B2B, which has given me a broad perspective on the different ways brands can communicate and connect with people. I'm currently at IDGateway, working across content, digital, SEO and strategy, and always looking for the balance between creative ideas and what makes them work. Outside of work, I'm drawn to branding, food, wellness and design, and pretty much anything that sparks a new idea.</p>
   </div>
-  <div class="hero-photo">
-    <img src="Images/Maia Comley.jpg" alt="Maia Comley">
+  <div class="hero-photo-wrap">
+    <img class="santa-hat-overlay" src="Images/santa-hat.png" alt="" aria-hidden="true">
+    <div class="hero-photo">
+      <img src="Images/Maia Comley.jpg" alt="Maia Comley">
+    </div>
   </div>
 </div>
 
