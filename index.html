@@ -56,13 +56,33 @@
     --rule: rgba(255,255,255,0.22); --surface: #991818;
     --accent: #166534; --accent2: #15803D;
   }
-  html.p-xmas body {
-    background-image: repeating-linear-gradient(
-      -45deg,
-      transparent 0px, transparent 22px,
-      rgba(255,255,255,0.035) 22px, rgba(255,255,255,0.035) 44px
-    );
+  /* candy canes */
+  .xmas-cane {
+    position: fixed; pointer-events: none; z-index: 1;
+    font-size: 2rem; opacity: 0; user-select: none;
+    transition: opacity 0.6s ease;
   }
+  html.p-xmas .xmas-cane { opacity: 0.18; }
+  @keyframes cane-sway {
+    0%,100% { transform: rotate(-6deg); }
+    50%     { transform: rotate(6deg); }
+  }
+  html.p-xmas .xmas-cane { animation: cane-sway 4s ease-in-out infinite; }
+
+  /* "Feeling Christmassy?" nudge in hero */
+  .xmas-nudge {
+    font-size: 0.75rem; letter-spacing: 0.04em;
+    color: var(--ink); opacity: 0.45;
+    margin: 10px 0 0; font-style: italic;
+    transition: opacity 0.4s ease;
+  }
+  .xmas-nudge kbd {
+    font-style: normal; font-family: inherit;
+    background: var(--ink); color: var(--bg);
+    border-radius: 3px; padding: 1px 6px;
+    font-size: 0.7rem; opacity: 0.8;
+  }
+  html.p-xmas .xmas-nudge { opacity: 0; pointer-events: none; }
 
   /* Global palette transitions, everything that carries colour */
   html, body, nav, .section, .skill-group, footer,
@@ -745,6 +765,7 @@
     /* UI overlays */
     .space-prompt { display: none !important; }
     .palette-label { display: none !important; }
+    .xmas-nudge { display: none !important; }
 
     /* Mobile theme button (inline hero): hide, use floating pill instead */
     .mobile-theme-btn { display: none; }
@@ -844,6 +865,7 @@
     <span class="mobile-theme-swatch" id="mobileThemeSwatch"></span>
     Choose colour theme
   </button>
+  <p class="xmas-nudge" id="xmasNudge" aria-hidden="true">🎄 Feeling Christmassy? Hit <kbd>space</kbd></p>
 </div>
 
 <!-- INTRO REVEAL -->
@@ -1191,6 +1213,28 @@
       mobileThemePill.style.pointerEvents = window.scrollY > 80 ? 'none' : 'auto';
     }, { passive: true });
   }
+
+  // Candy canes — inject random positions, appear only in p-xmas
+  (function() {
+    const positions = [
+      { top: '12%', left: '2%',  delay: '0s'    },
+      { top: '55%', left: '1%',  delay: '1.3s'  },
+      { top: '80%', left: '3%',  delay: '0.7s'  },
+      { top: '20%', right: '2%', delay: '0.4s'  },
+      { top: '60%', right: '1%', delay: '2s'    },
+      { top: '88%', right: '3%', delay: '1.1s'  },
+    ];
+    positions.forEach((pos, i) => {
+      const el = document.createElement('span');
+      el.className = 'xmas-cane';
+      el.textContent = '🍬';
+      el.setAttribute('aria-hidden', 'true');
+      Object.assign(el.style, pos);
+      el.style.animationDelay = pos.delay;
+      el.style.animationDuration = (3.5 + i * 0.4) + 's';
+      document.body.appendChild(el);
+    });
+  })();
 
   // Card expand to centre
   const backdrop  = document.getElementById('cardBackdrop');
