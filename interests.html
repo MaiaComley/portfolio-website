@@ -18,6 +18,8 @@
   html.p-mono  { --bg:#FFFFFF; --ink:#0A0A0A; --muted:#888; --rule:#E8E8E8; --surface:#F2F2F0; --accent:#0A0A0A; }
   html.p-compl { --bg:#F56200; --ink:#FFFFFF; --muted:rgba(255,255,255,0.7); --rule:rgba(255,255,255,0.25); --surface:#E05800; --accent:#0D46E7; }
   html.p-analog{ --bg:#F5007A; --ink:#FFFFFF; --muted:rgba(255,255,255,0.7); --rule:rgba(255,255,255,0.25); --surface:#D4006A; --accent:#F57A00; }
+  html.p-xmas  { --bg:#B91C1C; --ink:#FFFFFF; --muted:rgba(255,255,255,0.7); --rule:rgba(255,255,255,0.22); --surface:#991818; --accent:#166534; }
+  html.p-xmas body { background-image: repeating-linear-gradient(-45deg, transparent 0px, transparent 22px, rgba(255,255,255,0.035) 22px, rgba(255,255,255,0.035) 44px); }
   html, body, nav, footer { transition: background 0.55s, color 0.55s, border-color 0.55s; }
   .nav-contact, .nav-links a, .nav-name { transition: color 0.5s, background 0.5s; }
 
@@ -32,6 +34,7 @@
   html.p-mono  .nav-contact { background: var(--ink); color: #fff !important; }
   html.p-compl .nav-contact { background: #0D46E7; color: #fff !important; }
   html.p-analog .nav-contact { background: #F57A00; color: #fff !important; }
+  html.p-xmas   .nav-contact { background: #166534; color: #fff !important; }
   .nav-contact:hover { opacity: 0.82; }
 
   /* ── PAGE HEADER ── */
@@ -711,12 +714,12 @@
   });
 
   // Palette
-  const palettes = ['p-compl', 'p-analog'];
+  const palettes = ['p-compl', 'p-analog', 'p-xmas'];
   let idx = -1;
   const saved = localStorage.getItem('palette');
   if (saved) { idx = palettes.indexOf(saved); if (idx > -1) document.documentElement.classList.add(saved); }
   function applyPalette(i) {
-    document.documentElement.classList.remove('p-mono','p-compl','p-analog');
+    document.documentElement.classList.remove('p-mono','p-compl','p-analog','p-xmas');
     if (i >= 0) { document.documentElement.classList.add(palettes[i]); localStorage.setItem('palette', palettes[i]); }
     else { localStorage.removeItem('palette'); }
   }

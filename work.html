@@ -14,8 +14,11 @@
   }
   html.p-compl  { --bg:#F56200; --ink:#FFFFFF; --muted:rgba(255,255,255,0.65); --rule:rgba(255,255,255,0.22); --surface:#E05800; --accent:#0D46E7; }
   html.p-analog { --bg:#F5007A; --ink:#FFFFFF; --muted:rgba(255,255,255,0.65); --rule:rgba(255,255,255,0.22); --surface:#D4006A; --accent:#F57A00; }
+  html.p-xmas   { --bg:#B91C1C; --ink:#FFFFFF; --muted:rgba(255,255,255,0.65); --rule:rgba(255,255,255,0.22); --surface:#991818; --accent:#166534; }
+  html.p-xmas body { background-image: repeating-linear-gradient(-45deg, transparent 0px, transparent 22px, rgba(255,255,255,0.035) 22px, rgba(255,255,255,0.035) 44px); }
   html.p-compl .nav-contact  { background: #0D46E7; color: #fff !important; }
   html.p-analog .nav-contact { background: #F57A00; color: #fff !important; }
+  html.p-xmas   .nav-contact { background: #166534; color: #fff !important; }
   html.p-compl .stack-badge  { background: #FFFFFF; color: #F56200; }
   html.p-analog .stack-badge { background: #FFFFFF; color: #F5007A; }
   html.p-compl .honours-badge, html.p-analog .honours-badge { color: #FFFFFF; font-weight: 700; }
@@ -858,10 +861,10 @@
   });
 
   // Palette
-  const palettes = ['p-compl', 'p-analog'];
+  const palettes = ['p-compl', 'p-analog', 'p-xmas'];
   let idx = -1;
   function applyPalette(i) {
-    document.documentElement.classList.remove('p-compl', 'p-analog');
+    document.documentElement.classList.remove('p-compl', 'p-analog', 'p-xmas');
     if (i >= 0) { document.documentElement.classList.add(palettes[i]); localStorage.setItem('palette', palettes[i]); }
     else { localStorage.removeItem('palette'); }
   }

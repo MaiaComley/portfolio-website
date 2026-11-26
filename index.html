@@ -50,6 +50,19 @@
     --rule: rgba(255,255,255,0.25); --surface: #D4006A;
     --accent: #F57A00; --accent2: #F50000;
   }
+  /* 4, Festive: Christmas red bg, white text, green accents */
+  html.p-xmas {
+    --bg: #B91C1C; --ink: #FFFFFF; --muted: rgba(255,255,255,0.7);
+    --rule: rgba(255,255,255,0.22); --surface: #991818;
+    --accent: #166534; --accent2: #15803D;
+  }
+  html.p-xmas body {
+    background-image: repeating-linear-gradient(
+      -45deg,
+      transparent 0px, transparent 22px,
+      rgba(255,255,255,0.035) 22px, rgba(255,255,255,0.035) 44px
+    );
+  }
 
   /* Global palette transitions, everything that carries colour */
   html, body, nav, .section, .skill-group, footer,
@@ -108,6 +121,7 @@
   html.p-mono .nav-contact { background: var(--ink); color: #fff !important; }
   html.p-compl .nav-contact { background: #0D46E7; color: #FFFFFF !important; }
   html.p-analog .nav-contact { background: #F57A00; color: #fff !important; }
+  html.p-xmas   .nav-contact { background: #166534; color: #fff !important; }
   .nav-contact:hover { opacity: 0.82; }
 
   /* ── HERO ── */
@@ -441,6 +455,31 @@
   html.p-compl .card-2 { background-color: #0D46E7; }
   html.p-compl .card-3 { background-color: #ffffff; }
   html.p-compl .work-card-name { color: #E7AF0D; }
+
+  /* festive palette card overrides */
+  html.p-xmas .card-1 { background-color: #166534; }
+  html.p-xmas .card-2 { background-color: #991818; }
+  html.p-xmas .card-3 { background-color: #ffffff; }
+  html.p-xmas .work-card-name { color: #FFFFFF; }
+  html.p-xmas .skill-pill { background: rgba(255,255,255,0.12); color: #fff; border-color: rgba(255,255,255,0.2); }
+  html.p-xmas .skill-pill .dot { background: #15803D; }
+  html.p-xmas .skill-pill:hover { background: #166534; border-color: #166534; }
+
+  /* seasonal hint — tiny snowflake in footer */
+  .seasonal-hint {
+    font-size: 0.7rem; opacity: 0.18; margin-left: 8px;
+    display: inline-block;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    cursor: default; user-select: none;
+  }
+  html.p-xmas .seasonal-hint {
+    opacity: 0.9;
+    animation: snowspin 8s linear infinite;
+  }
+  @keyframes snowspin {
+    0%   { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
 
   /* ── SKILLS CATEGORIES ── */
   .skill-rows { width: 100%; }
@@ -1008,7 +1047,7 @@
 
 <!-- FOOTER -->
 <footer>
-  <span class="footer-copy">Maia Comley © 2026</span>
+  <span class="footer-copy">Maia Comley © 2026<span class="seasonal-hint" aria-hidden="true">❄</span></span>
   <a class="footer-tiktok" href="https://www.tiktok.com/@maiacomleyy" target="_blank" rel="noopener" aria-label="TikTok">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/></svg>
     @maiacomleyy
@@ -1090,6 +1129,7 @@
   const palettes = [
     { cls: 'p-compl',  label: 'Complementary' },
     { cls: 'p-analog', label: 'Analogous'     },
+    { cls: 'p-xmas',   label: 'Festive ❄'    },
   ];
   const htmlEl = document.documentElement;
   const label  = document.getElementById('paletteLabel');
@@ -1097,7 +1137,7 @@
   let idx = -1;
 
   function applyPalette(i, save = true) {
-    ['p-mono','p-brand','p-compl','p-analog','p-contra'].forEach(c => htmlEl.classList.remove(c));
+    ['p-mono','p-brand','p-compl','p-analog','p-contra','p-xmas'].forEach(c => htmlEl.classList.remove(c));
     if (i === -1) {
       htmlEl.classList.add('p-mono');
       label.textContent = 'Monochrome';
