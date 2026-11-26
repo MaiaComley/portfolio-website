@@ -69,57 +69,25 @@
   }
   html.p-xmas .xmas-cane { animation: cane-sway 4s ease-in-out infinite; }
 
-  /* Peeking Santa above space-prompt */
+  /* Peeking Santa banner */
   .santa-peek-wrap {
     position: fixed;
-    bottom: 92px;
+    bottom: 28px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 51;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     pointer-events: none;
     opacity: 0;
     animation: fadeIn 0.9s ease 0.8s forwards;
-  }
-  .santa-peek-wrap.scrolled-out { opacity: 0 !important; pointer-events: none; }
-  .santa-peek-wrap.hide { display: none; }
-  .santa-speech {
-    background: #fff;
-    border: 1.5px solid var(--ink);
-    border-radius: 10px;
-    padding: 7px 14px;
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.04em;
-    color: var(--ink);
     white-space: nowrap;
-    position: relative;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-    margin-bottom: 2px;
   }
-  .santa-speech::after {
-    content: '';
-    position: absolute;
-    bottom: -7px; left: 50%;
-    transform: translateX(-50%);
-    border: 4px solid transparent;
-    border-top-color: var(--ink);
-  }
-  .santa-speech::before {
-    content: '';
-    position: absolute;
-    bottom: -5px; left: 50%;
-    transform: translateX(-50%);
-    border: 4px solid transparent;
-    border-top-color: #fff;
-    z-index: 1;
-  }
+  .santa-peek-wrap.scrolled-out { opacity: 0 !important; }
+  .santa-peek-wrap.hide { display: none; }
   .santa-peek-img {
-    width: 72px;
+    width: 480px;
+    max-width: 90vw;
     display: block;
-    margin-bottom: -2px;
+    filter: drop-shadow(0 4px 16px rgba(0,0,0,0.12));
   }
   @media (max-width: 600px) { .santa-peek-wrap { display: none !important; } }
 
@@ -1524,10 +1492,9 @@
   // Loader
 </script>
 
-<!-- Peeking Santa above space-prompt -->
+<!-- Peeking Santa banner -->
 <div class="santa-peek-wrap" id="santaPeekWrap">
-  <p class="santa-speech">Feeling festive? Choose the last colour theme</p>
-  <img class="santa-peek-img" src="Images/santa-peek.png" alt="" aria-hidden="true">
+  <img class="santa-peek-img" src="Images/santa-peek.png" alt="Feeling festive? Press space three times">
 </div>
 
 </body>
