@@ -70,26 +70,6 @@
   }
   html.p-xmas .xmas-cane { animation: cane-sway 4s ease-in-out infinite; }
 
-  /* Peeking Santa banner */
-  .santa-peek-wrap {
-    position: fixed;
-    bottom: 28px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 51;
-    pointer-events: none;
-    opacity: 0;
-    animation: fadeIn 0.9s ease 0.8s forwards;
-  }
-  .santa-peek-wrap.scrolled-out { opacity: 0 !important; }
-  .santa-peek-wrap.hide { display: none; }
-  .santa-peek-img {
-    width: 480px;
-    max-width: 90vw;
-    display: block;
-    filter: drop-shadow(0 4px 16px rgba(0,0,0,0.12));
-  }
-  @media (max-width: 600px) { .santa-peek-wrap { display: none !important; } }
 
   /* "Feeling Christmassy?" nudge in hero */
   .xmas-nudge {
@@ -1148,9 +1128,6 @@
   <span id="mobileThemePillLabel">Select your theme</span>
 </button>
 
-<div class="space-prompt" id="spacePrompt">
-  Press <span class="space-key">SPACE</span> to select your theme
-</div>
 
 <!-- PALETTE LABEL -->
 <div class="palette-label" id="paletteLabel"></div>
@@ -1184,11 +1161,6 @@
   const nav = document.getElementById('nav');
   window.addEventListener('scroll', () => {
     nav.classList.toggle('scrolled', scrollY > 20);
-    if (scrollY > 300) {
-      document.getElementById('spacePrompt').classList.add('hide');
-      const sp = document.getElementById('santaPeekWrap');
-      if (sp) sp.classList.add('hide');
-    }
   });
 
   // Palette system
@@ -1199,7 +1171,6 @@
   ];
   const htmlEl = document.documentElement;
   const label  = document.getElementById('paletteLabel');
-  const prompt = document.getElementById('spacePrompt');
   let idx = -1;
 
   function applyPalette(i, save = true) {
@@ -1214,7 +1185,6 @@
       if (save) localStorage.setItem('palette', palettes[i].cls);
     }
     label.classList.add('visible');
-    prompt.classList.add('hide');
     // Update mobile pill label
     const pillLabel = document.getElementById('mobileThemePillLabel');
     if (pillLabel) pillLabel.textContent = i === -1 ? 'Monochrome' : palettes[i].label;
@@ -1393,8 +1363,7 @@
         const inHero = entry.isIntersecting;
         if (!prompt.classList.contains('hide')) {
           prompt.classList.toggle('scrolled-out', !inHero);
-          const sp2 = document.getElementById('santaPeekWrap');
-          if (sp2 && !sp2.classList.contains('hide')) sp2.classList.toggle('scrolled-out', !inHero);
+
         }
         label.classList.toggle('faded', !inHero);
       },
@@ -1492,10 +1461,6 @@
   // Loader
 </script>
 
-<!-- Peeking Santa banner -->
-<div class="santa-peek-wrap" id="santaPeekWrap">
-  <img class="santa-peek-img" src="Images/santa-peek.png" alt="Feeling festive? Press space three times">
-</div>
 
 </body>
 </html>
