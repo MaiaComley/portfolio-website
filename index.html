@@ -890,11 +890,8 @@
   <div>
     <p class="hero-bio">I'm a curious creative who loves exploring the ideas, stories and strategy behind great marketing. I've worked across different corners of the industry, from fashion to B2B, which has given me a broad perspective on the different ways brands can communicate and connect with people. I'm currently at IDGateway, working across content, digital, SEO and strategy, and always looking for the balance between creative ideas and what makes them work. Outside of work, I'm drawn to branding, food, wellness and design, and pretty much anything that sparks a new idea.</p>
   </div>
-  <div class="hero-photo-wrap">
-    <img class="santa-hat-overlay" src="Images/santa-hat.png" alt="" aria-hidden="true">
-    <div class="hero-photo">
-      <img src="Images/Maia Comley.jpg" alt="Maia Comley">
-    </div>
+  <div class="hero-photo">
+    <img src="Images/Maia Comley.jpg" alt="Maia Comley">
   </div>
 </div>
 
@@ -1129,6 +1126,11 @@
 </button>
 
 
+<!-- SPACE PROMPT -->
+<div class="space-prompt" id="spacePrompt">
+  Press <span class="space-key">SPACE</span> to select your theme
+</div>
+
 <!-- PALETTE LABEL -->
 <div class="palette-label" id="paletteLabel"></div>
 
@@ -1161,6 +1163,7 @@
   const nav = document.getElementById('nav');
   window.addEventListener('scroll', () => {
     nav.classList.toggle('scrolled', scrollY > 20);
+    if (scrollY > 300 && prompt) prompt.classList.add('hide');
   });
 
   // Palette system
@@ -1171,6 +1174,7 @@
   ];
   const htmlEl = document.documentElement;
   const label  = document.getElementById('paletteLabel');
+  const prompt = document.getElementById('spacePrompt');
   let idx = -1;
 
   function applyPalette(i, save = true) {
@@ -1185,6 +1189,7 @@
       if (save) localStorage.setItem('palette', palettes[i].cls);
     }
     label.classList.add('visible');
+    if (prompt) prompt.classList.add('hide');
     // Update mobile pill label
     const pillLabel = document.getElementById('mobileThemePillLabel');
     if (pillLabel) pillLabel.textContent = i === -1 ? 'Monochrome' : palettes[i].label;
@@ -1361,9 +1366,8 @@
     const observer = new IntersectionObserver(
       ([entry]) => {
         const inHero = entry.isIntersecting;
-        if (!prompt.classList.contains('hide')) {
+        if (prompt && !prompt.classList.contains('hide')) {
           prompt.classList.toggle('scrolled-out', !inHero);
-
         }
         label.classList.toggle('faded', !inHero);
       },
