@@ -69,6 +69,98 @@
   }
   html.p-xmas .xmas-cane { animation: cane-sway 4s ease-in-out infinite; }
 
+  /* Santa sleigh toast */
+  .santa-toast {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(calc(-50% + 160vw), -50%);
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    pointer-events: none;
+    opacity: 0;
+  }
+  .santa-toast.fly-in {
+    pointer-events: auto;
+    animation: santa-fly-in 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards, santa-bob 2.8s ease-in-out 1.2s infinite;
+    opacity: 1;
+  }
+  .santa-toast.fly-out {
+    animation: santa-fly-out 0.9s cubic-bezier(0.55, 0, 0.6, 1) forwards !important;
+    pointer-events: none;
+  }
+  @keyframes santa-fly-in {
+    from { transform: translate(160vw, -50%); }
+    to   { transform: translate(-50%, -50%); }
+  }
+  @keyframes santa-fly-out {
+    from { transform: translate(-50%, -50%); opacity: 1; }
+    to   { transform: translate(-160vw, -50%); opacity: 0; }
+  }
+  @keyframes santa-bob {
+    0%,100% { transform: translate(-50%, -50%); }
+    50%     { transform: translate(-50%, calc(-50% - 8px)); }
+  }
+  .santa-bubble {
+    background: #fff;
+    border: 2px solid #991818;
+    border-radius: 16px;
+    padding: 14px 20px;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(153,24,24,0.18);
+    position: relative;
+    max-width: 240px;
+  }
+  .santa-bubble::after {
+    content: '';
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: #991818;
+  }
+  .santa-bubble::before {
+    content: '';
+    position: absolute;
+    bottom: -9px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: #fff;
+    z-index: 1;
+  }
+  .santa-bubble-title {
+    font-size: 0.95rem; font-weight: 700;
+    color: #991818; display: block; margin-bottom: 4px;
+  }
+  .santa-bubble-sub {
+    font-size: 0.72rem; color: #166534; letter-spacing: 0.03em;
+  }
+  .santa-bubble-sub kbd {
+    background: #991818; color: #fff;
+    border-radius: 3px; padding: 1px 6px;
+    font-family: inherit; font-size: 0.68rem;
+  }
+  .santa-bubble-dismiss {
+    position: absolute; top: 6px; right: 8px;
+    background: none; border: none; cursor: pointer;
+    font-size: 0.7rem; color: #991818; opacity: 0.5;
+    line-height: 1; padding: 2px 4px;
+  }
+  .santa-bubble-dismiss:hover { opacity: 1; }
+  .santa-figure {
+    font-size: 3.2rem;
+    line-height: 1;
+    margin-top: 6px;
+    display: block;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
+  }
+  html.p-xmas .santa-toast { display: none; }
+  @media (max-width: 600px) { .santa-toast { display: none !important; } }
+
   /* "Feeling Christmassy?" nudge in hero */
   .xmas-nudge {
     font-size: 0.75rem; letter-spacing: 0.04em;
@@ -1443,6 +1535,51 @@
   })();
 
   // Loader
+</script>
+
+<!-- Santa sleigh Christmas prompt -->
+<div class="santa-toast" id="santaToast" role="dialog" aria-label="Christmas theme prompt">
+  <div class="santa-bubble">
+    <button class="santa-bubble-dismiss" id="santaDismiss" aria-label="Dismiss">✕</button>
+    <span class="santa-bubble-title">🎄 Feeling Christmassy?</span>
+    <span class="santa-bubble-sub">Press <kbd>space</kbd> for festive mode</span>
+  </div>
+  <span class="santa-figure" aria-hidden="true">🎅🛷</span>
+</div>
+
+<script>
+  (function() {
+    const toast = document.getElementById('santaToast');
+    const dismiss = document.getElementById('santaDismiss');
+    if (!toast) return;
+    // Don't show if p-xmas already active
+    if (document.documentElement.classList.contains('p-xmas')) return;
+
+    function flyOut() {
+      toast.classList.remove('fly-in');
+      toast.classList.add('fly-out');
+      setTimeout(() => { toast.style.display = 'none'; }, 900);
+    }
+
+    // Fly in after 5 seconds
+    setTimeout(() => {
+      if (document.documentElement.classList.contains('p-xmas')) return;
+      toast.classList.add('fly-in');
+    }, 5000);
+
+    // Auto-dismiss after 9 seconds total (4s visible)
+    setTimeout(() => {
+      if (toast.classList.contains('fly-in') && !toast.classList.contains('fly-out')) flyOut();
+    }, 9000);
+
+    dismiss.addEventListener('click', flyOut);
+
+    // Also fly out when xmas palette is activated
+    const observer = new MutationObserver(() => {
+      if (document.documentElement.classList.contains('p-xmas')) flyOut();
+    });
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+  })();
 </script>
 
 </body>
